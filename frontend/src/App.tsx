@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Separator } from "@/components/ui/separator";
-import { Terminal, ShieldAlert, ShieldCheck, Activity, Target, Zap, Download, ExternalLink, RefreshCw } from 'lucide-react';
+import { Terminal, ShieldAlert, ShieldCheck, Activity, Target, Download } from 'lucide-react';
+
 
 export default function App() {
   const [url, setUrl] = useState('');
