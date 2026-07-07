@@ -1,0 +1,7 @@
+# One seed URL per line. Lines starting with # are ignored.
+# On Windows, copy this file (or your own list) to D:\links.txt,
+# or set the SEED_FILE environment variable to point elsewhere.
+
+https://www.usachurches.org/
+https://www.churchfinder.com/
+https://www.achurchnearyou.com/
