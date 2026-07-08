@@ -11,6 +11,7 @@ from database.sqlite_manager import SQLiteManager
 from utils.offpage_auditor import OffPageAuditor
 from utils.recommendation_engine import RecommendationEngine
 from utils.report_generator import ReportGenerator
+from utils.ai_recommender import AIRecommendationGenerator
 
 app = FastAPI(title="SEO Audit API")
 
@@ -26,6 +27,16 @@ db = SQLiteManager()
 class AuditRequest(BaseModel):
     url: str
     target_keywords: Optional[str] = None # comma separated keywords
+    crawl: bool = False
+    max_pages: int = 10
+
+from redis import Redis
+from rq import Queue
+from rq.job import Job
+
+# Set up Redis and RQ Queue
+redis_conn = Redis()
+q = Queue(connection=redis_conn)
 
 @app.post("/api/audit")
 def perform_audit(request: AuditRequest):
@@ -35,111 +46,30 @@ def perform_audit(request: AuditRequest):
         if request.target_keywords:
             target_kws = [k.strip() for k in request.target_keywords.split(",") if k.strip()]
             
-        record = crawl_website(request.url, db, target_kws)
-        if record:
-            # Save the contact and general metadata
-            db.save_contact(record)
-            
-            seo_reports_str = record.get("seo_reports", "{}")
-            seo_reports = json.loads(seo_reports_str) if seo_reports_str else {}
-            
-            # 1. Calculate On-Page Score and normalize issues
-            total_onpage_score = 0
-            pages_count = 0
-            all_normalized_issues = []
-            
-            # Clear previous issues
-            db.clear_onpage_issues(request.url)
-            
-            for page_url, details in seo_reports.items():
-                pages_count += 1
-                report = details.get("report", {})
-                score = report.get("score", 100)
-                total_onpage_score += score
-                
-                # Normalize and save issues
-                for raw_issue in report.get("issues", []):
-                    norm_issue = RecommendationEngine.normalize_issue(
-                        website=request.url,
-                        page_url=page_url,
-                        category=raw_issue.get("category", "On-Page"),
-                        issue=raw_issue.get("issue", ""),
-                        severity=raw_issue.get("severity", "Warning"),
-                        fixes=raw_issue.get("fixes", ""),
-                        automatable=raw_issue.get("automatable", False)
-                    )
-                    db.save_onpage_issue(norm_issue)
-                    all_normalized_issues.append(norm_issue)
-                    
-            avg_onpage_score = round(total_onpage_score / pages_count) if pages_count > 0 else 100
-            
-            # 2. Perform Off-Page Audit
-            offpage_data = OffPageAuditor.get_metrics(request.url, db)
-            
-            # Off-page score calculation: primarily driven by DA, adjusted by spam score
-            da = offpage_data.get("domain_authority", 0)
-            spam = offpage_data.get("spam_score", 0)
-            # Simple formula: DA - 0.5 * Spam
-            offpage_score = max(0, min(100, int(da - (0.5 * spam))))
-            
-            # Normalize and save offpage issues
-            if spam > 20:
-                spam_issue = RecommendationEngine.normalize_issue(
-                    website=request.url,
-                    page_url=request.url,
-                    category="Off-Page",
-                    issue=f"High Spam Score ({spam}%)",
-                    severity="Warning",
-                    fixes="Disavow spammy backlinks pointing to your site.",
-                    automatable=False
-                )
-                db.save_onpage_issue(spam_issue)
-                all_normalized_issues.append(spam_issue)
-                
-            if da < 30:
-                da_issue = RecommendationEngine.normalize_issue(
-                    website=request.url,
-                    page_url=request.url,
-                    category="Off-Page",
-                    issue=f"Low Domain Authority (DA: {da})",
-                    severity="Warning",
-                    fixes="Focus on building high-quality editorial links from authoritative websites in your niche.",
-                    automatable=False
-                )
-                db.save_onpage_issue(da_issue)
-                all_normalized_issues.append(da_issue)
-
-            # Save the audit score
-            db.save_audit(request.url, avg_onpage_score, offpage_score)
-            
-            # 3. Generate PDF Report
-            filename = f"output/{request.url.replace('https://', '').replace('http://', '').replace('/', '_')}_seo_report.pdf"
-            ReportGenerator.generate_pdf(
-                filename=filename,
-                website=request.url,
-                onpage_score=avg_onpage_score,
-                offpage_score=offpage_score,
-                onpage_issues=all_normalized_issues,
-                backlink_snapshot=offpage_data
-            )
-            
-            return {
-                "status": "success",
-                "url": request.url,
-                "onpage_score": avg_onpage_score,
-                "offpage_score": offpage_score,
-                "offpage_data": offpage_data,
-                "issues": all_normalized_issues,
-                "pdf_report_path": filename,
-                "metadata": {
-                    "name": record.get("name", ""),
-                    "pages_crawled": pages_count
-                }
-            }
-        else:
-            raise HTTPException(status_code=400, detail="Failed to crawl or invalid URL")
+        # Enqueue the background task
+        from tasks import perform_audit_task
+        job = q.enqueue(perform_audit_task, request.url, request.crawl, request.max_pages, job_timeout=3600)
+        
+        return {
+            "status": "queued",
+            "job_id": job.id,
+            "url": request.url
+        }
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/audit/status/{job_id}")
+def get_audit_status(job_id: str):
+    try:
+        job = Job.fetch(job_id, connection=redis_conn)
+        if job.is_finished:
+            return job.result
+        elif job.is_failed:
+            return {"status": "failed", "error": str(job.exc_info)}
+        else:
+            return {"status": "processing", "job_id": job_id}
+    except Exception as e:
+        raise HTTPException(status_code=404, detail="Job not found or error fetching status.")
 
 @app.get("/api/audit/pdf")
 def get_pdf(url: str):

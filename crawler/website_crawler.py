@@ -156,7 +156,13 @@ def crawl_website(website_url: str, db, target_keywords: list = None) -> dict:
 
                 soup = make_soup(resp.text)
 
-                seo_data = extract_onpage_seo(resp.text, soup, url)
+                resp_headers = getattr(resp, "headers", {})
+                if hasattr(resp_headers, "items"):
+                    resp_headers = dict(resp_headers.items())
+                else:
+                    resp_headers = dict(resp_headers) if resp_headers else {}
+                
+                seo_data = extract_onpage_seo(resp.text, soup, url, resp_headers)
                 seo_report = calculate_seo_score(seo_data, target_keywords)
                 all_seo_reports[url] = {
                     "data": seo_data,

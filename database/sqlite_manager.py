@@ -41,7 +41,6 @@ class SQLiteManager:
                     discovered_timestamp TEXT
                 );
 
-                DROP TABLE IF EXISTS contacts;
                 CREATE TABLE IF NOT EXISTS contacts (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
                     website TEXT,

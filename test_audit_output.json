@@ -1,0 +1,3098 @@
+﻿{
+  "url": "https://example.com",
+  "overallScore": 93,
+  "categoryResults": [
+    {
+      "categoryId": "core",
+      "score": 95,
+      "passCount": 14,
+      "warnCount": 3,
+      "failCount": 2,
+      "results": [
+        {
+          "ruleId": "core-title-present",
+          "status": "pass",
+          "message": "Title tag is present",
+          "score": 100,
+          "details": {
+            "found": true,
+            "title": "Example Domain",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-title-length",
+          "status": "warn",
+          "message": "Title is too short (14 characters). Recommended: 30-60 characters",
+          "score": 50,
+          "details": {
+            "length": 14,
+            "minLength": 30,
+            "maxLength": 60,
+            "title": "Example Domain",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-description-present",
+          "status": "fail",
+          "message": "No <meta name=\"description\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-description-length",
+          "status": "warn",
+          "message": "No <meta name=\"description\"> tag found in the document",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-present",
+          "status": "fail",
+          "message": "No <link rel=\"canonical\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-valid",
+          "status": "warn",
+          "message": "No <link rel=\"canonical\"> tag found in the document",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-viewport-present",
+          "status": "pass",
+          "message": "Viewport meta tag is present",
+          "score": 100,
+          "details": {
+            "found": true,
+            "viewport": "width=device-width, initial-scale=1",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-favicon-present",
+          "status": "pass",
+          "message": "Favicon link tag is present",
+          "score": 100,
+          "details": {
+            "found": true,
+            "faviconUrl": "data:,",
+            "rel": "icon",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-h1-present",
+          "status": "pass",
+          "message": "H1 tag is present",
+          "score": 100,
+          "details": {
+            "found": true,
+            "count": 1,
+            "text": "Example Domain",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-h1-single",
+          "status": "pass",
+          "message": "Document has exactly one <h1> tag",
+          "score": 100,
+          "details": {
+            "count": 1,
+            "text": "Example Domain",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-header",
+          "status": "pass",
+          "message": "No conflicting canonical signals (neither HTML tag nor Link header present)",
+          "score": 100,
+          "details": {
+            "htmlCanonical": null,
+            "headerCanonical": null,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-nosnippet",
+          "status": "pass",
+          "message": "Page allows search engine snippets",
+          "score": 100,
+          "details": {
+            "directives": [
+              "none found"
+            ],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-robots-meta",
+          "status": "pass",
+          "message": "No robots meta tag found (default: index, follow)",
+          "score": 100,
+          "details": {
+            "allDirectives": [],
+            "defaultBehavior": "index, follow",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-title-unique",
+          "status": "pass",
+          "message": "Page title is unique",
+          "score": 100,
+          "details": {
+            "title": "Example Domain",
+            "normalizedTitle": "example domain",
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-conflicting",
+          "status": "pass",
+          "message": "No conflicting canonical URLs detected (at most one canonical source present)",
+          "score": 100,
+          "details": {
+            "htmlCanonical": null,
+            "headerCanonical": null,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-to-homepage",
+          "status": "pass",
+          "message": "No canonical tag present; skipping homepage check",
+          "score": 100,
+          "details": {
+            "canonicalFound": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-http-mismatch",
+          "status": "pass",
+          "message": "No canonical tag present; skipping protocol check",
+          "score": 100,
+          "details": {
+            "canonicalFound": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-loop",
+          "status": "pass",
+          "message": "No canonical tag present; no loop risk",
+          "score": 100,
+          "details": {
+            "canonicalFound": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-to-noindex",
+          "status": "pass",
+          "message": "No canonical tag present; no noindex conflict possible",
+          "score": 100,
+          "details": {
+            "canonicalFound": false,
+            "hasNoindex": false,
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "technical",
+      "score": 93,
+      "passCount": 7,
+      "warnCount": 2,
+      "failCount": 4,
+      "results": [
+        {
+          "ruleId": "technical-robots-txt-exists",
+          "status": "fail",
+          "message": "robots.txt returned HTTP 404 (expected 200)",
+          "score": 0,
+          "details": {
+            "url": "https://example.com/robots.txt",
+            "statusCode": 404,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-robots-txt-valid",
+          "status": "warn",
+          "message": "robots.txt returned HTTP 404, cannot validate",
+          "score": 50,
+          "details": {
+            "url": "https://example.com/robots.txt",
+            "statusCode": 404,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-sitemap-exists",
+          "status": "fail",
+          "message": "No sitemap.xml found at default location and no sitemap referenced in robots.txt",
+          "score": 0,
+          "details": {
+            "checkedLocations": [
+              "https://example.com/sitemap.xml"
+            ],
+            "foundSitemaps": [],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-sitemap-valid",
+          "status": "warn",
+          "message": "Could not find sitemap to validate",
+          "score": 50,
+          "details": {
+            "checkedUrls": [
+              "https://example.com/sitemap.xml",
+              "https://example.com/robots.txt"
+            ],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-url-structure",
+          "status": "pass",
+          "message": "URL follows SEO best practices",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "path": "/",
+            "pathLength": 1,
+            "totalLength": 19,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-trailing-slash",
+          "status": "pass",
+          "message": "Trailing slash usage is consistent (no internal paths to analyze)",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "currentHasTrailingSlash": false,
+            "withSlashCount": 0,
+            "withoutSlashCount": 0,
+            "dominantStyle": "mixed",
+            "sampleWithSlash": [],
+            "sampleWithoutSlash": [],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-www-redirect",
+          "status": "fail",
+          "message": "Both www and non-www versions are accessible (should redirect to one canonical version)",
+          "score": 0,
+          "details": {
+            "url": "https://example.com",
+            "wwwUrl": "https://www.example.com/",
+            "nonWwwUrl": "https://example.com/",
+            "currentIsWww": false,
+            "wwwStatus": 200,
+            "nonWwwStatus": 200,
+            "canonicalHostname": null,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-404-page",
+          "status": "fail",
+          "message": "404 page appears to be a default server error page",
+          "score": 0,
+          "details": {
+            "testUrl": "https://example.com/seo-audit-test-nonexistent-page-hgflqttm7pd-1783540940126",
+            "statusCode": 404,
+            "isCustom": false,
+            "hasNavigation": false,
+            "hasHelpfulContent": false,
+            "indicators": [
+              "Has title tag"
+            ],
+            "issues": [
+              "Missing navigation elements",
+              "Limited content on error page",
+              "Missing helpful content (search, suggestions, contact info)"
+            ],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-soft-404",
+          "status": "pass",
+          "message": "Page does not appear to be a soft 404",
+          "score": 100,
+          "details": {
+            "statusCode": 200,
+            "wordCount": 17,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-server-error",
+          "status": "pass",
+          "message": "Page returned a successful response",
+          "score": 100,
+          "details": {
+            "statusCode": 200,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-4xx-non-404",
+          "status": "pass",
+          "message": "No client error detected",
+          "score": 100,
+          "details": {
+            "statusCode": 200,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-timeout",
+          "status": "pass",
+          "message": "Page response time is 320ms",
+          "score": 100,
+          "details": {
+            "responseTimeMs": 320,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "technical-bad-content-type",
+          "status": "pass",
+          "message": "Content-Type is correct: text/html",
+          "score": 100,
+          "details": {
+            "contentType": "text/html",
+            "mediaType": "text/html",
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "perf",
+      "score": 92,
+      "passCount": 16,
+      "warnCount": 6,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "cwv-lcp",
+          "status": "warn",
+          "message": "Could not measure Largest Contentful Paint",
+          "score": 50,
+          "details": {
+            "metric": "LCP",
+            "reason": "Metric not available",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "cwv-cls",
+          "status": "warn",
+          "message": "Could not measure Cumulative Layout Shift",
+          "score": 50,
+          "details": {
+            "metric": "CLS",
+            "reason": "Metric not available",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "cwv-inp",
+          "status": "warn",
+          "message": "Could not measure Interaction to Next Paint (no user interaction detected or metric not available)",
+          "score": 50,
+          "details": {
+            "metric": "INP",
+            "reason": "No interaction or metric not available",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "cwv-ttfb",
+          "status": "warn",
+          "message": "Could not measure Time to First Byte",
+          "score": 50,
+          "details": {
+            "metric": "TTFB",
+            "reason": "Metric not available",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "cwv-fcp",
+          "status": "warn",
+          "message": "Could not measure First Contentful Paint",
+          "score": 50,
+          "details": {
+            "metric": "FCP",
+            "reason": "Metric not available",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-dom-size",
+          "status": "pass",
+          "message": "DOM size is optimal (5 nodes, depth 3)",
+          "score": 100,
+          "details": {
+            "totalNodes": 5,
+            "maxDepth": 3,
+            "maxChildren": 3,
+            "deepestSelector": "a",
+            "widestSelector": "div",
+            "thresholds": {
+              "nodes": {
+                "good": 800,
+                "warning": 1500
+              },
+              "depth": {
+                "good": 32,
+                "warning": 48
+              },
+              "children": {
+                "good": 60
+              }
+            },
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-css-file-size",
+          "status": "pass",
+          "message": "CSS is well optimized: No external CSS files (inline only)",
+          "score": 100,
+          "details": {
+            "externalCssCount": 0,
+            "externalCssUrls": [],
+            "inlineStyleCount": 1,
+            "inlineCssKb": 0,
+            "hasPreloadCss": false,
+            "thresholds": {
+              "externalFiles": {
+                "good": 3,
+                "warning": 6
+              },
+              "inlineCssKb": {
+                "good": 50,
+                "warning": 100
+              }
+            },
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-font-loading",
+          "status": "pass",
+          "message": "No custom fonts detected",
+          "score": 100,
+          "details": {
+            "preloadedFonts": [],
+            "googleFontsLinks": [],
+            "fontFacesWithDisplay": 0,
+            "fontFacesWithoutDisplay": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-preconnect",
+          "status": "pass",
+          "message": "No third-party origins detected",
+          "score": 100,
+          "details": {
+            "preconnects": [],
+            "dnsPrefetches": [],
+            "thirdPartyOrigins": [],
+            "missingPreconnects": [],
+            "criticalOrigins": [
+              "fonts.googleapis.com",
+              "fonts.gstatic.com",
+              "www.google-analytics.com",
+              "www.googletagmanager.com",
+              "connect.facebook.net",
+              "platform.twitter.com",
+              "cdn.jsdelivr.net",
+              "cdnjs.cloudflare.com",
+              "unpkg.com",
+              "ajax.googleapis.com"
+            ],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-render-blocking",
+          "status": "pass",
+          "message": "No external scripts in head",
+          "score": 100,
+          "details": {
+            "blockingScripts": [],
+            "inlineScriptsInHead": 0,
+            "largeInlineScripts": [],
+            "potentiallyBlockingCss": [],
+            "asyncScripts": 0,
+            "deferScripts": 0,
+            "moduleScripts": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-lazy-above-fold",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "aboveFoldImages": [],
+            "totalImages": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-lcp-hints",
+          "status": "pass",
+          "message": "No clear LCP image candidate detected",
+          "score": 100,
+          "details": {
+            "candidate": null,
+            "preloadedImages": [],
+            "hasAnyOptimization": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-text-compression",
+          "status": "pass",
+          "message": "Text compression enabled (br)",
+          "score": 100,
+          "details": {
+            "contentEncoding": "br",
+            "supportedEncodings": [
+              "gzip",
+              "br",
+              "deflate",
+              "zstd"
+            ],
+            "detectedEncoding": "br",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-brotli",
+          "status": "pass",
+          "message": "Brotli compression is active ΓÇö optimal text compression",
+          "score": 100,
+          "details": {
+            "contentEncoding": "br",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-cache-policy",
+          "status": "pass",
+          "message": "Validation caching enabled (Last-Modified)",
+          "score": 100,
+          "details": {
+            "cacheControl": "not set",
+            "expires": "not set",
+            "etag": "not set",
+            "lastModified": "Wed, 01 Jul 2026 17:52:37 GMT",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-minify-css",
+          "status": "pass",
+          "message": "Inline CSS is minimal (145 bytes across 1 <style> tag(s))",
+          "score": 100,
+          "details": {
+            "styleTagCount": 1,
+            "totalBytes": 145,
+            "thresholds": {
+              "minBytesToCheck": 500,
+              "whitespaceRatio": 0.15
+            },
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-minify-js",
+          "status": "pass",
+          "message": "No inline JavaScript found",
+          "score": 100,
+          "details": {
+            "scriptTagCount": 0,
+            "totalBytes": 0,
+            "thresholds": {
+              "minBytesToCheck": 500,
+              "whitespaceRatio": 0.15
+            },
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-response-time",
+          "status": "pass",
+          "message": "Response time is 320ms ΓÇö within optimal range",
+          "score": 100,
+          "details": {
+            "responseTimeMs": 320,
+            "thresholds": {
+              "good": 500,
+              "warning": 1000
+            },
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-http2",
+          "status": "warn",
+          "message": "No alt-svc header found ΓÇö server may not support HTTP/2 or HTTP/3 (informational)",
+          "score": 50,
+          "details": {
+            "altSvc": "not set",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-page-weight",
+          "status": "pass",
+          "message": "HTML document is 559B ΓÇö within optimal range",
+          "score": 100,
+          "details": {
+            "htmlBytes": 559,
+            "htmlSize": "559B",
+            "externalScripts": 0,
+            "externalStylesheets": 0,
+            "imageCount": 0,
+            "thresholds": {
+              "good": "100KB",
+              "warning": "300KB"
+            },
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-js-file-size",
+          "status": "pass",
+          "message": "No inline JavaScript found",
+          "score": 100,
+          "details": {
+            "totalBytes": 0,
+            "totalSize": "0B",
+            "inlineScriptCount": 0,
+            "largestScriptBytes": 0,
+            "largestScriptSize": "0B",
+            "thresholds": {
+              "good": "50KB",
+              "warning": "150KB"
+            },
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "perf-video-for-animations",
+          "status": "pass",
+          "message": "No GIF images found ΓÇö page uses appropriate media formats",
+          "score": 100,
+          "details": {
+            "gifCount": 0,
+            "gifUrls": [],
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "links",
+      "score": 96,
+      "passCount": 16,
+      "warnCount": 3,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "links-broken-internal",
+          "status": "pass",
+          "message": "No internal links found to check",
+          "score": 100,
+          "details": {
+            "totalLinks": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-external-valid",
+          "status": "pass",
+          "message": "All 1 checked external link(s) are reachable",
+          "score": 100,
+          "details": {
+            "totalChecked": 1,
+            "totalExternal": 1,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-internal-present",
+          "status": "warn",
+          "message": "No internal links found on this page",
+          "score": 50,
+          "details": {
+            "internalLinkCount": 0,
+            "selfLinks": 0,
+            "suggestion": "Add internal links to improve site navigation and help search engines crawl your site",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-nofollow-appropriate",
+          "status": "pass",
+          "message": "Nofollow attributes appear to be used appropriately",
+          "score": 100,
+          "details": {
+            "totalLinks": 1,
+            "externalNofollow": 0,
+            "internalNofollow": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-anchor-text",
+          "status": "warn",
+          "message": "Found 1 link(s) with non-descriptive anchor text (100.0% of all links)",
+          "score": 50,
+          "details": {
+            "issueCount": 1,
+            "totalLinks": 1,
+            "issues": [
+              {
+                "href": "https://iana.org/domains/example",
+                "text": "Learn more",
+                "issue": "Non-descriptive anchor text"
+              }
+            ],
+            "suggestion": "Use descriptive anchor text that tells users and search engines what the linked page is about",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-depth",
+          "status": "pass",
+          "message": "This is the homepage (depth 0)",
+          "score": 100,
+          "details": {
+            "depth": 0,
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-dead-end-pages",
+          "status": "warn",
+          "message": "Page is a dead-end with no outgoing internal links",
+          "score": 50,
+          "details": {
+            "internalLinkCount": 0,
+            "recommendation": "Add navigation links, related content links, or breadcrumbs",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-https-downgrade",
+          "status": "pass",
+          "message": "All links maintain HTTPS security",
+          "score": 100,
+          "details": {
+            "totalLinksChecked": 1,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-external-count",
+          "status": "pass",
+          "message": "Page has 1 external link(s) across 1 domain(s)",
+          "score": 100,
+          "details": {
+            "externalLinkCount": 1,
+            "uniqueDomains": 1,
+            "topDomains": [
+              "iana.org"
+            ],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-invalid",
+          "status": "pass",
+          "message": "No invalid links found",
+          "score": 100,
+          "details": {
+            "invalidCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-tel-mailto",
+          "status": "pass",
+          "message": "No tel: or mailto: links found",
+          "score": 100,
+          "details": {
+            "totalSpecialLinks": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-redirect-chains",
+          "status": "pass",
+          "message": "No internal links to check",
+          "score": 100,
+          "details": {
+            "totalChecked": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-orphan-pages",
+          "status": "pass",
+          "message": "Page provides 0 internal link(s) to other pages. Full orphan detection requires crawl mode.",
+          "score": 100,
+          "details": {
+            "outgoingInternalLinkCount": 0,
+            "note": "Orphan page detection requires analyzing all pages in crawl mode to build a complete link graph",
+            "recommendation": "Use --crawl flag to enable full orphan page detection across the site",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-localhost",
+          "status": "pass",
+          "message": "No localhost or development URL references found",
+          "score": 100,
+          "details": {
+            "totalElementsChecked": 1,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-local-file",
+          "status": "pass",
+          "message": "No local file references found",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-broken-fragment",
+          "status": "pass",
+          "message": "No same-page fragment links found to check",
+          "score": 100,
+          "details": {
+            "fragmentLinksChecked": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-excessive",
+          "status": "pass",
+          "message": "Page has 1 link(s), within recommended limits",
+          "score": 100,
+          "details": {
+            "totalLinks": 1,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-onclick",
+          "status": "pass",
+          "message": "No onclick-based navigation detected",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "links-whitespace-href",
+          "status": "pass",
+          "message": "All link hrefs are free of whitespace issues",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "images",
+      "score": 100,
+      "passCount": 14,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "images-alt-present",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-alt-quality",
+          "status": "pass",
+          "message": "No images with alt attributes to evaluate",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-dimensions",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-lazy-loading",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-modern-format",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-size",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-responsive",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-broken",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-figure-captions",
+          "status": "pass",
+          "message": "No figure elements found on page",
+          "score": 100,
+          "details": {
+            "figureCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-filename-quality",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-inline-svg-size",
+          "status": "pass",
+          "message": "No inline SVGs found on page",
+          "score": 100,
+          "details": {
+            "svgCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-picture-element",
+          "status": "pass",
+          "message": "No picture elements found on page",
+          "score": 100,
+          "details": {
+            "pictureCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-alt-length",
+          "status": "pass",
+          "message": "No images with alt text to evaluate for length",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "images-background-seo",
+          "status": "pass",
+          "message": "No inline CSS background images detected",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "security",
+      "score": 88,
+      "passCount": 7,
+      "warnCount": 4,
+      "failCount": 5,
+      "results": [
+        {
+          "ruleId": "security-https",
+          "status": "pass",
+          "message": "Page is served over HTTPS",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "protocol": "https:",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-https-redirect",
+          "status": "fail",
+          "message": "HTTP version is accessible without redirecting to HTTPS",
+          "score": 0,
+          "details": {
+            "httpUrl": "http://example.com/",
+            "expectedHttpsUrl": "https://example.com/",
+            "statusCode": 200,
+            "redirectLocation": null,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-hsts",
+          "status": "fail",
+          "message": "Strict-Transport-Security header is missing",
+          "score": 0,
+          "details": {
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-csp",
+          "status": "warn",
+          "message": "Content-Security-Policy header is missing. Consider adding CSP to prevent XSS attacks.",
+          "score": 50,
+          "details": {
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-x-frame-options",
+          "status": "fail",
+          "message": "Neither X-Frame-Options nor CSP frame-ancestors is set. Site is vulnerable to clickjacking.",
+          "score": 0,
+          "details": {
+            "url": "https://example.com",
+            "xFrameOptions": null,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-x-content-type-options",
+          "status": "fail",
+          "message": "X-Content-Type-Options header is missing. Add \"nosniff\" to prevent MIME type sniffing attacks.",
+          "score": 0,
+          "details": {
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-external-links",
+          "status": "pass",
+          "message": "All external target=\"_blank\" links have noopener/noreferrer",
+          "score": 100,
+          "details": {
+            "checkedLinks": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-form-https",
+          "status": "pass",
+          "message": "No forms found on page",
+          "score": 100,
+          "details": {
+            "formCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-mixed-content",
+          "status": "pass",
+          "message": "No mixed content detected",
+          "score": 100,
+          "details": {
+            "isHttps": true,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-permissions-policy",
+          "status": "warn",
+          "message": "Permissions-Policy header is missing. Consider adding to control browser features.",
+          "score": 50,
+          "details": {
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-referrer-policy",
+          "status": "warn",
+          "message": "Referrer-Policy is not set. Consider adding to control referrer information.",
+          "score": 50,
+          "details": {
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-leaked-secrets",
+          "status": "pass",
+          "message": "No exposed secrets detected",
+          "score": 100,
+          "details": {
+            "patternsChecked": 25,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-password-http",
+          "status": "pass",
+          "message": "Page is served over HTTPS; password inputs are secure",
+          "score": 100,
+          "details": {
+            "isHttps": true,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-protocol-relative",
+          "status": "pass",
+          "message": "No protocol-relative URLs found in resource references",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-ssl-expiry",
+          "status": "warn",
+          "message": "HTTPS is enabled but no Strict-Transport-Security header found; browsers can be downgraded to HTTP",
+          "score": 50,
+          "details": {
+            "isHttps": true,
+            "hasHsts": false,
+            "recommendation": "Add Strict-Transport-Security header with max-age of at least 1 year (31536000 seconds)",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "security-ssl-protocol",
+          "status": "fail",
+          "message": "No Strict-Transport-Security header on HTTPS site; browsers cannot enforce secure connections",
+          "score": 0,
+          "details": {
+            "isHttps": true,
+            "hasHsts": false,
+            "recommendation": "Add Strict-Transport-Security: max-age=31536000; includeSubDomains; preload",
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "crawl",
+      "score": 97,
+      "passCount": 16,
+      "warnCount": 2,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "crawl-schema-noindex-conflict",
+          "status": "pass",
+          "message": "Page has no rich result schema",
+          "score": 100,
+          "details": {
+            "isNoindexed": false,
+            "schemaTypes": [],
+            "richResultTypes": [],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-canonical",
+          "status": "pass",
+          "message": "Page does not appear to be paginated",
+          "score": 100,
+          "details": {
+            "isPaginated": false,
+            "hasPaginationLinks": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-domain",
+          "status": "warn",
+          "message": "Could not find sitemap to validate",
+          "score": 50,
+          "details": {
+            "checkedUrls": [
+              "https://example.com/sitemap.xml",
+              "https://example.com/robots.txt"
+            ],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-noindex-in-sitemap",
+          "status": "pass",
+          "message": "Page is indexable (no noindex directive)",
+          "score": 100,
+          "details": {
+            "isNoindexed": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-indexability-conflict",
+          "status": "pass",
+          "message": "No robots.txt found (no conflict possible)",
+          "score": 100,
+          "details": {
+            "url": "/",
+            "robotsTxtStatus": "not-found",
+            "hasNoindex": false,
+            "noindexSources": [],
+            "isDisallowedByRobotsTxt": false,
+            "matchedDisallowRule": null,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-canonical-redirect",
+          "status": "warn",
+          "message": "No canonical tag found",
+          "score": 50,
+          "details": {
+            "hasCanonical": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-url-limit",
+          "status": "pass",
+          "message": "No sitemap content available to check",
+          "score": 100,
+          "details": {
+            "sitemapAvailable": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-size-limit",
+          "status": "pass",
+          "message": "No sitemap content available to check",
+          "score": 100,
+          "details": {
+            "sitemapAvailable": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-duplicate-urls",
+          "status": "pass",
+          "message": "No sitemap URLs available to check",
+          "score": 100,
+          "details": {
+            "sitemapAvailable": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-orphan-urls",
+          "status": "pass",
+          "message": "No sitemap URLs available for orphan detection",
+          "score": 100,
+          "details": {
+            "crawledUrlCount": 1,
+            "sitemapUrlCount": 0,
+            "orphanCount": 0,
+            "orphanUrls": [],
+            "note": "Data is being collected for cross-page analysis",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-blocked-resources",
+          "status": "pass",
+          "message": "No robots.txt content available to check",
+          "score": 100,
+          "details": {
+            "robotsTxtAvailable": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-crawl-delay",
+          "status": "pass",
+          "message": "No robots.txt content available to check",
+          "score": 100,
+          "details": {
+            "robotsTxtAvailable": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-in-robotstxt",
+          "status": "pass",
+          "message": "No robots.txt content available to check",
+          "score": 100,
+          "details": {
+            "robotsTxtAvailable": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-broken",
+          "status": "pass",
+          "message": "No pagination links found (rel=\"next\"/\"prev\")",
+          "score": 100,
+          "details": {
+            "hasPagination": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-loop",
+          "status": "pass",
+          "message": "No pagination links found (rel=\"next\"/\"prev\")",
+          "score": 100,
+          "details": {
+            "hasPagination": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-sequence",
+          "status": "pass",
+          "message": "No pagination links found",
+          "score": 100,
+          "details": {
+            "hasNext": false,
+            "hasPrev": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-noindex",
+          "status": "pass",
+          "message": "Page is not paginated (no rel=\"next\"/\"prev\" links)",
+          "score": 100,
+          "details": {
+            "isPaginated": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-orphaned",
+          "status": "pass",
+          "message": "Page does not appear to be paginated",
+          "score": 100,
+          "details": {
+            "isPaginated": false,
+            "hasPaginationLinks": false,
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "schema",
+      "score": 90,
+      "passCount": 8,
+      "warnCount": 4,
+      "failCount": 1,
+      "results": [
+        {
+          "ruleId": "schema-present",
+          "status": "fail",
+          "message": "No structured data found on the page (JSON-LD, microdata, or RDFa)",
+          "score": 0,
+          "details": {
+            "jsonLdCount": 0,
+            "microdataCount": 0,
+            "rdfaCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-valid",
+          "status": "warn",
+          "message": "No JSON-LD scripts found to validate",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-type",
+          "status": "warn",
+          "message": "No JSON-LD scripts found to check for @type",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-required-fields",
+          "status": "warn",
+          "message": "No JSON-LD scripts found to check for required fields",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-article",
+          "status": "pass",
+          "message": "No Article schema found (not required)",
+          "score": 100,
+          "details": {
+            "articlesFound": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-breadcrumb",
+          "status": "pass",
+          "message": "Homepage - breadcrumb not required",
+          "score": 100,
+          "details": {
+            "isHomepage": true,
+            "breadcrumbsFound": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-faq",
+          "status": "pass",
+          "message": "No FAQPage schema found (not required)",
+          "score": 100,
+          "details": {
+            "faqPagesFound": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-local-business",
+          "status": "pass",
+          "message": "No LocalBusiness schema found (not required)",
+          "score": 100,
+          "details": {
+            "businessesFound": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-organization",
+          "status": "pass",
+          "message": "No Organization schema found (not required)",
+          "score": 100,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-product",
+          "status": "pass",
+          "message": "No Product schema found (not required)",
+          "score": 100,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-review",
+          "status": "pass",
+          "message": "No Review/AggregateRating schema found (not required)",
+          "score": 100,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-video",
+          "status": "pass",
+          "message": "No VideoObject schema found (not required)",
+          "score": 100,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "schema-website-search",
+          "status": "warn",
+          "message": "Homepage missing WebSite schema",
+          "score": 50,
+          "details": {
+            "isHomepage": true,
+            "suggestion": "Add WebSite schema to enable sitelinks searchbox",
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "a11y",
+      "score": 95,
+      "passCount": 10,
+      "warnCount": 2,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "a11y-aria-labels",
+          "status": "pass",
+          "message": "All interactive elements have accessible names",
+          "score": 100,
+          "details": {
+            "checkedElements": 1,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-color-contrast",
+          "status": "pass",
+          "message": "No obvious color contrast issues detected",
+          "score": 100,
+          "details": {
+            "note": "Full WCAG contrast checking requires visual rendering",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-focus-visible",
+          "status": "pass",
+          "message": "No focus indicator issues detected",
+          "score": 100,
+          "details": {
+            "hasFocusVisibleSupport": false,
+            "customTabindexElements": 0,
+            "externalStylesheets": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-form-labels",
+          "status": "pass",
+          "message": "No form inputs found on page",
+          "score": 100,
+          "details": {
+            "totalInputs": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-heading-order",
+          "status": "pass",
+          "message": "Heading hierarchy is correct",
+          "score": 100,
+          "details": {
+            "totalHeadings": 1,
+            "levels": "H1",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-landmark-regions",
+          "status": "warn",
+          "message": "Missing essential landmark: <main>. Also missing: main, navigation, banner/header, contentinfo/footer",
+          "score": 50,
+          "details": {
+            "missing": [
+              "main",
+              "navigation",
+              "banner/header",
+              "contentinfo/footer"
+            ],
+            "landmarks": {},
+            "warnings": [],
+            "recommendation": "Add <main> landmark to wrap primary content",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-link-text",
+          "status": "warn",
+          "message": "Found 1 link text accessibility issue(s)",
+          "score": 50,
+          "details": {
+            "genericLinks": [
+              {
+                "text": "learn more",
+                "href": "https://iana.org/domains/example",
+                "issue": "Generic link text - not descriptive"
+              }
+            ],
+            "duplicates": [],
+            "totalLinks": 1,
+            "issues": [
+              "\"learn more\" - Generic link text - not descriptive"
+            ],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-skip-link",
+          "status": "pass",
+          "message": "Page is simple enough that skip link may not be needed",
+          "score": 100,
+          "details": {
+            "hasMainLandmark": false,
+            "navElements": 0,
+            "note": "Simple pages without navigation may not require skip links",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-table-headers",
+          "status": "pass",
+          "message": "No data tables found on page",
+          "score": 100,
+          "details": {
+            "layoutTables": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-touch-targets",
+          "status": "pass",
+          "message": "No obvious touch target size issues detected",
+          "score": 100,
+          "details": {
+            "note": "Full touch target analysis requires visual rendering",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-video-captions",
+          "status": "pass",
+          "message": "No video or audio elements found on page",
+          "score": 100,
+          "details": {
+            "note": "If adding video content, include captions or transcripts",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "a11y-zoom-disabled",
+          "status": "pass",
+          "message": "Viewport allows user zoom",
+          "score": 100,
+          "details": {
+            "viewport": "width=device-width, initial-scale=1",
+            "userScalable": "yes (default)",
+            "maximumScale": "not set",
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "content",
+      "score": 94,
+      "passCount": 12,
+      "warnCount": 3,
+      "failCount": 2,
+      "results": [
+        {
+          "ruleId": "content-word-count",
+          "status": "fail",
+          "message": "Extremely thin content: 18 words (minimum 100 recommended)",
+          "score": 0,
+          "details": {
+            "wordCount": 18,
+            "thresholds": {
+              "fail": 100,
+              "warn": 300,
+              "optimal": {
+                "min": 500,
+                "max": 2500
+              }
+            },
+            "impact": "Pages with very little content rarely rank well and may be seen as low quality",
+            "recommendation": "Expand content to at least 300 words, or consider consolidating with other pages",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-reading-level",
+          "status": "pass",
+          "message": "Content too short for readability analysis (18 words)",
+          "score": 100,
+          "details": {
+            "wordCount": 18,
+            "sentenceCount": 3,
+            "skipped": true,
+            "reason": "Minimum 50 words required for meaningful readability analysis",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-keyword-stuffing",
+          "status": "pass",
+          "message": "Content too short for keyword analysis (18 words)",
+          "score": 100,
+          "details": {
+            "wordCount": 18,
+            "skipped": true,
+            "reason": "Minimum 100 words required for meaningful keyword density analysis",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-article-links",
+          "status": "pass",
+          "message": "Content too short for link density check (18 words)",
+          "score": 100,
+          "details": {
+            "wordCount": 18,
+            "linkCount": 1,
+            "skipped": true,
+            "reason": "Minimum 100 words required for meaningful link density analysis",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-broken-html",
+          "status": "pass",
+          "message": "No significant HTML structure issues detected",
+          "score": 100,
+          "details": {
+            "issueCount": 0,
+            "criticalCount": 0,
+            "minorCount": 0,
+            "issues": [],
+            "categories": {
+              "duplicate-id": 0,
+              "invalid-nesting": 0,
+              "missing-attribute": 0,
+              "empty-element": 0,
+              "accessibility": 0,
+              "deprecated-element": 0
+            },
+            "note": "HTML structure appears well-formed",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-meta-in-body",
+          "status": "pass",
+          "message": "All meta elements are correctly placed in document head",
+          "score": 100,
+          "details": {
+            "checkedElements": [
+              "<meta>",
+              "<title>",
+              "<link rel=\"canonical\">",
+              "<link rel=\"icon\">"
+            ],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-mime-type",
+          "status": "warn",
+          "message": "Content-Type header missing charset specification",
+          "score": 50,
+          "details": {
+            "header": "text/html",
+            "mimeType": "text/html",
+            "charset": null,
+            "recommendation": "Add charset=utf-8 to Content-Type header: \"text/html; charset=utf-8\"",
+            "impact": "Missing charset can cause character encoding issues for international content",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-duplicate-description",
+          "status": "fail",
+          "message": "Page has no meta description",
+          "score": 0,
+          "details": {
+            "description": null,
+            "url": "https://example.com",
+            "impact": "Missing meta description reduces control over how the page appears in search results",
+            "recommendation": "Add a unique, compelling meta description between 120-160 characters",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-heading-hierarchy",
+          "status": "pass",
+          "message": "Heading hierarchy is correct",
+          "score": 100,
+          "details": {
+            "headingCount": 1,
+            "structure": [
+              {
+                "level": 1,
+                "text": "Example Domain"
+              }
+            ],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-heading-length",
+          "status": "pass",
+          "message": "All 1 headings have appropriate length",
+          "score": 100,
+          "details": {
+            "headingCount": 1,
+            "minLength": 10,
+            "maxLength": 70,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-heading-unique",
+          "status": "pass",
+          "message": "All 1 headings have unique content",
+          "score": 100,
+          "details": {
+            "uniqueHeadings": 1,
+            "duplicateCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-text-html-ratio",
+          "status": "warn",
+          "message": "Low text-to-HTML ratio: 22.4% (125 text bytes / 559 HTML bytes)",
+          "score": 50,
+          "details": {
+            "textLength": 125,
+            "htmlLength": 559,
+            "ratio": 22.4,
+            "thresholds": {
+              "good": 25,
+              "low": 10
+            },
+            "impact": "Low text ratio may indicate bloated code or insufficient content",
+            "recommendation": "Aim for at least 25% text-to-HTML ratio by reducing code bloat or adding more content",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-title-same-as-h1",
+          "status": "warn",
+          "message": "Title tag and H1 heading are identical",
+          "score": 50,
+          "details": {
+            "title": "Example Domain",
+            "h1": "Example Domain",
+            "normalizedTitle": "example domain",
+            "normalizedH1": "example domain",
+            "impact": "Identical title and H1 miss an opportunity for keyword variety in SERPs",
+            "recommendation": "Differentiate the title from the H1. For example, add your brand name to the title or use a slightly different phrasing to target additional keywords.",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-title-pixel-width",
+          "status": "pass",
+          "message": "Title fits within SERP display: estimated 106px",
+          "score": 100,
+          "details": {
+            "title": "Example Domain",
+            "estimatedWidth": 106,
+            "characterCount": 14,
+            "thresholds": {
+              "good": 580,
+              "warn": 620
+            },
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-description-pixel-width",
+          "status": "pass",
+          "message": "No meta description found (handled by other rules)",
+          "score": 100,
+          "details": {
+            "description": null,
+            "reason": "skipped",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-duplicate-exact",
+          "status": "pass",
+          "message": "Content is unique (no exact duplicates detected)",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "contentHash": "3bd55b0c79148d502b77e5a3c4f1d158",
+            "textLength": 125,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "content-duplicate-near",
+          "status": "pass",
+          "message": "First page analyzed (no comparison available yet)",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "trigramCount": 15,
+            "highestSimilarity": 0,
+            "mostSimilarUrl": null,
+            "thresholds": {
+              "duplicate": 0.8,
+              "similar": 0.6
+            },
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "social",
+      "score": 48,
+      "passCount": 0,
+      "warnCount": 3,
+      "failCount": 6,
+      "results": [
+        {
+          "ruleId": "social-og-title",
+          "status": "fail",
+          "message": "No <meta property=\"og:title\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "social-og-description",
+          "status": "fail",
+          "message": "No <meta property=\"og:description\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "social-og-image",
+          "status": "fail",
+          "message": "No <meta property=\"og:image\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "social-og-image-size",
+          "status": "fail",
+          "message": "No og:image found - cannot check dimensions",
+          "score": 0,
+          "details": {
+            "hasImage": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "social-twitter-card",
+          "status": "fail",
+          "message": "No <meta name=\"twitter:card\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "social-og-url",
+          "status": "fail",
+          "message": "No <meta property=\"og:url\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "social-og-url-canonical",
+          "status": "warn",
+          "message": "Neither og:url nor canonical URL found - add both for consistent SEO signals",
+          "score": 50,
+          "details": {
+            "hasOgUrl": false,
+            "hasCanonical": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "social-share-buttons",
+          "status": "warn",
+          "message": "No social sharing buttons detected. Add share buttons to encourage social engagement",
+          "score": 50,
+          "details": {
+            "hasShareButtons": false,
+            "platformCount": 0,
+            "suggestion": "Add share buttons for Facebook, Twitter/X, and LinkedIn",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "social-profiles",
+          "status": "warn",
+          "message": "No social media profile links found. Add links to your social profiles in header/footer",
+          "score": 50,
+          "details": {
+            "hasProfiles": false,
+            "profileCount": 0,
+            "suggestion": "Add social profile links in header/footer and include sameAs in Organization schema",
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "eeat",
+      "score": 89,
+      "passCount": 9,
+      "warnCount": 5,
+      "failCount": 0,
+      "results": [
+        {
+          "status": "warn",
+          "score": 50,
+          "message": "No about page link found - important for trust and E-E-A-T",
+          "details": {
+            "hasAboutPage": false,
+            "recommendation": "Add an \"About\" or \"About Us\" page explaining who you are and link to it from your navigation",
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-about-page"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No affiliate or sponsored content detected",
+          "details": {
+            "hasAffiliateLinks": false,
+            "hasDisclosure": false,
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-affiliate-disclosure"
+        },
+        {
+          "ruleId": "eeat-author-byline",
+          "status": "warn",
+          "message": "No author byline found",
+          "score": 50,
+          "details": {
+            "signals": [],
+            "recommendation": "Add author attribution using Schema.org Person markup, meta author tag, or visible byline",
+            "impact": "Missing author info can negatively impact E-E-A-T signals, especially for YMYL content",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "status": "warn",
+          "score": 50,
+          "message": "No author present - expertise check not applicable",
+          "details": {
+            "signals": [],
+            "note": "This check requires author attribution. See eeat-author-byline rule.",
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-author-expertise"
+        },
+        {
+          "status": "pass",
+          "score": 80,
+          "message": "1 authoritative source cited",
+          "details": {
+            "citationCount": 1,
+            "citationsByType": {
+              "organizations": 1
+            },
+            "hasCitationMarkup": false,
+            "hasReferencesSection": false,
+            "citations": [
+              {
+                "href": "https://iana.org/domains/example",
+                "domain": "iana.org",
+                "type": "organizations",
+                "hasNofollow": false
+              }
+            ],
+            "recommendation": "Consider adding more citations to authoritative sources (.gov, .edu, research papers)",
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-citations"
+        },
+        {
+          "status": "warn",
+          "score": 50,
+          "message": "No contact page or contact methods found - important for trust",
+          "details": {
+            "hasContactPage": false,
+            "contactMethods": [],
+            "recommendation": "Add a contact page with multiple ways to reach you: email, phone, contact form, and physical address",
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-contact-page"
+        },
+        {
+          "ruleId": "eeat-content-dates",
+          "status": "pass",
+          "message": "Content date signals found (1 type)",
+          "score": 100,
+          "details": {
+            "signals": [
+              {
+                "type": "Last-Modified header",
+                "value": "Wed, 01 Jul 2026 17:52:37 GMT"
+              }
+            ],
+            "recommendation": "Update dateModified when making significant content changes",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "Non-YMYL content - disclaimers not required",
+          "details": {
+            "isYMYL": false,
+            "disclaimers": [],
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-disclaimers"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No editorial policy (may not be applicable for this site type)",
+          "details": {
+            "hasEditorialPolicy": false,
+            "signals": [],
+            "isContentSite": false,
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-editorial-policy"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No physical address found (may not be required for this site type)",
+          "details": {
+            "hasAddress": false,
+            "isBusinessSite": false,
+            "recommendation": "Consider adding a physical address if you operate a business to build trust",
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-physical-address"
+        },
+        {
+          "status": "warn",
+          "score": 50,
+          "message": "No privacy policy link found - important for trust and legal compliance",
+          "details": {
+            "hasPrivacyPolicy": false,
+            "recommendation": "Add a link to your privacy policy in the footer of every page",
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-privacy-policy"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No terms of service link found (may not be required for this site type)",
+          "details": {
+            "hasTermsOfService": false,
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-terms-of-service"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No trust signals detected (may not be required for this site type)",
+          "details": {
+            "signalCount": 0,
+            "signalTypes": [],
+            "recommendation": "Add trust signals: customer reviews/testimonials, certifications, security badges, media mentions, or client logos",
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-trust-signals"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No YMYL content detected",
+          "details": {
+            "isYMYL": false,
+            "categories": [],
+            "confidence": "none",
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "eeat-ymyl-detection"
+        }
+      ]
+    },
+    {
+      "categoryId": "url",
+      "score": 100,
+      "passCount": 14,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "url-slug-keywords",
+          "status": "pass",
+          "message": "URL contains descriptive keywords: ",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "path": "/",
+            "slugSegments": [],
+            "hasDescriptiveSlug": true,
+            "isGeneric": false,
+            "isDynamic": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-stop-words",
+          "status": "pass",
+          "message": "URL contains no stop words",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "path": "/",
+            "words": [],
+            "stopWordsFound": [],
+            "stopWordCount": 0,
+            "stopWordRatio": 0,
+            "suggestions": [],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-uppercase",
+          "status": "pass",
+          "message": "URL path is all lowercase",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "path": "/",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-underscores",
+          "status": "pass",
+          "message": "Root path has no underscores",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "path": "/",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-double-slash",
+          "status": "pass",
+          "message": "URL path has no double slashes",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "path": "/",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-spaces",
+          "status": "pass",
+          "message": "URL contains no spaces",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "path": "/",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-non-ascii",
+          "status": "pass",
+          "message": "URL path contains only ASCII characters",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "path": "/",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-length",
+          "status": "pass",
+          "message": "URL length is 19 characters (good, <= 75)",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "length": 19,
+            "maxRecommended": 75,
+            "maxAcceptable": 200,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-repetitive-path",
+          "status": "pass",
+          "message": "URL path has no repetitive segments",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "path": "/",
+            "segments": [],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-parameters",
+          "status": "pass",
+          "message": "URL has no query parameters",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "parameterCount": 0,
+            "parameters": [],
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-session-ids",
+          "status": "pass",
+          "message": "No session IDs found in URL",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-tracking-params",
+          "status": "pass",
+          "message": "No tracking parameters found in URL",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-internal-search",
+          "status": "pass",
+          "message": "URL does not appear to be an internal search page",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "url-http-https-duplicate",
+          "status": "pass",
+          "message": "No canonical URL specified (no protocol mismatch to check)",
+          "score": 100,
+          "details": {
+            "url": "https://example.com",
+            "canonical": null,
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "mobile",
+      "score": 100,
+      "passCount": 5,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "mobile-font-size",
+          "status": "pass",
+          "message": "No mobile font size issues detected",
+          "score": 100,
+          "details": {
+            "note": "Static analysis - verify on actual mobile device",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "mobile-horizontal-scroll",
+          "status": "pass",
+          "message": "No elements likely to cause horizontal scrolling detected",
+          "score": 100,
+          "details": {
+            "note": "Static analysis - test on actual mobile devices",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "mobile-interstitials",
+          "status": "pass",
+          "message": "No intrusive interstitials detected",
+          "score": 100,
+          "details": {
+            "note": "Static analysis - JavaScript-triggered popups may not be detected",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "mobile-viewport-width",
+          "status": "pass",
+          "message": "Viewport width is set to device-width (responsive)",
+          "score": 100,
+          "details": {
+            "viewportContent": "width=device-width, initial-scale=1",
+            "widthValue": "device-width",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "mobile-multiple-viewports",
+          "status": "pass",
+          "message": "Single viewport meta tag found (correct)",
+          "score": 100,
+          "details": {
+            "viewportCount": 1,
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "i18n",
+      "score": 100,
+      "passCount": 10,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "i18n-lang-attribute",
+          "status": "pass",
+          "message": "HTML lang attribute set to \"en\"",
+          "score": 100,
+          "details": {
+            "found": true,
+            "lang": "en",
+            "validFormat": true,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang",
+          "status": "pass",
+          "message": "No hreflang tags found (single-language site)",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "note": "Add hreflang tags if you have multi-language or regional versions",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-return-links",
+          "status": "pass",
+          "message": "No hreflang tags found (single-language site)",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-to-noindex",
+          "status": "pass",
+          "message": "No hreflang tags found, no conflict possible",
+          "score": 100,
+          "details": {
+            "hasHreflang": false,
+            "hasNoindex": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-to-non-canonical",
+          "status": "pass",
+          "message": "No hreflang tags found, no conflict possible",
+          "score": 100,
+          "details": {
+            "hasHreflang": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-to-broken",
+          "status": "pass",
+          "message": "No hreflang tags found",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-to-redirect",
+          "status": "pass",
+          "message": "No hreflang tags found",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-conflicting",
+          "status": "pass",
+          "message": "No hreflang tags found",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-lang-mismatch",
+          "status": "pass",
+          "message": "No hreflang tags found, no mismatch possible",
+          "score": 100,
+          "details": {
+            "hasHreflang": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-multiple-methods",
+          "status": "pass",
+          "message": "No hreflang declarations found",
+          "score": 100,
+          "details": {
+            "htmlHreflang": false,
+            "headerHreflang": false,
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "legal",
+      "score": 100,
+      "passCount": 1,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No cookie consent mechanism detected (may not be required if no tracking cookies used)",
+          "details": {
+            "hasConsent": false,
+            "hasTracking": false,
+            "pageUrl": "https://example.com"
+          },
+          "ruleId": "legal-cookie-consent"
+        }
+      ]
+    },
+    {
+      "categoryId": "js",
+      "score": 100,
+      "passCount": 13,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "js-rendered-title",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-description",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-h1",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-canonical",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-canonical-mismatch",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-noindex-mismatch",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-title-modified",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-description-modified",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-h1-modified",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-content",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-links",
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-blocked-resources",
+          "status": "pass",
+          "message": "No robots.txt available to check for blocked JS resources",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "js-ssr-check",
+          "status": "pass",
+          "message": "Page appears to be server-side rendered with content in the initial HTML",
+          "score": 100,
+          "details": {
+            "bodyTextLength": 125,
+            "hasEmptyRoot": false,
+            "rootSelector": null,
+            "hasJsRequiredNoscript": false,
+            "scriptCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "redirect",
+      "score": 100,
+      "passCount": 8,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "redirect-meta-refresh",
+          "status": "pass",
+          "message": "No meta refresh redirect found",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "redirect-javascript",
+          "status": "pass",
+          "message": "No inline scripts found",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "redirect-http-refresh",
+          "status": "pass",
+          "message": "No Refresh HTTP header present",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "redirect-loop",
+          "status": "pass",
+          "message": "No redirect chain to check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "redirect-type",
+          "status": "pass",
+          "message": "Page is not a redirect",
+          "score": 100,
+          "details": {
+            "statusCode": 200,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "redirect-broken",
+          "status": "pass",
+          "message": "No redirect chain to check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "redirect-resource",
+          "status": "pass",
+          "message": "No HTTP resources found on HTTPS page",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "redirect-case-normalization",
+          "status": "pass",
+          "message": "No canonical URL to compare",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "htmlval",
+      "score": 100,
+      "passCount": 8,
+      "warnCount": 0,
+      "failCount": 1,
+      "results": [
+        {
+          "ruleId": "htmlval-missing-doctype",
+          "status": "pass",
+          "message": "DOCTYPE declaration is present",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-missing-charset",
+          "status": "fail",
+          "message": "No charset declaration found. Add <meta charset=\"utf-8\"> as the first element in <head>",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-invalid-head",
+          "status": "pass",
+          "message": "<head> contains only valid metadata elements",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-noscript-in-head",
+          "status": "pass",
+          "message": "No <noscript> elements found in <head>",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-multiple-heads",
+          "status": "pass",
+          "message": "Document has a single <head> element",
+          "score": 100,
+          "details": {
+            "count": 1,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-size-limit",
+          "status": "pass",
+          "message": "HTML document size is 559 B",
+          "score": 100,
+          "details": {
+            "sizeBytes": 559,
+            "sizeFormatted": "559 B",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-lorem-ipsum",
+          "status": "pass",
+          "message": "No placeholder text detected",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-multiple-titles",
+          "status": "pass",
+          "message": "Document has a single <title> element",
+          "score": 100,
+          "details": {
+            "count": 1,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-multiple-descriptions",
+          "status": "pass",
+          "message": "No meta description found (checked by core-description-present)",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "geo",
+      "score": 89,
+      "passCount": 2,
+      "warnCount": 1,
+      "failCount": 2,
+      "results": [
+        {
+          "ruleId": "geo-semantic-html",
+          "status": "fail",
+          "message": "Poor semantic HTML - AI systems struggle to parse content (only 0 semantic element(s) found)",
+          "score": 0,
+          "details": {
+            "found": [],
+            "foundCount": 0,
+            "elementCounts": {},
+            "missingRecommended": [
+              "main",
+              "article",
+              "header",
+              "footer",
+              "nav"
+            ],
+            "totalSemanticChecked": 13,
+            "recommendation": "Add semantic elements like <main>, <article>, <header>, <footer>, and <nav> to help AI understand your content structure",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "geo-content-structure",
+          "status": "fail",
+          "message": "Poor content structure for AI extraction (0/4 signals). Missing: main content area (<main>, <article>, or [role=\"main\"]); hierarchical headings (h1 followed by h2, h3, etc.); paragraph content (at least 30 words of prose in <p> elements); structured data (<ul>, <ol>, <dl>, or <table> elements)",
+          "score": 0,
+          "details": {
+            "presentSignals": [],
+            "missingSignals": [
+              "main content area (<main>, <article>, or [role=\"main\"])",
+              "hierarchical headings (h1 followed by h2, h3, etc.)",
+              "paragraph content (at least 30 words of prose in <p> elements)",
+              "structured data (<ul>, <ol>, <dl>, or <table> elements)"
+            ],
+            "signalCount": 0,
+            "headingLevels": [
+              1
+            ],
+            "paragraphWordCount": 17,
+            "hasLists": false,
+            "hasTables": false,
+            "recommendation": "Add a clear <main> or <article> area, use hierarchical headings, write paragraph prose, and include lists or tables for structured information",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "geo-ai-bot-access",
+          "status": "pass",
+          "message": "No robots.txt found or not accessible - AI bots are not blocked",
+          "score": 100,
+          "details": {
+            "robotsTxtUrl": "https://example.com/robots.txt",
+            "robotsTxtAccessible": false,
+            "blockedBots": [],
+            "totalBotsChecked": 9,
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "geo-llms-txt",
+          "status": "warn",
+          "message": "No llms.txt reference found - consider adding for AI discoverability",
+          "score": 50,
+          "details": {
+            "references": [],
+            "referenceCount": 0,
+            "note": "llms.txt is an emerging standard (llmstxt.org) - not yet required but recommended for AI visibility",
+            "recommendation": "Add <link rel=\"llms\" href=\"/llms.txt\"> in <head>, or create /llms.txt describing your site for LLMs (see llmstxt.org)",
+            "pageUrl": "https://example.com"
+          }
+        },
+        {
+          "ruleId": "geo-schema-drift",
+          "status": "pass",
+          "message": "No JSON-LD structured data to check",
+          "score": 100,
+          "details": {
+            "jsonLdCount": 0,
+            "pageUrl": "https://example.com"
+          }
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-07-08T20:02:23.138Z",
+  "crawledPages": 1
+}

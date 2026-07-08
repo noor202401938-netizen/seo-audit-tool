@@ -1,10 +1,20 @@
 import os
+import html
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
 
 class ReportGenerator:
+    @staticmethod
+    def clean_for_pdf(text: str) -> str:
+        if not text:
+            return ""
+        # HTML escape to prevent ReportLab parser from treating tags as markup
+        escaped = html.escape(str(text))
+        # Convert newlines to linebreaks in PDF
+        return escaped.replace("\n", "<br/>")
+
     @staticmethod
     def generate_pdf(
         filename: str,
@@ -70,7 +80,7 @@ class ReportGenerator:
 
         # Header / Title Block
         story.append(Paragraph("SEO TELEMETRY REPORT", title_style))
-        story.append(Paragraph(f"<b>Target Website:</b> {website}", body_style))
+        story.append(Paragraph(f"<b>Target Website:</b> {html.escape(website)}", body_style))
         story.append(Spacer(1, 15))
 
         # Scores Summary Table
@@ -132,10 +142,10 @@ class ReportGenerator:
                     url_display = url_display[:37] + "..."
                 
                 issues_data.append([
-                    Paragraph(url_display, issue_style),
-                    Paragraph(issue.get("severity", "Notice"), issue_style),
-                    Paragraph(issue.get("issue", ""), issue_style),
-                    Paragraph(issue.get("fixes", "Manual review"), issue_style),
+                    Paragraph(ReportGenerator.clean_for_pdf(url_display), issue_style),
+                    Paragraph(ReportGenerator.clean_for_pdf(issue.get("severity", "Notice")), issue_style),
+                    Paragraph(ReportGenerator.clean_for_pdf(issue.get("issue", "")), issue_style),
+                    Paragraph(ReportGenerator.clean_for_pdf(issue.get("fixes", "Manual review")), issue_style),
                 ])
                 
             issues_table = Table(issues_data, colWidths=[120, 60, 160, 160])
