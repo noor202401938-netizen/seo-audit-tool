@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
-import { Search, Zap, BarChart3, ChevronRight, Activity, Globe, Shield } from 'lucide-react';
+import { Search, Zap, ChevronRight, Activity, Globe, Shield } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Link } from 'react-router-dom';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275] } }
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.175, 0.885, 0.32, 1.275] as const } }
 };
 
 const staggerContainer = {
