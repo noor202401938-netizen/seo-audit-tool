@@ -1,4 +1,4 @@
-from fastapi import FastAPI, HTTPException, Depends, status
+from fastapi import FastAPI, HTTPException, Depends, status, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from fastapi.security import OAuth2PasswordRequestForm
@@ -19,9 +19,10 @@ from utils.ai_recommender import AIRecommendationGenerator
 
 app = FastAPI(title="SEO Audit API")
 
+frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[frontend_url],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -47,7 +48,7 @@ class Token(BaseModel):
     token_type: str
 
 class AuditRequest(BaseModel):
-    url: str
+    url: str # validated later in perform_audit to avoid Pydantic serialization issues with HttpUrl
     target_keywords: Optional[str] = None # comma separated keywords
     crawl: bool = False
     max_pages: int = 10
@@ -59,6 +60,20 @@ from rq.job import Job
 # Set up Redis and RQ Queue
 redis_conn = Redis()
 q = Queue(connection=redis_conn)
+
+def is_rate_limited(ip: str, limit: int = 5, window: int = 60) -> bool:
+    """Simple fixed-window rate limiter using Redis"""
+    key = f"rate_limit:login:{ip}"
+    current = redis_conn.get(key)
+    if current and int(current) >= limit:
+        return True
+    
+    pipe = redis_conn.pipeline()
+    pipe.incr(key)
+    if not current:
+        pipe.expire(key, window)
+    pipe.execute()
+    return False
 
 @app.post("/api/auth/register", response_model=Token)
 async def register(user: UserRegister):
@@ -92,7 +107,11 @@ async def register(user: UserRegister):
     return {"access_token": access_token, "token_type": "bearer"}
 
 @app.post("/api/auth/login", response_model=Token)
-async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+async def login(request: Request, form_data: OAuth2PasswordRequestForm = Depends()):
+    client_ip = request.client.host if request.client else "127.0.0.1"
+    if is_rate_limited(client_ip, limit=10, window=60):
+        raise HTTPException(status_code=429, detail="Too many login attempts. Please try again later.")
+        
     user = await prisma.user.find_unique(where={"email": form_data.username})
     if not user or not verify_password(form_data.password, user.hashedPassword):
         raise HTTPException(
@@ -174,7 +193,8 @@ def get_audit_status(job_id: str):
 
 @app.get("/api/audit/pdf")
 def get_pdf(url: str):
-    filename = f"output/{url.replace('https://', '').replace('http://', '').replace('/', '_')}_seo_report.pdf"
+    safe_name = os.path.basename(url.replace('https://', '').replace('http://', '').replace('/', '_'))
+    filename = f"output/{safe_name}_seo_report.pdf"
     if os.path.exists(filename):
         return FileResponse(filename, media_type="application/pdf", filename=os.path.basename(filename))
     else:

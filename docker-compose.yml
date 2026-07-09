@@ -8,6 +8,7 @@ services:
     environment:
       - DATABASE_URL=file:/app/data/seo_auditor.db
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:5173}
     volumes:
       - data:/app/data
     restart: always
@@ -20,6 +21,7 @@ services:
     environment:
       - DATABASE_URL=file:/app/data/seo_auditor.db
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - FRONTEND_URL=${FRONTEND_URL:-http://localhost:5173}
     volumes:
       - data:/app/data
     restart: always

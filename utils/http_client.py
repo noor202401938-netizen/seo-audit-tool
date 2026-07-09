@@ -9,7 +9,9 @@ A shared, polite HTTP fetcher:
 import threading
 import time
 import urllib.robotparser as robotparser
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlparse
+import socket
+import ipaddress
 
 import requests
 from requests.exceptions import InvalidSchema, InvalidURL, MissingSchema, SSLError, TooManyRedirects
@@ -87,10 +89,35 @@ def is_allowed_by_robots(url: str) -> bool:
         return True  # fail open on robots.txt parsing errors
 
 
+def is_safe_url(url: str) -> bool:
+    """SSRF Protection: Prevent crawling private or local IP addresses"""
+    try:
+        parsed = urlparse(url)
+        hostname = parsed.hostname
+        if not hostname:
+            return False
+            
+        if hostname.lower() in ('localhost', '127.0.0.1', '0.0.0.0', '169.254.169.254'):
+            return False
+            
+        ip = socket.gethostbyname(hostname)
+        ip_obj = ipaddress.ip_address(ip)
+        
+        if ip_obj.is_private or ip_obj.is_loopback or ip_obj.is_link_local or ip_obj.is_multicast:
+            return False
+            
+        return True
+    except Exception:
+        return False
+
 def fetch(url: str, method: str = "GET", allow_redirects: bool = True):
     """
     Fetch a URL politely with retries. Returns a requests.Response or None.
     """
+    if not is_safe_url(url):
+        logger.warning(f"Blocked SSRF attempt or invalid URL: {url}")
+        return None
+
     domain = get_domain(url)
 
     if not is_allowed_by_robots(url):
@@ -171,6 +198,10 @@ def _get_playwright_page():
 def fetch_with_js(url: str):
     if not HAS_PLAYWRIGHT:
         logger.error("Playwright not installed! Use 'pip install playwright' and 'playwright install'")
+        return None
+        
+    if not is_safe_url(url):
+        logger.warning(f"Blocked SSRF attempt in JS fetch: {url}")
         return None
         
     domain = get_domain(url)
