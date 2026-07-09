@@ -55,20 +55,21 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
       {/* Header Actions */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Audit Results for <span className="text-indigo-600">{new URL(data.url).hostname}</span></h2>
-          <p className="text-slate-500">Crawled {data.crawledPages || 1} pages.</p>
+          <h2 className="text-2xl font-bold">Audit Results for <span className="text-primary">{new URL(data.url).hostname}</span></h2>
+          <p className="text-muted-foreground">Crawled {data.crawledPages || 1} pages.</p>
         </div>
       </div>
 
       {/* Hero Score */}
-      <Card className="bg-slate-900 text-white border-none shadow-xl">
-        <CardContent className="pt-6">
+      <Card className="bg-card text-card-foreground border-border shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2" />
+        <CardContent className="pt-6 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-6">
-              <div className="relative flex items-center justify-center h-32 w-32 rounded-full border-8 border-slate-800 bg-slate-900">
+              <div className="relative flex items-center justify-center h-32 w-32 rounded-full border-8 border-muted bg-card">
                 <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
                   <path
-                    className="text-slate-800"
+                    className="text-muted"
                     strokeWidth="3"
                     stroke="currentColor"
                     fill="none"
@@ -90,28 +91,28 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
               </div>
               <div className="space-y-1">
                 <h3 className="text-3xl font-bold tracking-tight">Grade {getGrade(data.overallScore)}</h3>
-                <p className="text-slate-400 font-medium">Overall SEO Health</p>
+                <p className="text-muted-foreground font-medium">Overall SEO Health</p>
               </div>
             </div>
             
             <div className="flex gap-6 text-center">
-              <div className="bg-slate-800/50 p-4 rounded-xl">
-                <div className="text-3xl font-bold text-green-400">
+              <div className="bg-muted p-4 rounded-xl border border-border">
+                <div className="text-3xl font-bold text-green-500">
                   {data.categoryResults.reduce((acc, cat) => acc + cat.passCount, 0)}
                 </div>
-                <div className="text-sm font-medium text-slate-400 uppercase tracking-wider mt-1">Passed</div>
+                <div className="text-sm font-bold text-muted-foreground uppercase tracking-wider mt-1">Passed</div>
               </div>
-              <div className="bg-slate-800/50 p-4 rounded-xl">
-                <div className="text-3xl font-bold text-yellow-400">
+              <div className="bg-muted p-4 rounded-xl border border-border">
+                <div className="text-3xl font-bold text-yellow-500">
                   {data.categoryResults.reduce((acc, cat) => acc + cat.warnCount, 0)}
                 </div>
-                <div className="text-sm font-medium text-slate-400 uppercase tracking-wider mt-1">Warnings</div>
+                <div className="text-sm font-bold text-muted-foreground uppercase tracking-wider mt-1">Warnings</div>
               </div>
-              <div className="bg-slate-800/50 p-4 rounded-xl">
-                <div className="text-3xl font-bold text-red-400">
+              <div className="bg-muted p-4 rounded-xl border border-border">
+                <div className="text-3xl font-bold text-red-500">
                   {data.categoryResults.reduce((acc, cat) => acc + cat.failCount, 0)}
                 </div>
-                <div className="text-sm font-medium text-slate-400 uppercase tracking-wider mt-1">Failed</div>
+                <div className="text-sm font-bold text-muted-foreground uppercase tracking-wider mt-1">Failed</div>
               </div>
             </div>
           </div>
@@ -143,28 +144,31 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
 
       {/* Expanded Category Details */}
       {expandedCategory && (
-        <Card className="border-indigo-200 shadow-md">
-          <CardHeader className="bg-indigo-50/50 border-b border-indigo-100 flex flex-row items-center justify-between">
+        <Card className="border-primary/20 shadow-xl overflow-hidden relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
+          <CardHeader className="border-b border-border flex flex-row items-center justify-between relative z-10 bg-card/50 backdrop-blur">
             <div>
-              <CardTitle className="capitalize text-indigo-900">{expandedCategory.replace('-', ' ')} Breakdown</CardTitle>
+              <CardTitle className="capitalize text-foreground font-black tracking-tight">{expandedCategory.replace('-', ' ')} Breakdown</CardTitle>
               <CardDescription>Detailed rule results for this category</CardDescription>
             </div>
-            <Button variant="ghost" size="sm" onClick={() => setExpandedCategory(null)}>Close</Button>
+            <Button variant="outline" size="sm" onClick={() => setExpandedCategory(null)}>Close</Button>
           </CardHeader>
-          <CardContent className="pt-6">
+          <CardContent className="pt-6 relative z-10">
             <div className="space-y-4">
               {data.categoryResults.find(c => c.categoryId === expandedCategory)?.results.map((rule, idx) => (
-                <div key={idx} className="flex gap-4 items-start p-3 hover:bg-slate-50 rounded-lg transition-colors">
+                <div key={idx} className="flex gap-4 items-start p-4 hover:bg-muted/50 rounded-xl transition-colors border border-transparent hover:border-border">
                   <div className="mt-0.5">{getStatusIcon(rule.status)}</div>
                   <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-semibold text-slate-900">{rule.ruleId}</span>
-                      <Badge variant="outline" className="text-[10px] uppercase">{rule.status}</Badge>
-                      <span className="text-sm font-medium text-slate-500 ml-auto">{rule.score}/100</span>
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="font-bold text-foreground">{rule.ruleId}</span>
+                      <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider">{rule.status}</Badge>
+                      <span className="text-sm font-bold text-muted-foreground ml-auto bg-muted px-2 py-0.5 rounded-md">{rule.score}/100</span>
                     </div>
-                    <p className="text-sm text-slate-600">{rule.message}</p>
+                    <p className="text-sm text-foreground/80 font-medium">{rule.message}</p>
                     {rule.details && rule.details.pageUrl && (
-                      <p className="text-xs text-slate-400 mt-1 truncate max-w-2xl" title={rule.details.pageUrl}>URL: {rule.details.pageUrl}</p>
+                      <p className="text-xs text-muted-foreground mt-2 truncate max-w-2xl font-mono bg-muted/50 inline-block px-2 py-1 rounded" title={rule.details.pageUrl}>
+                        {rule.details.pageUrl}
+                      </p>
                     )}
                   </div>
                 </div>
