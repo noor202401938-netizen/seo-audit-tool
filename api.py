@@ -1,10 +1,14 @@
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Depends, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
-from pydantic import BaseModel
+from fastapi.security import OAuth2PasswordRequestForm
+from pydantic import BaseModel, EmailStr
 from typing import Optional, List
 import json
 import os
+from datetime import timedelta
+from prisma import Prisma
+from auth_utils import get_password_hash, verify_password, create_access_token, get_current_user, ACCESS_TOKEN_EXPIRE_MINUTES
 
 from crawler.website_crawler import crawl_website
 from database.sqlite_manager import SQLiteManager
@@ -22,7 +26,25 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-db = SQLiteManager()
+
+prisma = Prisma()
+
+@app.on_event("startup")
+async def startup():
+    await prisma.connect()
+
+@app.on_event("shutdown")
+async def shutdown():
+    await prisma.disconnect()
+
+class UserRegister(BaseModel):
+    email: EmailStr
+    password: str
+    name: Optional[str] = None
+
+class Token(BaseModel):
+    access_token: str
+    token_type: str
 
 class AuditRequest(BaseModel):
     url: str
@@ -38,9 +60,85 @@ from rq.job import Job
 redis_conn = Redis()
 q = Queue(connection=redis_conn)
 
+@app.post("/api/auth/register", response_model=Token)
+async def register(user: UserRegister):
+    existing = await prisma.user.find_unique(where={"email": user.email})
+    if existing:
+        raise HTTPException(status_code=400, detail="Email already registered")
+    
+    hashed_password = get_password_hash(user.password)
+    
+    new_user = await prisma.user.create(
+        data={
+            "email": user.email,
+            "hashedPassword": hashed_password,
+            "name": user.name,
+            "subscription": {
+                "create": {
+                    "plan": "free",
+                    "auditsRemaining": 5,
+                    "monthlyLimit": 5,
+                    "nextRenewalDate": "2029-01-01T00:00:00Z"
+                }
+            }
+        },
+        include={"subscription": True}
+    )
+    
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": new_user.id}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@app.post("/api/auth/login", response_model=Token)
+async def login(form_data: OAuth2PasswordRequestForm = Depends()):
+    user = await prisma.user.find_unique(where={"email": form_data.username})
+    if not user or not verify_password(form_data.password, user.hashedPassword):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect email or password",
+            headers={"WWW-Authenticate": "Bearer"},
+        )
+    access_token_expires = timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
+    access_token = create_access_token(
+        data={"sub": user.id}, expires_delta=access_token_expires
+    )
+    return {"access_token": access_token, "token_type": "bearer"}
+
+@app.get("/api/users/me")
+async def read_users_me(current_user = Depends(get_current_user)):
+    return {
+        "id": current_user.id,
+        "email": current_user.email,
+        "name": current_user.name,
+        "subscription": current_user.subscription
+    }
+
 @app.post("/api/audit")
-def perform_audit(request: AuditRequest):
+async def perform_audit(request: AuditRequest, current_user = Depends(get_current_user)):
     try:
+        # Check subscription limits
+        sub = current_user.subscription
+        if not sub or sub.auditsRemaining <= 0:
+            raise HTTPException(status_code=403, detail="Not enough audits remaining. Please upgrade your plan.")
+
+        # Decrement limit
+        await prisma.subscription.update(
+            where={"id": sub.id},
+            data={"auditsRemaining": sub.auditsRemaining - 1}
+        )
+        
+        # Save history record
+        await prisma.auditrecord.create(
+            data={
+                "userId": current_user.id,
+                "url": request.url,
+                "deepCrawl": request.crawl,
+                "maxPages": request.max_pages
+            }
+        )
+
         # Parse keywords if provided
         target_kws = None
         if request.target_keywords:
@@ -53,8 +151,11 @@ def perform_audit(request: AuditRequest):
         return {
             "status": "queued",
             "job_id": job.id,
-            "url": request.url
+            "url": request.url,
+            "audits_remaining": sub.auditsRemaining - 1
         }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

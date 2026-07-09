@@ -1,0 +1,45 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./seo_auditor.db"
+}
+
+generator client {
+  provider             = "C:\\Users\\sm\\AppData\\Local\\Python\\pythoncore-3.14-64\\Scripts\\prisma-client-py.exe"
+  recursive_type_depth = 5
+}
+
+model User {
+  id             String         @id @default(uuid())
+  email          String         @unique
+  hashedPassword String
+  name           String?
+  createdAt      DateTime       @default(now())
+  updatedAt      DateTime       @updatedAt
+  
+  subscription   Subscription?
+  audits         AuditRecord[]
+}
+
+model Subscription {
+  id               String   @id @default(uuid())
+  userId           String   @unique
+  user             User     @relation(fields: [userId], references: [id])
+  plan             String   @default("free") // "free", "business", "enterprise"
+  auditsRemaining  Int      @default(5)
+  monthlyLimit     Int      @default(5)
+  startDate        DateTime @default(now())
+  nextRenewalDate  DateTime
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model AuditRecord {
+  id           String   @id @default(uuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id])
+  url          String
+  deepCrawl    Boolean  @default(false)
+  maxPages     Int      @default(1)
+  overallScore Int      @default(0)
+  createdAt    DateTime @default(now())
+}
