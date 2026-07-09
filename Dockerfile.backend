@@ -1,0 +1,28 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Install Node.js (required for Prisma client generation)
+RUN apt-get update && apt-get install -y curl && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy requirements and install dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy Prisma schema and application code
+COPY schema.prisma .
+COPY . .
+
+# Generate the Prisma client using standard prisma-client-py provider
+# Note: In Docker, we use the standard linux provider instead of the Windows exe
+RUN sed -i 's/provider             = ".*prisma-client-py.exe"/provider             = "prisma-client-py"/g' schema.prisma && \
+    prisma generate
+
+# Expose FastAPI port
+EXPOSE 8000
+
+# Default command
+CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    environment:
+      - DATABASE_URL=file:/app/data/seo_auditor.db
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - data:/app/data
+    restart: always
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    command: python worker.py
+    environment:
+      - DATABASE_URL=file:/app/data/seo_auditor.db
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    volumes:
+      - data:/app/data
+    restart: always
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
+
+volumes:
+  data:

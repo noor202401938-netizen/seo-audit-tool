@@ -80,7 +80,8 @@ export default function Dashboard() {
     }
 
     try {
-      const response = await fetch('http://127.0.0.1:8000/api/audit', {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const response = await fetch(`${apiUrl}/api/audit`, {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
@@ -108,7 +109,8 @@ export default function Dashboard() {
         setPollingMessage(POLLING_MESSAGES[messageIndexRef.current]);
 
         try {
-          const statusRes = await fetch(`http://127.0.0.1:8000/api/audit/status/${job_id}`, {
+          const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+          const statusRes = await fetch(`${apiUrl}/api/audit/status/${job_id}`, {
             headers: { 'Authorization': `Bearer ${token}` }
           });
           if (!statusRes.ok) {
