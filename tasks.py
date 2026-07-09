@@ -26,6 +26,29 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10):
         # Parse output JSON
         audit_data = json.loads(result.stdout)
         
+        # Collect non-pass rules as issues for AI recommender
+        issues = []
+        for cat in audit_data.get("categoryResults", []):
+            cat_id = cat.get("categoryId", "Unknown")
+            for rule in cat.get("results", []):
+                if rule.get("status") != "pass":
+                    issues.append({
+                        "category": cat_id,
+                        "severity": rule.get("status", "warn"),
+                        "issue": rule.get("ruleId", "unknown-rule"),
+                        "fixes": rule.get("message", ""),
+                        "page_url": rule.get("details", {}).get("pageUrl", url)
+                    })
+                    
+        from utils.ai_recommender import AIRecommendationGenerator
+        audit_data["ai_recommendation"] = AIRecommendationGenerator.generate(
+            website=url,
+            issues=issues,
+            onpage_score=audit_data.get("overallScore", 0),
+            offpage_score=0,
+            offpage_data={}
+        )
+        
         # Add success status expected by our frontend
         audit_data["status"] = "success"
         

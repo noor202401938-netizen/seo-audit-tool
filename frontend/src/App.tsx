@@ -28,6 +28,7 @@ export interface AuditResult {
   overallScore: number;
   crawledPages: number;
   categoryResults: CategoryResult[];
+  ai_recommendation?: string;
   timestamp?: string;
 }
 

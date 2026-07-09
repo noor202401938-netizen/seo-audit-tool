@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
 import { Progress } from './ui/progress';
 import { Badge } from './ui/badge';
@@ -173,8 +174,25 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
         </Card>
       )}
 
+      {/* AI Recommendations */}
+      {data.ai_recommendation && (
+        <Card className="border-indigo-100 shadow-sm mt-8">
+          <CardHeader className="bg-indigo-50/50 border-b border-indigo-100">
+            <CardTitle className="text-indigo-900 flex items-center">
+              AI-Driven Growth Recommendations
+            </CardTitle>
+            <CardDescription>Customized strategy based on your site's data.</CardDescription>
+          </CardHeader>
+          <CardContent className="pt-6">
+            <div className="prose prose-indigo max-w-none">
+              <ReactMarkdown>{data.ai_recommendation}</ReactMarkdown>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Issues List */}
-      <Card>
+      <Card className="mt-8">
         <CardHeader>
           <CardTitle>Actionable Issues ({allIssues.length})</CardTitle>
           <CardDescription>Rules that produced warnings or failures across all categories.</CardDescription>
