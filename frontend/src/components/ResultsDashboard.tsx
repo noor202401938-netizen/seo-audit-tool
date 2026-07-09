@@ -5,7 +5,7 @@ import { Progress } from './ui/progress';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { AlertCircle, CheckCircle2, Info } from 'lucide-react';
-import type { AuditResult } from '../App';
+import type { AuditResult } from '../pages/Dashboard';
 
 export function ResultsDashboard({ data }: { data: AuditResult }) {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
