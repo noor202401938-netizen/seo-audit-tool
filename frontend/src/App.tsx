@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Privacy from './pages/Privacy';
 import Cookies from './pages/Cookies';
+import Features from './pages/Features';
 import { Footer } from './components/Footer';
 import { ThreeBackground } from './components/ThreeBackground';
 
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cookies" element={<Cookies />} />
+          <Route path="/features" element={<Features />} />
           <Route path="/app" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         </Routes>
       </div>

@@ -23,9 +23,9 @@ export function Navbar() {
       </div>
       <nav className="hidden md:flex gap-8 items-center">
         <Link to="/" className="text-electric-indigo font-bold hover:text-cyan-flare transition-colors font-body-md text-body-md">Home</Link>
-        <Link to="/features" className="text-slate-text hover:text-cyan-flare transition-colors font-body-md text-body-md">Solutions</Link>
-        <Link to="/pricing" className="text-slate-text hover:text-cyan-flare transition-colors font-body-md text-body-md">Enterprise</Link>
-        <Link to="/contact" className="text-slate-text hover:text-cyan-flare transition-colors font-body-md text-body-md">Resources</Link>
+        <Link to="/features" className="text-slate-text hover:text-cyan-flare transition-colors font-body-md text-body-md">Features</Link>
+        <Link to="/pricing" className="text-slate-text hover:text-cyan-flare transition-colors font-body-md text-body-md">Pricing</Link>
+        <Link to="/contact" className="text-slate-text hover:text-cyan-flare transition-colors font-body-md text-body-md">Contact Us</Link>
       </nav>
       <div className="flex items-center gap-4">
         <ModeToggle />
