@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useEffect, useState } from 'react';
-import { ModeToggle } from './mode-toggle';
 
 export function Navbar() {
   const { user, logout } = useAuth();
@@ -28,7 +27,6 @@ export function Navbar() {
         <Link to="/contact" className="text-slate-text hover:text-cyan-flare transition-colors font-body-md text-body-md">Contact Us</Link>
       </nav>
       <div className="flex items-center gap-4">
-        <ModeToggle />
         {user ? (
           <div className="flex items-center gap-4">
             <Link to="/app" className="text-slate-text hover:text-cyan-flare font-bold transition-colors">Dashboard</Link>
