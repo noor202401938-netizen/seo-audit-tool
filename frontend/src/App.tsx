@@ -11,6 +11,7 @@ import About from './pages/About';
 import Privacy from './pages/Privacy';
 import Cookies from './pages/Cookies';
 import { Footer } from './components/Footer';
+import { ThreeBackground } from './components/ThreeBackground';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -21,9 +22,10 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-background text-foreground flex flex-col">
+    <div className="min-h-screen text-on-surface flex flex-col relative selection:bg-electric-indigo/30">
+      <ThreeBackground />
       <Navbar />
-      <div className="flex-1">
+      <div className="flex-1 mt-16 relative z-10">
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
@@ -36,7 +38,9 @@ export default function App() {
           <Route path="/app" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
         </Routes>
       </div>
-      <Footer />
+      <div className="relative z-10">
+        <Footer />
+      </div>
     </div>
   );
 }

@@ -31,16 +31,28 @@ export default function Signup() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-24 bg-white p-8 rounded-2xl shadow-sm border border-slate-200">
-      <h2 className="text-3xl font-bold mb-6 text-center">Create an Account</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <Input type="text" placeholder="Name" value={name} onChange={e => setName(e.target.value)} required />
-        <Input type="email" placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} required />
-        <Input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
-        {error && <p className="text-red-500 text-sm">{error}</p>}
-        <Button className="w-full bg-indigo-600 hover:bg-indigo-700" type="submit">Sign Up</Button>
+    <div className="max-w-md mx-auto mt-32 glass-card p-10 rounded-2xl shadow-2xl relative z-10 border border-white/10 dark:border-white/10">
+      <div className="text-center mb-8">
+        <h2 className="text-3xl font-display-lg tracking-tight font-bold text-on-surface mb-2">Initialize Profile</h2>
+        <p className="text-slate-text">Join the future of SEO intelligence.</p>
+      </div>
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <div className="space-y-2">
+           <label className="text-sm font-medium text-slate-text">Full Name</label>
+           <Input className="bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 text-on-surface placeholder:text-slate-text/50 h-11" type="text" placeholder="John Doe" value={name} onChange={e => setName(e.target.value)} required />
+        </div>
+        <div className="space-y-2">
+           <label className="text-sm font-medium text-slate-text">Email</label>
+           <Input className="bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 text-on-surface placeholder:text-slate-text/50 h-11" type="email" placeholder="you@company.com" value={email} onChange={e => setEmail(e.target.value)} required />
+        </div>
+        <div className="space-y-2">
+           <label className="text-sm font-medium text-slate-text">Password</label>
+           <Input className="bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 text-on-surface placeholder:text-slate-text/50 h-11" type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required />
+        </div>
+        {error && <p className="text-error text-sm">{error}</p>}
+        <Button className="w-full h-12 bg-electric-indigo hover:bg-electric-indigo/90 text-white font-medium shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all duration-300 btn-shimmer-hover" type="submit">Create Account</Button>
       </form>
-      <p className="text-center mt-6 text-slate-600 text-sm">Already have an account? <Link to="/login" className="text-indigo-600 font-medium">Login</Link></p>
+      <p className="text-center mt-8 text-slate-text text-sm">Already initialized? <Link to="/login" className="text-electric-indigo hover:text-cyan-flare transition-colors font-medium">Access Command Center</Link></p>
     </div>
   );
 }
