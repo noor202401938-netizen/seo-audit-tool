@@ -9,8 +9,15 @@ services:
       - DATABASE_URL=file:/app/data/seo_auditor.db
       - GEMINI_API_KEY=${GEMINI_API_KEY}
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:5173}
+      - REDIS_URL=redis://redis:6379/0
     volumes:
       - data:/app/data
+    restart: always
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
     restart: always
 
   worker:
@@ -22,9 +29,13 @@ services:
       - DATABASE_URL=file:/app/data/seo_auditor.db
       - GEMINI_API_KEY=${GEMINI_API_KEY}
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:5173}
+      - REDIS_URL=redis://redis:6379/0
     volumes:
       - data:/app/data
     restart: always
+    depends_on:
+      - redis
+      - backend
 
   frontend:
     build:

@@ -22,7 +22,7 @@ app = FastAPI(title="SEO Audit API")
 frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[frontend_url],
+    allow_origins=[frontend_url, "http://127.0.0.1:5173", "http://localhost:5173"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -58,21 +58,24 @@ from rq import Queue
 from rq.job import Job
 
 # Set up Redis and RQ Queue
-redis_conn = Redis()
+redis_conn = Redis.from_url(os.getenv('REDIS_URL', 'redis://localhost:6379/0'))
 q = Queue(connection=redis_conn)
 
 def is_rate_limited(ip: str, limit: int = 5, window: int = 60) -> bool:
     """Simple fixed-window rate limiter using Redis"""
-    key = f"rate_limit:login:{ip}"
-    current = redis_conn.get(key)
-    if current and int(current) >= limit:
-        return True
-    
-    pipe = redis_conn.pipeline()
-    pipe.incr(key)
-    if not current:
-        pipe.expire(key, window)
-    pipe.execute()
+    try:
+        key = f"rate_limit:login:{ip}"
+        current = redis_conn.get(key)
+        if current and int(current) >= limit:
+            return True
+        
+        pipe = redis_conn.pipeline()
+        pipe.incr(key)
+        if not current:
+            pipe.expire(key, window)
+        pipe.execute()
+    except Exception:
+        pass
     return False
 
 @app.post("/api/auth/register", response_model=Token)
