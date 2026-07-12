@@ -5,6 +5,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.backend
+    ports:
+      - "8000:8000"
     environment:
       - DATABASE_URL=file:/app/data/seo_auditor.db
       - GEMINI_API_KEY=${GEMINI_API_KEY}

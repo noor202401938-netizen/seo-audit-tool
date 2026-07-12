@@ -43,3 +43,9 @@ model AuditRecord {
   overallScore Int      @default(0)
   createdAt    DateTime @default(now())
 }
+
+model AIFeedback {
+  tone     String @id
+  wins     Int    @default(0)
+  trials   Int    @default(0)
+}

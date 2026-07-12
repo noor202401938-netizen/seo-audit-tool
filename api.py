@@ -22,8 +22,8 @@ app = FastAPI(title="SEO Audit API")
 frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[frontend_url, "http://127.0.0.1:5173", "http://localhost:5173"],
-    allow_credentials=True,
+    allow_origins=["*"],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -52,6 +52,10 @@ class AuditRequest(BaseModel):
     target_keywords: Optional[str] = None # comma separated keywords
     crawl: bool = False
     max_pages: int = 10
+
+class FeedbackRequest(BaseModel):
+    tone: str
+    reward: int
 
 from redis import Redis
 from rq import Queue
@@ -202,3 +206,27 @@ def get_pdf(url: str):
         return FileResponse(filename, media_type="application/pdf", filename=os.path.basename(filename))
     else:
         raise HTTPException(status_code=404, detail="PDF Report not found. Run the audit first.")
+
+@app.post("/api/feedback")
+async def submit_feedback(request: FeedbackRequest):
+    try:
+        record = await prisma.aifeedback.find_unique(where={"tone": request.tone})
+        if record:
+            await prisma.aifeedback.update(
+                where={"tone": request.tone},
+                data={
+                    "trials": record.trials + 1,
+                    "wins": record.wins + request.reward
+                }
+            )
+        else:
+            await prisma.aifeedback.create(
+                data={
+                    "tone": request.tone,
+                    "trials": 1,
+                    "wins": request.reward
+                }
+            )
+        return {"status": "success"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))

@@ -2,8 +2,8 @@ FROM python:3.11-slim
 
 WORKDIR /app
 
-# Install Node.js (required for Prisma client generation)
-RUN apt-get update && apt-get install -y curl && \
+# Install Node.js and build essentials (required for Prisma client generation and native npm modules)
+RUN apt-get update && apt-get install -y curl build-essential && \
     curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
     apt-get install -y nodejs && \
     rm -rf /var/lib/apt/lists/*
@@ -11,6 +11,10 @@ RUN apt-get update && apt-get install -y curl && \
 # Copy requirements and install dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
+
+# Install SEOmator CLI and Playwright (with chromium deps)
+RUN npm install -g @seomator/seo-audit && \
+    npx playwright install --with-deps chromium
 
 # Copy Prisma schema and application code
 COPY schema.prisma .
@@ -25,4 +29,4 @@ RUN sed -i 's/provider             = ".*prisma-client-py.exe"/provider          
 EXPOSE 8000
 
 # Default command
-CMD ["uvicorn", "api:app", "--host", "0.0.0.0", "--port", "8000"]
+CMD sh -c "prisma db push && uvicorn api:app --host 0.0.0.0 --port 8000"

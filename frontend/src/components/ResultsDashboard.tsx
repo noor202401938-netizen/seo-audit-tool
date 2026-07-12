@@ -4,11 +4,30 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/
 import { Progress } from './ui/progress';
 import { Badge } from './ui/badge';
 import { Button } from './ui/button';
-import { AlertCircle, CheckCircle2, Info } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Info, ThumbsUp, ThumbsDown } from 'lucide-react';
 import type { AuditResult } from '../pages/Dashboard';
 
 export function ResultsDashboard({ data }: { data: AuditResult }) {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
+  const [feedbackGiven, setFeedbackGiven] = useState<boolean>(false);
+
+  const handleFeedback = async (reward: number) => {
+    if (!data.ai_tone || feedbackGiven) return;
+    try {
+      setFeedbackGiven(true);
+      await fetch('/api/feedback', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('token')}`
+        },
+        body: JSON.stringify({ tone: data.ai_tone, reward })
+      });
+    } catch (e) {
+      console.error("Failed to submit feedback");
+      setFeedbackGiven(false);
+    }
+  };
 
   const getScoreColor = (score: number) => {
     if (score >= 90) return 'text-green-500';
@@ -55,21 +74,21 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
       {/* Header Actions */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
-          <h2 className="text-2xl font-bold">Audit Results for <span className="text-primary">{new URL(data.url).hostname}</span></h2>
-          <p className="text-muted-foreground">Crawled {data.crawledPages || 1} pages.</p>
+          <h2 className="text-2xl font-bold text-on-surface">Audit Results for <span className="text-electric-indigo">{new URL(data.url).hostname}</span></h2>
+          <p className="text-slate-text">Crawled {data.crawledPages || 1} pages.</p>
         </div>
       </div>
 
       {/* Hero Score */}
-      <Card className="bg-card text-card-foreground border-border shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2" />
+      <Card className="premium-card bg-slate-950/30 text-on-surface border border-white/20 shadow-2xl relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-electric-indigo/20 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2" />
         <CardContent className="pt-6 relative z-10">
           <div className="flex flex-col md:flex-row items-center justify-between gap-8">
             <div className="flex items-center gap-6">
-              <div className="relative flex items-center justify-center h-32 w-32 rounded-full border-8 border-muted bg-card">
+              <div className="relative flex items-center justify-center h-32 w-32 rounded-full border-8 border-white/10 bg-slate-950/50">
                 <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
                   <path
-                    className="text-muted"
+                    className="text-white/10"
                     strokeWidth="3"
                     stroke="currentColor"
                     fill="none"
@@ -86,33 +105,33 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
                   />
                 </svg>
                 <div className="text-center z-10">
-                  <span className="text-4xl font-black">{data.overallScore}</span>
+                  <span className="text-4xl font-black text-on-surface">{data.overallScore}</span>
                 </div>
               </div>
               <div className="space-y-1">
-                <h3 className="text-3xl font-bold tracking-tight">Grade {getGrade(data.overallScore)}</h3>
-                <p className="text-muted-foreground font-medium">Overall SEO Health</p>
+                <h3 className="text-3xl font-bold tracking-tight text-on-surface">Grade {getGrade(data.overallScore)}</h3>
+                <p className="text-slate-text font-medium">Overall SEO Health</p>
               </div>
             </div>
             
             <div className="flex gap-6 text-center">
-              <div className="bg-muted p-4 rounded-xl border border-border">
-                <div className="text-3xl font-bold text-green-500">
+              <div className="bg-white/5 p-4 rounded-xl border border-white/10 glass-card">
+                <div className="text-3xl font-bold text-green-400">
                   {data.categoryResults.reduce((acc, cat) => acc + cat.passCount, 0)}
                 </div>
-                <div className="text-sm font-bold text-muted-foreground uppercase tracking-wider mt-1">Passed</div>
+                <div className="text-sm font-bold text-slate-text uppercase tracking-wider mt-1">Passed</div>
               </div>
-              <div className="bg-muted p-4 rounded-xl border border-border">
-                <div className="text-3xl font-bold text-yellow-500">
+              <div className="bg-white/5 p-4 rounded-xl border border-white/10 glass-card">
+                <div className="text-3xl font-bold text-yellow-400">
                   {data.categoryResults.reduce((acc, cat) => acc + cat.warnCount, 0)}
                 </div>
-                <div className="text-sm font-bold text-muted-foreground uppercase tracking-wider mt-1">Warnings</div>
+                <div className="text-sm font-bold text-slate-text uppercase tracking-wider mt-1">Warnings</div>
               </div>
-              <div className="bg-muted p-4 rounded-xl border border-border">
-                <div className="text-3xl font-bold text-red-500">
+              <div className="bg-white/5 p-4 rounded-xl border border-white/10 glass-card">
+                <div className="text-3xl font-bold text-error">
                   {data.categoryResults.reduce((acc, cat) => acc + cat.failCount, 0)}
                 </div>
-                <div className="text-sm font-bold text-muted-foreground uppercase tracking-wider mt-1">Failed</div>
+                <div className="text-sm font-bold text-slate-text uppercase tracking-wider mt-1">Failed</div>
               </div>
             </div>
           </div>
@@ -121,20 +140,20 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
 
       {/* Category Grid */}
       <div>
-        <h3 className="text-xl font-bold mb-4">Categories</h3>
+        <h3 className="text-xl font-bold mb-4 text-on-surface">Categories</h3>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {data.categoryResults.map(cat => (
-            <Card key={cat.categoryId} className="hover:border-indigo-200 transition-colors cursor-pointer" onClick={() => setExpandedCategory(cat.categoryId === expandedCategory ? null : cat.categoryId)}>
+            <Card key={cat.categoryId} className="premium-card bg-slate-950/30 border-white/10 hover:border-cyan-flare/40 transition-colors cursor-pointer" onClick={() => setExpandedCategory(cat.categoryId === expandedCategory ? null : cat.categoryId)}>
               <CardContent className="p-4">
                 <div className="flex justify-between items-center mb-2">
-                  <h4 className="font-semibold capitalize truncate pr-2" title={cat.categoryId}>{cat.categoryId.replace('-', ' ')}</h4>
+                  <h4 className="font-semibold capitalize truncate pr-2 text-on-surface" title={cat.categoryId}>{cat.categoryId.replace('-', ' ')}</h4>
                   <span className={`font-bold ${getScoreColor(cat.score)}`}>{cat.score}</span>
                 </div>
-                <Progress value={cat.score} className="h-1.5 mb-3" indicatorClassName={getScoreBg(cat.score)} />
+                <Progress value={cat.score} className="h-1.5 mb-3 bg-white/10" indicatorClassName={getScoreBg(cat.score)} />
                 <div className="flex justify-between text-xs font-medium">
-                  <span className="text-green-600">{cat.passCount} pass</span>
-                  <span className="text-yellow-600">{cat.warnCount} warn</span>
-                  <span className="text-red-600">{cat.failCount} fail</span>
+                  <span className="text-green-400">{cat.passCount} pass</span>
+                  <span className="text-yellow-400">{cat.warnCount} warn</span>
+                  <span className="text-error">{cat.failCount} fail</span>
                 </div>
               </CardContent>
             </Card>
@@ -144,29 +163,29 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
 
       {/* Expanded Category Details */}
       {expandedCategory && (
-        <Card className="border-primary/20 shadow-xl overflow-hidden relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent pointer-events-none" />
-          <CardHeader className="border-b border-border flex flex-row items-center justify-between relative z-10 bg-card/50 backdrop-blur">
+        <Card className="premium-card bg-slate-950/50 border-cyan-flare/20 shadow-xl overflow-hidden relative">
+          <div className="absolute inset-0 bg-gradient-to-b from-cyan-flare/5 to-transparent pointer-events-none" />
+          <CardHeader className="border-b border-white/10 flex flex-row items-center justify-between relative z-10 glass-card">
             <div>
-              <CardTitle className="capitalize text-foreground font-black tracking-tight">{expandedCategory.replace('-', ' ')} Breakdown</CardTitle>
-              <CardDescription>Detailed rule results for this category</CardDescription>
+              <CardTitle className="capitalize text-on-surface font-black tracking-tight">{expandedCategory.replace('-', ' ')} Breakdown</CardTitle>
+              <CardDescription className="text-slate-text">Detailed rule results for this category</CardDescription>
             </div>
-            <Button variant="outline" size="sm" onClick={() => setExpandedCategory(null)}>Close</Button>
+            <Button variant="outline" size="sm" className="bg-white/10 border-white/20 text-on-surface hover:bg-white/20" onClick={() => setExpandedCategory(null)}>Close</Button>
           </CardHeader>
           <CardContent className="pt-6 relative z-10">
             <div className="space-y-4">
               {data.categoryResults.find(c => c.categoryId === expandedCategory)?.results.map((rule, idx) => (
-                <div key={idx} className="flex gap-4 items-start p-4 hover:bg-muted/50 rounded-xl transition-colors border border-transparent hover:border-border">
+                <div key={idx} className="flex gap-4 items-start p-4 hover:bg-white/5 rounded-xl transition-colors border border-transparent hover:border-white/10">
                   <div className="mt-0.5">{getStatusIcon(rule.status)}</div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="font-bold text-foreground">{rule.ruleId}</span>
-                      <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider">{rule.status}</Badge>
-                      <span className="text-sm font-bold text-muted-foreground ml-auto bg-muted px-2 py-0.5 rounded-md">{rule.score}/100</span>
+                      <span className="font-bold text-on-surface">{rule.ruleId}</span>
+                      <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider border-white/20 text-slate-text">{rule.status}</Badge>
+                      <span className="text-sm font-bold text-slate-text ml-auto bg-white/10 px-2 py-0.5 rounded-md">{rule.score}/100</span>
                     </div>
-                    <p className="text-sm text-foreground/80 font-medium">{rule.message}</p>
+                    <p className="text-sm text-on-surface/80 font-medium">{rule.message}</p>
                     {rule.details && rule.details.pageUrl && (
-                      <p className="text-xs text-muted-foreground mt-2 truncate max-w-2xl font-mono bg-muted/50 inline-block px-2 py-1 rounded" title={rule.details.pageUrl}>
+                      <p className="text-xs text-slate-text mt-2 truncate max-w-2xl font-mono bg-white/5 inline-block px-2 py-1 rounded border border-white/10" title={rule.details.pageUrl}>
                         {rule.details.pageUrl}
                       </p>
                     )}
@@ -180,53 +199,81 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
 
       {/* AI Recommendations */}
       {data.ai_recommendation && (
-        <Card className="border-indigo-100 shadow-sm mt-8">
-          <CardHeader className="bg-indigo-50/50 border-b border-indigo-100">
-            <CardTitle className="text-indigo-900 flex items-center">
+        <Card className="premium-card bg-slate-950/30 border-vibrant-violet/30 shadow-sm mt-8">
+          <CardHeader className="bg-vibrant-violet/10 border-b border-vibrant-violet/20">
+            <CardTitle className="text-vibrant-violet flex items-center">
               AI-Driven Growth Recommendations
             </CardTitle>
-            <CardDescription>Customized strategy based on your site's data.</CardDescription>
+            <CardDescription className="text-slate-text">Customized strategy based on your site's data.</CardDescription>
           </CardHeader>
           <CardContent className="pt-6">
-            <div className="prose prose-indigo max-w-none">
+            <div className="prose prose-invert max-w-none prose-p:text-on-surface/80 prose-headings:text-on-surface prose-strong:text-vibrant-violet prose-a:text-electric-indigo">
               <ReactMarkdown>{data.ai_recommendation}</ReactMarkdown>
             </div>
+            
+            {data.ai_tone && data.ai_tone !== 'Offline' && data.ai_tone !== 'Error' && (
+              <div className="mt-6 pt-4 border-t border-vibrant-violet/20 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <p className="text-sm text-slate-text">
+                  Was this generated strategy helpful? (Tone used: <span className="text-vibrant-violet font-semibold">{data.ai_tone}</span>)
+                </p>
+                <div className="flex gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={`border-vibrant-violet/30 hover:bg-vibrant-violet/20 text-on-surface ${feedbackGiven ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    onClick={() => handleFeedback(1)}
+                    disabled={feedbackGiven}
+                  >
+                    <ThumbsUp className="h-4 w-4 mr-2 text-green-400" /> Helpful
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className={`border-vibrant-violet/30 hover:bg-vibrant-violet/20 text-on-surface ${feedbackGiven ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    onClick={() => handleFeedback(0)}
+                    disabled={feedbackGiven}
+                  >
+                    <ThumbsDown className="h-4 w-4 mr-2 text-red-400" /> Not Helpful
+                  </Button>
+                </div>
+              </div>
+            )}
           </CardContent>
         </Card>
       )}
 
       {/* Issues List */}
-      <Card className="mt-8">
+      <Card className="mt-8 premium-card bg-slate-950/30 border-white/20">
         <CardHeader>
-          <CardTitle>Actionable Issues ({allIssues.length})</CardTitle>
-          <CardDescription>Rules that produced warnings or failures across all categories.</CardDescription>
+          <CardTitle className="text-on-surface">Actionable Issues ({allIssues.length})</CardTitle>
+          <CardDescription className="text-slate-text">Rules that produced warnings or failures across all categories.</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-6">
             {allIssues.length === 0 ? (
               <div className="text-center py-8">
                 <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-3 opacity-50" />
-                <p className="text-slate-500 font-medium">No issues found. Your site is fully optimized!</p>
+                <p className="text-slate-text font-medium">No issues found. Your site is fully optimized!</p>
               </div>
             ) : (
               allIssues.map((issue, idx) => (
-                <div key={idx} className="flex gap-4">
+                <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white/5 border border-white/5">
                   <div className="mt-1">
                     {getStatusIcon(issue.status)}
                   </div>
                   <div className="flex-1 space-y-1">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-slate-900">{issue.ruleId}</h4>
-                      <Badge variant="outline" className="uppercase text-[10px] tracking-wider">
+                      <h4 className="font-semibold text-on-surface">{issue.ruleId}</h4>
+                      <Badge variant="outline" className="uppercase text-[10px] tracking-wider border-white/20 text-slate-text">
                         {issue.categoryId}
                       </Badge>
                     </div>
-                    <p className="text-sm text-slate-700 font-medium">
+                    <p className="text-sm text-on-surface/80 font-medium">
                       {issue.message}
                     </p>
                     {issue.details && issue.details.pageUrl && (
-                      <p className="text-xs text-slate-500">
-                        Affected URL: <a href={issue.details.pageUrl} target="_blank" rel="noreferrer" className="text-indigo-600 hover:underline">{issue.details.pageUrl}</a>
+                      <p className="text-xs text-slate-text">
+                        Affected URL: <a href={issue.details.pageUrl} target="_blank" rel="noreferrer" className="text-cyan-flare hover:underline">{issue.details.pageUrl}</a>
                       </p>
                     )}
                   </div>

@@ -5,10 +5,9 @@ Validates emails/phones/URLs and filters out obvious false positives.
 
 import re
 
+from email_validator import validate_email, EmailNotValidError
 import config
 from utils.normalizer import normalize_email, get_domain
-
-_EMAIL_RE = re.compile(r"^" + config.EMAIL_REGEX + r"$")
 
 
 def is_valid_email(email: str) -> bool:
@@ -16,7 +15,10 @@ def is_valid_email(email: str) -> bool:
         return False
     email = normalize_email(email)
 
-    if not _EMAIL_RE.match(email):
+    try:
+        valid = validate_email(email, check_deliverability=False)
+        email = valid.normalized
+    except EmailNotValidError:
         return False
 
     domain = email.split("@")[-1]

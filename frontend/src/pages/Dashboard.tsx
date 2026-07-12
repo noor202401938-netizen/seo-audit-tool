@@ -30,6 +30,7 @@ export interface AuditResult {
   crawledPages: number;
   categoryResults: CategoryResult[];
   ai_recommendation?: string;
+  ai_tone?: string;
   timestamp?: string;
 }
 
@@ -142,54 +143,55 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-100">
-      <header className="py-12 px-6 flex flex-col items-center justify-center bg-white border-b border-slate-200">
+    <div className="min-h-screen obsidian-gradient text-on-surface font-sans selection:bg-electric-indigo/30">
+      <header className="relative py-12 px-6 flex flex-col items-center justify-center border-b border-white/10 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-electric-indigo/5 to-transparent pointer-events-none"></div>
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="max-w-3xl w-full text-center space-y-4"
         >
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl">
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl drop-shadow-sm">
             Universal SEO Auditor
           </h1>
-          <p className="text-lg text-slate-600">
+          <p className="text-lg text-slate-text">
             Instantly analyze any website's technical SEO, discover contact details, and get AI-driven growth recommendations.
           </p>
 
           <form onSubmit={handleAudit} className="mt-8 flex items-center max-w-2xl mx-auto space-x-2">
             <div className="flex-1 space-y-4">
               <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" />
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-text" />
                 <Input
                   type="text"
                   placeholder="https://example.com"
-                  className="pl-10 h-14 text-lg shadow-sm border-slate-300 focus-visible:ring-indigo-500 rounded-xl"
+                  className="pl-10 h-14 text-lg border-white/20 bg-slate-950/50 text-on-surface focus-visible:ring-electric-indigo rounded-xl placeholder:text-slate-text/50 glass-card"
                   value={url}
                   onChange={(e) => setUrl(e.target.value)}
                   disabled={isLoading}
                 />
               </div>
-              <div className="flex items-center space-x-4 bg-slate-50 p-3 rounded-lg border border-slate-200">
-                <label className="flex items-center space-x-2 text-sm font-medium text-slate-700 cursor-pointer">
+              <div className="flex items-center space-x-4 glass-card p-3 rounded-lg border border-white/10">
+                <label className="flex items-center space-x-2 text-sm font-medium text-slate-text cursor-pointer">
                   <input
                     type="checkbox"
-                    className="rounded border-slate-300 text-indigo-600 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 h-4 w-4"
+                    className="rounded border-white/20 bg-slate-950 text-electric-indigo focus:ring focus:ring-electric-indigo/50 h-4 w-4"
                     checked={crawl}
                     onChange={(e) => setCrawl(e.target.checked)}
                     disabled={isLoading}
                   />
-                  <span>Enable deep crawling</span>
+                  <span className="text-on-surface">Enable deep crawling</span>
                 </label>
                 
                 {crawl && (
-                  <div className="flex items-center space-x-2 flex-1 ml-4 border-l border-slate-300 pl-4">
-                    <span className="text-sm text-slate-600 whitespace-nowrap">Max pages: {maxPages}</span>
+                  <div className="flex items-center space-x-2 flex-1 ml-4 border-l border-white/20 pl-4">
+                    <span className="text-sm text-slate-text whitespace-nowrap">Max pages: {maxPages}</span>
                     <input
                       type="range"
                       min="1"
                       max="100"
-                      className="w-full h-2 bg-slate-200 rounded-lg appearance-none cursor-pointer"
+                      className="w-full h-2 bg-slate-950/50 rounded-lg appearance-none cursor-pointer accent-electric-indigo"
                       value={maxPages}
                       onChange={(e) => setMaxPages(parseInt(e.target.value))}
                       disabled={isLoading}
@@ -201,7 +203,7 @@ export default function Dashboard() {
             <Button
               type="submit"
               size="lg"
-              className="h-14 self-start px-8 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-medium text-lg transition-colors"
+              className="h-14 self-start px-8 rounded-xl bg-electric-indigo hover:bg-electric-indigo/90 text-white font-headline-md text-lg transition-colors btn-shimmer-hover"
               disabled={isLoading || !url.trim()}
             >
               {isLoading ? (
@@ -221,7 +223,7 @@ export default function Dashboard() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-4 text-red-500 text-sm font-medium"
+                className="mt-4 text-error text-sm font-medium"
               >
                 {error}
               </motion.div>
@@ -241,8 +243,8 @@ export default function Dashboard() {
               className="flex flex-col items-center justify-center py-24 space-y-6"
             >
               <div className="relative">
-                <div className="absolute inset-0 bg-indigo-500 blur-xl opacity-20 rounded-full animate-pulse"></div>
-                <Loader2 className="h-16 w-16 animate-spin text-indigo-600 relative z-10" />
+                <div className="absolute inset-0 bg-cyan-flare blur-xl opacity-20 rounded-full animate-pulse"></div>
+                <Loader2 className="h-16 w-16 animate-spin text-cyan-flare relative z-10" />
               </div>
               <AnimatePresence mode="wait">
                 <motion.p
@@ -251,7 +253,7 @@ export default function Dashboard() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.35 }}
-                  className="text-slate-500 text-lg"
+                  className="text-slate-text text-lg"
                 >
                   {pollingMessage}
                 </motion.p>
@@ -274,9 +276,9 @@ export default function Dashboard() {
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
-              className="text-center py-24 text-slate-400"
+              className="text-center py-24 text-slate-text"
             >
-              <Search className="h-12 w-12 mx-auto mb-4 opacity-20" />
+              <Search className="h-12 w-12 mx-auto mb-4 opacity-20 text-cyan-flare" />
               <p>Enter a URL above to generate a comprehensive SEO report.</p>
             </motion.div>
           )}
