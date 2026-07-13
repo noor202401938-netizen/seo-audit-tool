@@ -21,12 +21,19 @@ export default function Signup() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, name })
       });
-      if (!res.ok) throw new Error('Registration failed');
+      if (!res.ok) {
+        let errDetail = 'Registration failed';
+        try {
+          const errData = await res.json();
+          errDetail = errData.detail || errDetail;
+        } catch (e) {}
+        throw new Error(errDetail);
+      }
       const data = await res.json();
       login(data.access_token);
       navigate('/app');
-    } catch (err) {
-      setError('Failed to register. Email might be in use.');
+    } catch (err: any) {
+      setError(err.message || 'Failed to register. Please try again.');
     }
   };
 

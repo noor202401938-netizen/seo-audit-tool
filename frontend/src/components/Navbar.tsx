@@ -40,10 +40,8 @@ export function Navbar() {
         ) : (
           <div className="flex items-center gap-4">
             <Link to="/login" className="text-slate-text hover:text-cyan-flare font-bold transition-colors">Login</Link>
-            <Link to="/signup">
-                <button className="bg-gradient-to-r from-electric-indigo to-vibrant-violet text-white px-6 py-2 rounded-full font-body-md text-body-md active:scale-95 transition-transform">
-                    Get Started
-                </button>
+            <Link to="/signup" className="bg-gradient-to-r from-electric-indigo to-vibrant-violet text-white px-6 py-2 rounded-full font-body-md text-body-md active:scale-95 transition-transform inline-block text-center">
+                Get Started
             </Link>
           </div>
         )}

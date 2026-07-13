@@ -45,21 +45,17 @@ export default function LandingPage() {
                             Transcend traditional SEO audits. Leverage our neural crawling engine to decode search algorithms and execute high-performance growth strategies.
                         </p>
                         <div className="flex flex-wrap gap-5 pt-6">
-                            <Link to="/signup">
-                                <button className="group relative flex items-center gap-4 bg-white text-slate-950 pl-8 pr-2 py-2 rounded-full font-headline-md text-headline-md active:scale-95 transition-all hover:bg-slate-200">
-                                    <span>Initialize Engine</span>
-                                    <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 group-hover:bg-white/30 transition-all backdrop-blur-md">
-                                        <span className="material-symbols-outlined text-lg">arrow_forward</span>
-                                    </div>
-                                </button>
+                            <Link to="/signup" className="group relative flex items-center gap-4 bg-gradient-to-r from-electric-indigo to-vibrant-violet text-white pl-8 pr-2 py-2 rounded-full font-headline-md text-headline-md active:scale-95 transition-all">
+                                <span>Initialize Engine</span>
+                                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 group-hover:bg-white/30 transition-all backdrop-blur-md">
+                                    <span className="material-symbols-outlined text-lg">arrow_forward</span>
+                                </div>
                             </Link>
-                            <Link to="/features">
-                                <button className="group relative flex items-center gap-4 bg-white/5 border border-white/10 glass-card text-on-surface pl-8 pr-2 py-2 rounded-full font-headline-md text-headline-md hover:bg-white/10 active:scale-95 transition-all">
-                                    <span>View Protocol</span>
-                                    <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/20 transition-all backdrop-blur-md">
-                                        <span className="material-symbols-outlined text-lg">play_arrow</span>
-                                    </div>
-                                </button>
+                            <Link to="/features" className="group relative flex items-center gap-4 bg-white/5 border border-white/10 glass-card text-on-surface pl-8 pr-2 py-2 rounded-full font-headline-md text-headline-md hover:bg-white/10 active:scale-95 transition-all">
+                                <span>View Protocol</span>
+                                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/20 transition-all backdrop-blur-md">
+                                    <span className="material-symbols-outlined text-lg">play_arrow</span>
+                                </div>
                             </Link>
                         </div>
                         <div className="flex items-center gap-6 pt-8 border-t border-white/10">
@@ -236,15 +232,11 @@ export default function LandingPage() {
                             Join the world's most sophisticated SEO teams and start turning data into dominance. No credit card required to start your first crawl.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link to="/signup">
-                                <button className="bg-white text-slate-950 px-10 py-5 rounded-xl font-headline-md text-headline-md active:scale-95 transition-transform hover:shadow-2xl hover:shadow-white/20">
-                                    Create Free Account
-                                </button>
+                            <Link to="/signup" className="bg-white text-slate-950 px-10 py-5 rounded-xl font-headline-md text-headline-md active:scale-95 transition-transform hover:shadow-2xl hover:shadow-white/20 block text-center">
+                                Create Free Account
                             </Link>
-                            <Link to="/contact">
-                                <button className="bg-transparent border border-white/20 text-white px-10 py-5 rounded-xl font-headline-md text-headline-md hover:bg-white/10 transition-colors backdrop-blur-md">
-                                    Book Enterprise Demo
-                                </button>
+                            <Link to="/contact" className="bg-transparent border border-white/20 text-white px-10 py-5 rounded-xl font-headline-md text-headline-md hover:bg-white/10 transition-colors backdrop-blur-md block text-center">
+                                Book Enterprise Demo
                             </Link>
                         </div>
                     </div>

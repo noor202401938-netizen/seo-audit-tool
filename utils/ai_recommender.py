@@ -1,6 +1,8 @@
 import json
 import random
 import asyncio
+import warnings
+warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai")
 import google.generativeai as genai
 import config
 from utils.logger import get_logger

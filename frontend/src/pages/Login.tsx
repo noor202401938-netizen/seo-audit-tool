@@ -23,12 +23,19 @@ export default function Login() {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: formData
       });
-      if (!res.ok) throw new Error('Invalid credentials');
+      if (!res.ok) {
+        let errDetail = 'Invalid credentials';
+        try {
+          const errData = await res.json();
+          errDetail = errData.detail || errDetail;
+        } catch (e) {}
+        throw new Error(errDetail);
+      }
       const data = await res.json();
       login(data.access_token);
       navigate('/app');
-    } catch (err) {
-      setError('Failed to login. Please check your credentials.');
+    } catch (err: any) {
+      setError(err.message || 'Failed to login. Please check your credentials.');
     }
   };
 

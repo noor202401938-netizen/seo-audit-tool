@@ -6,15 +6,11 @@ from pydantic import BaseModel, EmailStr
 from typing import Optional, List
 import json
 import os
-from datetime import timedelta
-from prisma import Prisma
+from datetime import timedelta, datetime, timezone
+from db_client import prisma
 from auth_utils import get_password_hash, verify_password, create_access_token, get_current_user, ACCESS_TOKEN_EXPIRE_MINUTES
 
-from crawler.website_crawler import crawl_website
-from database.sqlite_manager import SQLiteManager
-from utils.offpage_auditor import OffPageAuditor
-from utils.recommendation_engine import RecommendationEngine
-from utils.report_generator import ReportGenerator
+
 from utils.ai_recommender import AIRecommendationGenerator
 
 app = FastAPI(title="SEO Audit API")
@@ -28,7 +24,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-prisma = Prisma()
 
 @app.on_event("startup")
 async def startup():
@@ -57,13 +52,28 @@ class FeedbackRequest(BaseModel):
     tone: str
     reward: int
 
-from redis import Redis
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
+from redis import Redis, ConnectionError as RedisConnectionError
 from rq import Queue
 from rq.job import Job
+import uuid
 
-# Set up Redis and RQ Queue
-redis_conn = Redis.from_url(os.getenv('REDIS_URL', 'redis://localhost:6379/0'))
-q = Queue(connection=redis_conn)
+_executor = ThreadPoolExecutor(max_workers=4)
+_inline_jobs: dict = {}  # fallback in-memory job store when Redis is unavailable
+
+# Try to connect to Redis; gracefully fall back to inline execution if unavailable
+try:
+    redis_conn = Redis.from_url(os.getenv('REDIS_URL', 'redis://localhost:6379/0'),
+                                socket_connect_timeout=2)
+    redis_conn.ping()  # fail fast if Redis is not reachable
+    q = Queue(connection=redis_conn)
+    _redis_available = True
+except Exception:
+    redis_conn = None
+    q = None
+    _redis_available = False
+    print("[WARNING] Redis unavailable — audits will run synchronously.")
 
 def is_rate_limited(ip: str, limit: int = 5, window: int = 60) -> bool:
     """Simple fixed-window rate limiter using Redis"""
@@ -100,7 +110,7 @@ async def register(user: UserRegister):
                     "plan": "free",
                     "auditsRemaining": 5,
                     "monthlyLimit": 5,
-                    "nextRenewalDate": "2029-01-01T00:00:00Z"
+                    "nextRenewalDate": datetime(2029, 1, 1, tzinfo=timezone.utc)
                 }
             }
         },
@@ -149,12 +159,6 @@ async def perform_audit(request: AuditRequest, current_user = Depends(get_curren
         if not sub or sub.auditsRemaining <= 0:
             raise HTTPException(status_code=403, detail="Not enough audits remaining. Please upgrade your plan.")
 
-        # Decrement limit
-        await prisma.subscription.update(
-            where={"id": sub.id},
-            data={"auditsRemaining": sub.auditsRemaining - 1}
-        )
-        
         # Save history record
         await prisma.auditrecord.create(
             data={
@@ -165,20 +169,32 @@ async def perform_audit(request: AuditRequest, current_user = Depends(get_curren
             }
         )
 
-        # Parse keywords if provided
-        target_kws = None
-        if request.target_keywords:
-            target_kws = [k.strip() for k in request.target_keywords.split(",") if k.strip()]
-            
-        # Enqueue the background task
         from tasks import perform_audit_task
-        job = q.enqueue(perform_audit_task, request.url, request.crawl, request.max_pages, job_timeout=3600)
-        
+
+        if _redis_available:
+            # Normal path: enqueue in Redis/RQ
+            job = q.enqueue(perform_audit_task, request.url, request.crawl, request.max_pages, current_user.id, job_timeout=3600)
+            job_id = job.id
+        else:
+            # Fallback: run synchronously in a thread pool, store result in memory
+            job_id = str(uuid.uuid4())
+            _inline_jobs[job_id] = {"status": "processing"}
+
+            def _run_and_store(jid, url, crawl, max_pages, uid):
+                try:
+                    result = perform_audit_task(url, crawl, max_pages, uid)
+                    _inline_jobs[jid] = result
+                except Exception as exc:
+                    _inline_jobs[jid] = {"status": "failed", "error": str(exc)}
+
+            loop = asyncio.get_event_loop()
+            loop.run_in_executor(_executor, _run_and_store, job_id, request.url, request.crawl, request.max_pages, current_user.id)
+
         return {
             "status": "queued",
-            "job_id": job.id,
+            "job_id": job_id,
             "url": request.url,
-            "audits_remaining": sub.auditsRemaining - 1
+            "audits_remaining": sub.auditsRemaining
         }
     except HTTPException:
         raise
@@ -188,6 +204,14 @@ async def perform_audit(request: AuditRequest, current_user = Depends(get_curren
 @app.get("/api/audit/status/{job_id}")
 def get_audit_status(job_id: str):
     try:
+        # Check in-memory fallback store first
+        if job_id in _inline_jobs:
+            return _inline_jobs[job_id]
+
+        # Otherwise check Redis/RQ
+        if not _redis_available:
+            raise HTTPException(status_code=404, detail="Job not found.")
+
         job = Job.fetch(job_id, connection=redis_conn)
         if job.is_finished:
             return job.result
@@ -195,7 +219,9 @@ def get_audit_status(job_id: str):
             return {"status": "failed", "error": str(job.exc_info)}
         else:
             return {"status": "processing", "job_id": job_id}
-    except Exception as e:
+    except HTTPException:
+        raise
+    except Exception:
         raise HTTPException(status_code=404, detail="Job not found or error fetching status.")
 
 @app.get("/api/audit/pdf")

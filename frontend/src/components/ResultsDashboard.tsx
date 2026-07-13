@@ -10,6 +10,7 @@ import type { AuditResult } from '../pages/Dashboard';
 export function ResultsDashboard({ data }: { data: AuditResult }) {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
   const [feedbackGiven, setFeedbackGiven] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<'overview' | 'recommendations' | 'problems'>('overview');
 
   const handleFeedback = async (reward: number) => {
     if (!data.ai_tone || feedbackGiven) return;
@@ -77,8 +78,44 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
           <h2 className="text-2xl font-bold text-on-surface">Audit Results for <span className="text-electric-indigo">{new URL(data.url).hostname}</span></h2>
           <p className="text-slate-text">Crawled {data.crawledPages || 1} pages.</p>
         </div>
+        <Button 
+          onClick={() => {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+            window.open(`${apiUrl}/api/audit/pdf?url=${encodeURIComponent(data.url)}`, '_blank');
+          }}
+          className="bg-electric-indigo hover:bg-electric-indigo/90 text-white"
+        >
+          Download PDF
+        </Button>
       </div>
 
+      {/* Tabs Navigation */}
+      <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4 mt-6 mb-2">
+        <Button
+          variant={activeTab === 'overview' ? 'default' : 'ghost'}
+          onClick={() => setActiveTab('overview')}
+          className={activeTab === 'overview' ? 'bg-electric-indigo text-white hover:bg-electric-indigo/90' : 'text-slate-text hover:text-white hover:bg-white/5'}
+        >
+          Overview
+        </Button>
+        <Button
+          variant={activeTab === 'recommendations' ? 'default' : 'ghost'}
+          onClick={() => setActiveTab('recommendations')}
+          className={activeTab === 'recommendations' ? 'bg-electric-indigo text-white hover:bg-electric-indigo/90' : 'text-slate-text hover:text-white hover:bg-white/5'}
+        >
+          AI Recommendations
+        </Button>
+        <Button
+          variant={activeTab === 'problems' ? 'default' : 'ghost'}
+          onClick={() => setActiveTab('problems')}
+          className={activeTab === 'problems' ? 'bg-electric-indigo text-white hover:bg-electric-indigo/90' : 'text-slate-text hover:text-white hover:bg-white/5'}
+        >
+          Problems ({allIssues.length})
+        </Button>
+      </div>
+
+      {activeTab === 'overview' && (
+        <div className="space-y-8 mt-6">
       {/* Hero Score */}
       <Card className="premium-card bg-slate-950/30 text-on-surface border border-white/20 shadow-2xl relative overflow-hidden">
         <div className="absolute top-0 right-0 w-64 h-64 bg-electric-indigo/20 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2" />
@@ -196,7 +233,11 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
           </CardContent>
         </Card>
       )}
+        </div>
+      )}
 
+      {activeTab === 'recommendations' && (
+        <div className="mt-6">
       {/* AI Recommendations */}
       {data.ai_recommendation && (
         <Card className="premium-card bg-slate-950/30 border-vibrant-violet/30 shadow-sm mt-8">
@@ -241,9 +282,13 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
           </CardContent>
         </Card>
       )}
+        </div>
+      )}
 
+      {activeTab === 'problems' && (
+        <div className="mt-6">
       {/* Issues List */}
-      <Card className="mt-8 premium-card bg-slate-950/30 border-white/20">
+      <Card className="premium-card bg-slate-950/30 border-white/20">
         <CardHeader>
           <CardTitle className="text-on-surface">Actionable Issues ({allIssues.length})</CardTitle>
           <CardDescription className="text-slate-text">Rules that produced warnings or failures across all categories.</CardDescription>
@@ -283,6 +328,8 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
           </div>
         </CardContent>
       </Card>
+        </div>
+      )}
     </div>
   );
 }
