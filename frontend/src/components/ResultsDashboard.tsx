@@ -12,6 +12,40 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
   const [feedbackGiven, setFeedbackGiven] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<'overview' | 'recommendations' | 'problems'>('overview');
 
+  const CATEGORY_DESCRIPTIONS: Record<string, string> = {
+    'core-seo': 'Essential checks for meta tags, titles, headings, and indexing directives.',
+    'performance': 'Measures page load speed and Core Web Vitals.',
+    'links': 'Analyzes internal and external links, broken links, and link quality.',
+    'images': 'Checks image sizes, alt text, formats, and optimization.',
+    'security': 'Validates HTTPS, SSL, and basic security headers.',
+    'technical-seo': 'Validates robots.txt, sitemaps, status codes, and server configurations.',
+    'crawlability': 'Checks how easily search engines can discover and index your pages.',
+    'structured-data': 'Validates Schema.org JSON-LD markup for rich search results.',
+    'content': 'Analyzes text length, readability, headings, and duplicate content.',
+    'javascript-rendering': 'Checks if content is accessible without JavaScript.',
+    'accessibility': 'Ensures the site is usable for people with disabilities.',
+    'social': 'Validates Open Graph tags and Twitter Cards for social sharing.',
+    'e-e-a-t': 'Checks signals of Experience, Expertise, Authoritativeness, and Trustworthiness.',
+    'url-structure': 'Validates that URLs are clean, readable, and keyword-friendly.',
+    'redirects': 'Analyzes redirect chains, loops, and status codes.',
+    'mobile': 'Ensures the site is responsive and optimized for mobile devices.',
+    'internationalization': 'Checks language tags and hreflang for multi-language sites.',
+    'html-validation': 'Checks for basic HTML markup errors and structure.',
+    'aigeo-readiness': 'Checks if content is easily readable by AI search engines.',
+    'legal-compliance': 'Basic checks for privacy policies and cookie consent banners.'
+  };
+
+  const formatRuleId = (ruleId: string) => {
+    // Remove the category prefix (e.g., 'core-title-present' -> 'title-present')
+    // We do this by splitting by dash and removing the first part if it has 2+ parts
+    const parts = ruleId.split('-');
+    if (parts.length > 1) {
+      parts.shift();
+    }
+    // Capitalize and join
+    return parts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
+  };
+
   const handleFeedback = async (reward: number) => {
     if (!data.ai_tone || feedbackGiven) return;
     try {
@@ -187,11 +221,14 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
                   <span className={`font-bold ${getScoreColor(cat.score)}`}>{cat.score}</span>
                 </div>
                 <Progress value={cat.score} className="h-1.5 mb-3 bg-white/10" indicatorClassName={getScoreBg(cat.score)} />
-                <div className="flex justify-between text-xs font-medium">
+                <div className="flex justify-between text-xs font-medium mb-3">
                   <span className="text-green-400">{cat.passCount} pass</span>
                   <span className="text-yellow-400">{cat.warnCount} warn</span>
                   <span className="text-error">{cat.failCount} fail</span>
                 </div>
+                <p className="text-xs text-slate-text/70 line-clamp-2" title={CATEGORY_DESCRIPTIONS[cat.categoryId]}>
+                  {CATEGORY_DESCRIPTIONS[cat.categoryId] || 'Checks and validations for this SEO category.'}
+                </p>
               </CardContent>
             </Card>
           ))}
@@ -205,7 +242,9 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
           <CardHeader className="border-b border-white/10 flex flex-row items-center justify-between relative z-10 glass-card">
             <div>
               <CardTitle className="capitalize text-on-surface font-black tracking-tight">{expandedCategory.replace('-', ' ')} Breakdown</CardTitle>
-              <CardDescription className="text-slate-text">Detailed rule results for this category</CardDescription>
+              <CardDescription className="text-slate-text">
+                {CATEGORY_DESCRIPTIONS[expandedCategory] || 'Detailed rule results for this category'}
+              </CardDescription>
             </div>
             <Button variant="outline" size="sm" className="bg-white/10 border-white/20 text-on-surface hover:bg-white/20" onClick={() => setExpandedCategory(null)}>Close</Button>
           </CardHeader>
@@ -216,7 +255,7 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
                   <div className="mt-0.5">{getStatusIcon(rule.status)}</div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-2">
-                      <span className="font-bold text-on-surface">{rule.ruleId}</span>
+                      <span className="font-bold text-on-surface">{formatRuleId(rule.ruleId)}</span>
                       <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider border-white/20 text-slate-text">{rule.status}</Badge>
                       <span className="text-sm font-bold text-slate-text ml-auto bg-white/10 px-2 py-0.5 rounded-md">{rule.score}/100</span>
                     </div>
@@ -308,9 +347,9 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
                   </div>
                   <div className="flex-1 space-y-1">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-on-surface">{issue.ruleId}</h4>
+                      <h4 className="font-semibold text-on-surface">{formatRuleId(issue.ruleId)}</h4>
                       <Badge variant="outline" className="uppercase text-[10px] tracking-wider border-white/20 text-slate-text">
-                        {issue.categoryId}
+                        {issue.categoryId.replace('-', ' ')}
                       </Badge>
                     </div>
                     <p className="text-sm text-on-surface/80 font-medium">

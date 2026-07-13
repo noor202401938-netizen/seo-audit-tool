@@ -12,8 +12,10 @@ from auth_utils import get_password_hash, verify_password, create_access_token, 
 
 
 from utils.ai_recommender import AIRecommendationGenerator
+from routers import tools
 
 app = FastAPI(title="SEO Audit API")
+app.include_router(tools.router)
 
 frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
 app.add_middleware(

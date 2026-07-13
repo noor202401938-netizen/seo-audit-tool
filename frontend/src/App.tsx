@@ -11,6 +11,7 @@ import About from './pages/About';
 import Privacy from './pages/Privacy';
 import Cookies from './pages/Cookies';
 import Features from './pages/Features';
+import ToolRunner from './pages/ToolRunner';
 import { Footer } from './components/Footer';
 import { ThreeBackground } from './components/ThreeBackground';
 
@@ -38,6 +39,7 @@ export default function App() {
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/features" element={<Features />} />
           <Route path="/app" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
+          <Route path="/app/tools/:toolId" element={<ProtectedRoute><ToolRunner /></ProtectedRoute>} />
         </Routes>
       </div>
       <div className="relative z-10">

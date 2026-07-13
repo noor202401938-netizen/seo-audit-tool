@@ -17,6 +17,7 @@ interface AuthContextType {
   token: string | null;
   login: (token: string) => void;
   logout: () => void;
+  refreshUser: () => Promise<void>;
   loading: boolean;
 }
 
@@ -27,22 +28,26 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
 
+  const fetchUser = async (currentToken: string) => {
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const res = await fetch(`${apiUrl}/api/users/me`, {
+        headers: { 'Authorization': `Bearer ${currentToken}` }
+      });
+      if (!res.ok) throw new Error('Invalid token');
+      const data = await res.json();
+      setUser(data);
+    } catch (err) {
+      logout();
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
     if (token) {
       localStorage.setItem('token', token);
-      
-      // Use import.meta.env to pick up the Vercel API URL or default to local
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-      
-      fetch(`${apiUrl}/api/users/me`, {
-        headers: { 'Authorization': `Bearer ${token}` }
-      })
-        .then(res => {
-          if (!res.ok) throw new Error('Invalid token');
-          return res.json();
-        })
-        .then(data => { setUser(data); setLoading(false); })
-        .catch(() => { logout(); setLoading(false); });
+      fetchUser(token);
     } else {
       localStorage.removeItem('token');
       setUser(null);
@@ -52,9 +57,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const login = (newToken: string) => setToken(newToken);
   const logout = () => setToken(null);
+  const refreshUser = async () => {
+    if (token) await fetchUser(token);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, loading }}>
+    <AuthContext.Provider value={{ user, token, login, logout, refreshUser, loading }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,6 +6,7 @@ import time
 import traceback
 
 from utils.ai_recommender import AIRecommendationGenerator
+from utils.report_generator import ReportGenerator
 
 def _resolve_seomator() -> str:
     """
@@ -125,6 +126,21 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
             audit_data["ai_tone"] = "neutral"
 
         audit_data["status"] = "success"
+
+        # Generate the PDF report
+        try:
+            safe_name = os.path.basename(url.replace('https://', '').replace('http://', '').replace('/', '_'))
+            pdf_filename = f"output/{safe_name}_seo_report.pdf"
+            ReportGenerator.generate_pdf(
+                filename=pdf_filename,
+                website=url,
+                onpage_score=overall_score,
+                offpage_score=0,
+                onpage_issues=issues_for_ai,
+                backlink_snapshot={}
+            )
+        except Exception as e:
+            print(f"Failed to generate PDF for {url}: {e}")
 
         if user_id:
             try:
