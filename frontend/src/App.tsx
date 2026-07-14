@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import { Navbar } from './components/Navbar';
 import Dashboard from './pages/Dashboard';
@@ -14,6 +14,7 @@ import Features from './pages/Features';
 import ToolRunner from './pages/ToolRunner';
 import { Footer } from './components/Footer';
 import { ThreeBackground } from './components/ThreeBackground';
+import { SaaSLayout } from './components/SaaSLayout';
 
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { user, loading } = useAuth();
@@ -23,6 +24,21 @@ function ProtectedRoute({ children }: { children: React.ReactNode }) {
 }
 
 export default function App() {
+  const location = useLocation();
+  const isAppRoute = location.pathname.startsWith('/app');
+
+  if (isAppRoute) {
+    return (
+      <Routes>
+        <Route path="/app" element={<ProtectedRoute><SaaSLayout /></ProtectedRoute>}>
+          <Route index element={<Dashboard />} />
+          <Route path="tools/seo-audit-tool" element={<Dashboard />} />
+          <Route path="tools/:toolId" element={<ToolRunner />} />
+        </Route>
+      </Routes>
+    );
+  }
+
   return (
     <div className="min-h-screen text-on-surface flex flex-col relative selection:bg-electric-indigo/30">
       <ThreeBackground />
@@ -38,8 +54,6 @@ export default function App() {
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/features" element={<Features />} />
-          <Route path="/app" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-          <Route path="/app/tools/:toolId" element={<ProtectedRoute><ToolRunner /></ProtectedRoute>} />
         </Routes>
       </div>
       <div className="relative z-10">

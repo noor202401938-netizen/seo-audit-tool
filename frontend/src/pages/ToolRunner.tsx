@@ -1,11 +1,12 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Search, Loader2 } from 'lucide-react';
+import { Search, Loader2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { useAuth } from '../contexts/AuthContext';
-import { TOOL_CATEGORIES } from './Dashboard';
+import { TOOL_CATEGORIES } from '../data/tools';
+import { DynamicResultRenderer } from '../components/DynamicResultRenderer';
 
 // Define the available tool mapping (Phase 1 & 2)
 const AVAILABLE_TOOLS = [
@@ -27,6 +28,7 @@ const AVAILABLE_TOOLS = [
     "canonical-tag-checker",
     "broken-link-checker",
     "core-web-vitals-checker",
+    "website-speed-test-tool",
     "serp-rank-checker-tool",
     "backlink-checker-tool",
     "ssl-certificate-checker",
@@ -46,6 +48,13 @@ const AVAILABLE_TOOLS = [
 export default function ToolRunner() {
     const { toolId } = useParams<{ toolId: string }>();
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (toolId === 'seo-audit-tool') {
+            navigate('/app');
+        }
+    }, [toolId, navigate]);
+
     const { token } = useAuth();
     
     const [url, setUrl] = useState('');
@@ -106,6 +115,7 @@ export default function ToolRunner() {
                 "canonical-tag-checker": "/api/tools/canonical-tag-checker",
                 "broken-link-checker": "/api/tools/broken-link-checker",
                 "core-web-vitals-checker": "/api/tools/core-web-vitals-checker",
+                "website-speed-test-tool": "/api/tools/core-web-vitals-checker",
                 "serp-rank-checker-tool": "/api/tools/serp-rank-checker-tool",
                 "backlink-checker-tool": "/api/tools/backlink-checker-tool",
                 "ssl-certificate-checker": "/api/tools/ssl-certificate-checker",
@@ -161,25 +171,16 @@ export default function ToolRunner() {
 
     if (!toolDetails) {
         return (
-            <div className="min-h-screen obsidian-gradient flex flex-col items-center justify-center p-6 text-center">
+            <div className="flex flex-col items-center justify-center p-6 text-center h-[50vh]">
                 <h1 className="text-3xl font-bold text-white mb-4">Tool Not Found</h1>
                 <p className="text-slate-text mb-8">We couldn't find the requested tool.</p>
-                <Button onClick={() => navigate('/app')} className="bg-electric-indigo text-white">Back to Dashboard</Button>
             </div>
         );
     }
 
     return (
-        <div className="min-h-screen obsidian-gradient text-on-surface font-sans selection:bg-electric-indigo/30 pt-8 pb-24">
-            <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <button 
-                    onClick={() => navigate('/app')}
-                    className="flex items-center text-slate-text hover:text-white transition-colors mb-8 group"
-                >
-                    <ArrowLeft className="w-5 h-5 mr-2 group-hover:-translate-x-1 transition-transform" />
-                    Back to Dashboard
-                </button>
+        <div className="text-on-surface font-sans selection:bg-electric-indigo/30 pb-24">
+            <div className="max-w-4xl mx-auto">
 
                 <motion.div
                     initial={{ opacity: 0, y: -10 }}
@@ -289,11 +290,98 @@ export default function ToolRunner() {
                                             />
                                         </div>
                                     )}
-                                    <div className="bg-slate-900/50 rounded-xl p-6 overflow-x-auto border border-white/5">
-                                        <pre className="text-slate-300 font-mono text-sm whitespace-pre-wrap break-words">
-                                            {JSON.stringify(result, null, 2)}
-                                        </pre>
-                                    </div>
+                                    
+                                    {toolId === 'keyword-research-tool' && result.keyword ? (
+                                        <div className="space-y-6">
+                                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                                                <div className="glass-card p-6 rounded-xl border border-white/10 bg-slate-900/30">
+                                                    <h4 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                                                        <span className="material-symbols-outlined text-electric-indigo">trending_up</span>Search Volume
+                                                    </h4>
+                                                    <div className="text-slate-300">
+                                                        {typeof result.search_volume_data === 'string' ? (
+                                                            <p className="text-slate-400 italic mt-4 p-4 bg-slate-950/50 rounded-lg">{result.search_volume_data}</p>
+                                                        ) : (
+                                                            <div className="grid grid-cols-3 gap-4 mt-4">
+                                                                <div className="bg-slate-950/50 p-4 rounded-lg text-center border border-white/5">
+                                                                    <span className="block text-xs text-slate-400 uppercase tracking-wider mb-1">Volume</span>
+                                                                    <span className="text-xl font-bold text-white">{result.search_volume_data?.vol || 'N/A'}</span>
+                                                                </div>
+                                                                <div className="bg-slate-950/50 p-4 rounded-lg text-center border border-white/5">
+                                                                    <span className="block text-xs text-slate-400 uppercase tracking-wider mb-1">CPC</span>
+                                                                    <span className="text-xl font-bold text-white">{result.search_volume_data?.cpc ? `$${result.search_volume_data.cpc.currency} ${result.search_volume_data.cpc.value}` : 'N/A'}</span>
+                                                                </div>
+                                                                <div className="bg-slate-950/50 p-4 rounded-lg text-center border border-white/5">
+                                                                    <span className="block text-xs text-slate-400 uppercase tracking-wider mb-1">Competition</span>
+                                                                    <span className="text-xl font-bold text-white">{result.search_volume_data?.competition || 'N/A'}</span>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+
+                                                <div className="glass-card p-6 rounded-xl border border-white/10 bg-slate-900/30">
+                                                    <h4 className="text-lg font-bold text-white mb-2 flex items-center gap-2">
+                                                        <span className="material-symbols-outlined text-cyan-flare">timeline</span>5-Week Trend
+                                                    </h4>
+                                                    {result.trends_data_last_5_weeks ? (
+                                                        <div className="flex items-end justify-between h-32 mt-4 gap-2 pt-8">
+                                                            {Object.entries(result.trends_data_last_5_weeks).map(([date, val]: any) => (
+                                                                <div key={date} className="flex flex-col items-center flex-1 group relative">
+                                                                    <div className="w-full bg-cyan-flare/30 rounded-t-md transition-all duration-300 group-hover:bg-cyan-flare relative" style={{ height: `${Math.max(val, 5)}%` }}>
+                                                                        <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-slate-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none shadow-xl z-10 border border-white/10">
+                                                                            {val}
+                                                                        </div>
+                                                                    </div>
+                                                                    <span className="text-[10px] text-slate-500 mt-2 truncate w-full text-center">{date.substring(5)}</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    ) : (
+                                                        <p className="text-slate-400 italic">No trend data available.</p>
+                                                    )}
+                                                </div>
+                                            </div>
+
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                                <div className="glass-card p-6 rounded-xl border border-white/10 bg-slate-900/30">
+                                                    <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                                                        <span className="material-symbols-outlined text-purple-400">format_list_bulleted</span>Autocomplete Suggestions
+                                                    </h4>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {result.autocomplete_suggestions?.map((s: string, i: number) => (
+                                                            <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm text-slate-300 hover:bg-electric-indigo/20 hover:text-white hover:border-electric-indigo/50 transition-all cursor-default">
+                                                                {s}
+                                                            </span>
+                                                        ))}
+                                                        {(!result.autocomplete_suggestions || result.autocomplete_suggestions.length === 0) && (
+                                                            <span className="text-slate-500 italic">No suggestions found.</span>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="glass-card p-6 rounded-xl border border-white/10 bg-slate-900/30">
+                                                    <h4 className="text-lg font-bold text-white mb-4 flex items-center gap-2">
+                                                        <span className="material-symbols-outlined text-orange-400">hub</span>Related Terms
+                                                    </h4>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {result.related_terms?.map((t: string, i: number) => (
+                                                            <span key={i} className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-sm text-slate-300 hover:bg-orange-400/20 hover:text-white hover:border-orange-400/50 transition-all cursor-default">
+                                                                {t}
+                                                            </span>
+                                                        ))}
+                                                        {(!result.related_terms || result.related_terms.length === 0) && (
+                                                            <span className="text-slate-500 italic">No related terms found.</span>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="mt-4">
+                                            <DynamicResultRenderer data={result} />
+                                        </div>
+                                    )}
                                 </motion.div>
                             )}
                         </AnimatePresence>

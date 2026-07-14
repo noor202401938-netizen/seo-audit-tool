@@ -96,26 +96,97 @@ def run_website_technology_checker(url: str) -> dict:
         response = requests.get(target, timeout=10)
         headers = response.headers
         soup = BeautifulSoup(response.content, "html.parser")
+        html_lower = response.text.lower()
         
         server = headers.get("Server", "Unknown")
         powered_by = headers.get("X-Powered-By", "Unknown")
         
-        # Simple detection
+        # Enhanced detection
         tech_stack = []
-        if "WordPress" in response.text or soup.find("meta", attrs={"name": "generator", "content": lambda x: x and "WordPress" in x}):
-            tech_stack.append("WordPress")
-        if "React" in response.text or soup.find(id="root"):
-            tech_stack.append("React")
-        if "Next.js" in response.text or soup.find(id="__next"):
-            tech_stack.append("Next.js")
+        
+        # CMS
+        if "wp-content" in html_lower or soup.find("meta", attrs={"name": "generator", "content": lambda x: x and "WordPress" in x}):
+            tech_stack.append("WordPress (CMS)")
+        if "cdn.shopify.com" in html_lower:
+            tech_stack.append("Shopify (Ecommerce)")
+        if "squarespace" in html_lower:
+            tech_stack.append("Squarespace (CMS)")
+        if "wix.com" in html_lower or "wix-image" in html_lower:
+            tech_stack.append("Wix (CMS)")
+        if "webflow" in html_lower:
+            tech_stack.append("Webflow (CMS)")
+        if soup.find("meta", attrs={"name": "generator", "content": lambda x: x and "Drupal" in x}):
+            tech_stack.append("Drupal (CMS)")
+        if soup.find("meta", attrs={"name": "generator", "content": lambda x: x and "Joomla" in x}):
+            tech_stack.append("Joomla (CMS)")
             
+        # JS Frameworks
+        if "react" in html_lower or soup.find(id="root") or "data-reactroot" in response.text:
+            tech_stack.append("React (Frontend)")
+        if "_next/static" in html_lower or soup.find(id="__next"):
+            tech_stack.append("Next.js (React Framework)")
+        if "data-v-" in response.text or "__vue__" in response.text:
+            tech_stack.append("Vue.js (Frontend)")
+        if "_nuxt/" in html_lower:
+            tech_stack.append("Nuxt.js (Vue Framework)")
+        if "ng-version" in response.text or "ng-app" in response.text:
+            tech_stack.append("Angular (Frontend)")
+        if "svelte-" in response.text:
+            tech_stack.append("Svelte (Frontend)")
+
+        # CSS Frameworks
+        if "tailwindcss" in html_lower or "tailwind" in html_lower:
+            tech_stack.append("Tailwind CSS (UI Framework)")
+        if "bootstrap" in html_lower:
+            tech_stack.append("Bootstrap (UI Framework)")
+            
+        # Analytics
+        if "google-analytics.com" in html_lower or "gtag" in html_lower:
+            tech_stack.append("Google Analytics (Analytics)")
+        if "hotjar" in html_lower:
+            tech_stack.append("Hotjar (Analytics)")
+        if "matomo" in html_lower or "piwik" in html_lower:
+            tech_stack.append("Matomo (Analytics)")
+            
+        # CDN
+        server_lower = server.lower()
+        if "cloudflare" in server_lower or "cf-ray" in headers:
+            tech_stack.append("Cloudflare (CDN)")
+        if "cloudfront.net" in html_lower or headers.get("via", "").lower().find("cloudfront") != -1:
+            tech_stack.append("Amazon CloudFront (CDN)")
+        if "fastly" in headers.get("via", "").lower() or "x-fastly-request-id" in headers:
+            tech_stack.append("Fastly (CDN)")
+
+        # Extract meta data
+        meta_description = soup.find("meta", attrs={"name": "description"})
+        meta_desc_content = meta_description["content"] if meta_description else "Not found"
+        
+        language = soup.find("html").get("lang", "Unknown") if soup.find("html") else "Unknown"
+        charset_tag = soup.find("meta", charset=True)
+        charset = charset_tag["charset"] if charset_tag else "Unknown"
+        
+        generator_tag = soup.find("meta", attrs={"name": "generator"})
+        generator = generator_tag["content"] if generator_tag else "Unknown"
+
+        security_headers = {
+            "Strict-Transport-Security": headers.get("Strict-Transport-Security", "Missing"),
+            "Content-Security-Policy": headers.get("Content-Security-Policy", "Missing"),
+            "X-Frame-Options": headers.get("X-Frame-Options", "Missing"),
+            "X-Content-Type-Options": headers.get("X-Content-Type-Options", "Missing")
+        }
+
         return {
             "server": server,
             "powered_by": powered_by,
-            "detected_technologies": tech_stack if tech_stack else ["Unknown/Custom"]
+            "detected_tech": tech_stack if tech_stack else ["No standard tech detected"],
+            "language": language,
+            "charset": charset,
+            "generator": generator,
+            "security_headers": security_headers,
+            "message": "Technology check complete."
         }
     except Exception as e:
-        return {"error": str(e), "message": "Failed to detect technologies."}
+        return {"error": str(e), "message": "Failed to check technology."}
 
 def run_url_redirect_checker(url: str) -> dict:
     target = format_url(url)
@@ -640,28 +711,7 @@ def run_domain_authority_checker(url: str) -> dict:
     except Exception as e:
         return {"error": str(e), "message": "Failed to check Domain Authority."}
 
-def run_company_logo_api(url: str) -> dict:
-    target = format_url(url)
-    try:
-        domain = urlparse(target).netloc
-        logo_url = f"https://logo.clearbit.com/{domain}"
-        
-        # Check if it actually exists
-        res = requests.head(logo_url, timeout=5, allow_redirects=True)
-        if res.status_code == 200:
-            return {
-                "domain": domain,
-                "logo_url": logo_url,
-                "message": "Logo found successfully."
-            }
-        else:
-            return {
-                "domain": domain,
-                "logo_url": None,
-                "message": "No logo found for this domain."
-            }
-    except Exception as e:
-        return {"error": str(e), "message": "Failed to fetch company logo."}
+
 
 def run_wayback_archive_checker(url: str) -> dict:
     target = format_url(url)
@@ -695,18 +745,12 @@ def run_wayback_archive_checker(url: str) -> dict:
         return {"error": str(e), "message": "Failed to check Wayback Machine."}
 
 def run_google_serp_checker(keyword: str, target: str) -> dict:
-    import time
-    try:
-        from googlesearch import search
-    except ImportError:
-        return {"error": "Dependencies Missing", "message": "googlesearch-python is not installed."}
-
     target_domain = target.lower().replace("www.", "").replace("https://", "").replace("http://", "").split('/')[0]
     
     try:
-        # Pause is crucial to avoid rate limit
-        # 'sleep_interval' avoids triggering Google's rate limiter too fast
-        results = search(keyword, num_results=50, lang="en", sleep_interval=4)
+        from googlesearch import search
+        
+        results = search(keyword, num_results=50)
         rank = None
         found_url = None
         

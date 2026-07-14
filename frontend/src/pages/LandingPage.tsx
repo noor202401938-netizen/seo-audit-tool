@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { LiveExtractionFeed } from '../components/LiveExtractionFeed';
 import { ThreeGraph } from '../components/ThreeGraph';
+import { TOOL_CATEGORIES } from '../data/tools';
 
 export default function LandingPage() {
     useEffect(() => {
@@ -173,6 +174,36 @@ export default function LandingPage() {
                         </div>
                         <div className="absolute -right-8 -bottom-8 w-64 h-64 opacity-20 group-hover:scale-110 group-hover:opacity-40 transition-all duration-700 bg-gradient-to-tl from-primary/50 to-transparent rounded-full blur-3xl"></div>
                     </div>
+                </div>
+            </section>
+
+            {/* Comprehensive Tool Suite Section */}
+            <section className="max-w-container-max mx-auto px-margin-desktop py-24 border-t border-white/10 bg-slate-900/20">
+                <div className="text-center mb-16 reveal">
+                    <h3 className="font-headline-lg text-headline-lg text-on-surface mb-4">Complete SEO Tool Suite</h3>
+                    <p className="font-body-lg text-body-lg text-slate-text max-w-2xl mx-auto leading-relaxed">Access our comprehensive library of specialized utilities. From SERP tracking to deep technical analysis, we have a tool for every SEO challenge.</p>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal">
+                    {TOOL_CATEGORIES.flatMap(category => category.tools).slice(0, 12).map((tool, i) => (
+                        <div key={i} className="group premium-card bg-slate-950/30 border border-white/5 rounded-2xl p-6 hover:bg-white/5 hover:border-electric-indigo/40 transition-all flex flex-col">
+                            <h5 className="text-lg font-bold text-white group-hover:text-electric-indigo transition-colors mb-3 flex items-center justify-between">
+                                {tool.name}
+                                {tool.upcoming && (
+                                    <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-electric-indigo/20 text-electric-indigo border border-electric-indigo/30">
+                                        Soon
+                                    </span>
+                                )}
+                            </h5>
+                            <p className="text-sm text-slate-text/80 leading-relaxed">
+                                {tool.desc}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+                <div className="mt-12 text-center reveal">
+                    <Link to="/features" className="inline-flex items-center gap-2 text-electric-indigo hover:text-cyan-flare font-bold transition-colors">
+                        View all 25+ tools <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                    </Link>
                 </div>
             </section>
 

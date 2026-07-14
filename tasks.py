@@ -33,7 +33,13 @@ _SEOMATOR = _resolve_seomator()
 
 def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_id: str = None):
     try:
-        cmd = [_SEOMATOR, "audit", url, "--format", "json"]
+        import tempfile
+        import os
+
+        with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
+            temp_file = tmp.name
+
+        cmd = [_SEOMATOR, "audit", url, "--format", "json", "--output", temp_file]
         if crawl:
             cmd.extend(["--crawl", "-m", str(max_pages), "--concurrency", "10"])
 
@@ -41,13 +47,22 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
 
         # shell=True is required on Windows when calling .cmd wrappers
         def _run_seomator():
-            return subprocess.run(
-                cmd,
-                capture_output=True,
-                text=True,
-                encoding="utf-8",
-                shell=(sys.platform == "win32"),
-            )
+            try:
+                res = subprocess.run(
+                    cmd,
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    text=True,
+                    encoding="utf-8",
+                    shell=(sys.platform == "win32"),
+                )
+                if os.path.exists(temp_file):
+                    with open(temp_file, "r", encoding="utf-8") as f:
+                        res.stdout = f.read()
+                return res
+            finally:
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)
 
         result = _run_seomator()
 
@@ -60,7 +75,7 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
         if result.returncode == 2:
             # Try to extract the real error message from stdout JSON
             error_detail = result.stderr.strip()
-            if not error_detail and result.stdout.strip():
+            if not error_detail and result.stdout and result.stdout.strip():
                 try:
                     err_json = json.loads(result.stdout)
                     error_detail = err_json.get("message", result.stdout[:300])
@@ -86,7 +101,8 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
 
         # Parse JSON output
         try:
-            audit_data = json.loads(result.stdout)
+            cleaned_stdout = result.stdout.replace('\x00', '')
+            audit_data = json.loads(cleaned_stdout)
         except json.JSONDecodeError as e:
             raise Exception(
                 f"Failed to parse SEOmator JSON output: {e}\n"

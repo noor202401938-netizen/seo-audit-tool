@@ -145,10 +145,6 @@ async def run_social_media_tags_checker(req: ToolRequest, current_user = Depends
 async def run_keyword_research_tool(req: KeywordToolRequest, current_user = Depends(get_current_user)):
     return tool_runners.run_keyword_research_tool(req.keyword)
 
-@router.post("/company-logo-api")
-async def run_company_logo_api(req: ToolRequest, current_user = Depends(get_current_user)):
-    return tool_runners.run_company_logo_api(req.url)
-
 @router.post("/wayback-machine-archive-checker")
 async def run_wayback_archive_checker(req: ToolRequest, current_user = Depends(get_current_user)):
     return tool_runners.run_wayback_archive_checker(req.url)

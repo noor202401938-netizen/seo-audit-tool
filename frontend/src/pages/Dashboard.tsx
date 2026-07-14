@@ -5,80 +5,6 @@ import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { ResultsDashboard } from '../components/ResultsDashboard';
 import { useAuth } from '../contexts/AuthContext';
-import { useNavigate } from 'react-router-dom';
-
-export const TOOL_CATEGORIES = [
-    {
-        title: "SEO Audit & Site Analysis Tools",
-        tools: [
-            { name: "SEO Audit Tool", desc: "Comprehensive analysis of your website's on-page and off-page elements, including meta tags, content structure, and technical SEO factors. Get actionable insights to improve your search engine visibility." },
-            { name: "Website Speed Test Tool", desc: "Measure your site's loading performance and identify speed optimization opportunities. Fast-loading websites rank better and provide superior user experience." },
-            { name: "Mobile-Friendly Test Tool", desc: "Ensure your website performs perfectly on mobile devices. With mobile-first indexing, this tool is crucial for maintaining search rankings." }
-        ]
-    },
-    {
-        title: "Keyword Research & SERP Tools",
-        tools: [
-            { name: "Keyword Research Tool", desc: "Discover high-value keywords for your content strategy. Find search volumes, competition levels, and related terms to target the right audience." },
-            { name: "Google SERP Rank Checker", desc: "Track your website's position in Google search results for targeted keywords. Monitor ranking changes and optimize accordingly." },
-            { name: "Bing SERP Checker Tool", desc: "Don't overlook Bing! Check your rankings on Microsoft's search engine and capture additional organic traffic." },
-            { name: "YouTube SERP Rank Checker", desc: "Optimize your video content by tracking YouTube search rankings. Perfect for content creators and businesses using video marketing." },
-            { name: "Google AI Overview Keywords Checker", desc: "Check which of your keywords trigger Google AI Overviews and track your presence in AI-generated search results.", upcoming: true }
-        ]
-    },
-    {
-        title: "Technical SEO Analysis Tools",
-        tools: [
-            { name: "Robots.txt Tester", desc: "Verify your robots.txt file to ensure search engines can properly crawl your website. Avoid blocking important pages accidentally." },
-            { name: "Sitemap Checker Tool", desc: "Validate your XML sitemap and ensure all important pages are discoverable by search engines." },
-            { name: "Crawlability Test Tool", desc: "Identify crawling issues that might prevent search engines from properly indexing your content." },
-            { name: "HTTPS Header Checker", desc: "Analyze HTTP headers to ensure proper security implementation and technical SEO compliance." },
-            { name: "LLMs.txt Generator", desc: "Generate an llms.txt file to guide how AI crawlers and language models access and cite your website's content." }
-        ]
-    },
-    {
-        title: "Content Optimization Tools",
-        tools: [
-            { name: "Keyword Density Checker", desc: "Optimize your content by analyzing keyword frequency and distribution. Avoid over-optimization while ensuring proper keyword usage." },
-            { name: "Meta Tags Checker", desc: "Extract and analyze meta titles, descriptions, and other meta elements crucial for search engine visibility." },
-            { name: "Internal Link Analysis Tool", desc: "Examine your internal linking structure to improve user navigation and distribute page authority effectively." }
-        ]
-    },
-    {
-        title: "Link Building & Authority Tools",
-        tools: [
-            { name: "Backlink Checker Tool", desc: "Discover your website's backlink profile and identify link-building opportunities. Quality backlinks remain a crucial ranking factor.", upcoming: true },
-            { name: "Domain Authority Checker", desc: "Assess your website's authority based on backlink quality and quantity. Compare your authority against competitors." },
-            { name: "Anchor Text Link Extractor", desc: "Analyze anchor text distribution in your backlinks to ensure natural and diverse link profiles.", upcoming: true }
-        ]
-    },
-    {
-        title: "Advanced SEO Utilities",
-        tools: [
-            { name: "URL Redirect Checker", desc: "Detect and analyze 301, 302, and other URL redirects to maintain link equity and user experience." },
-            { name: "Wayback Machine Archive Checker", desc: "Check exactly when a specific URL was last captured and archived by the Internet Archive across the web." },
-            { name: "Organic Traffic Checker", desc: "Analyze any website's organic traffic volume and discover competitor traffic insights.", upcoming: true },
-            { name: "Website Technology Checker", desc: "Identify the technology stack behind any website, including CMS, servers, and frameworks." },
-            { name: "Email Verification Tool", desc: "Optimize email marketing campaigns by validating email addresses and improving deliverability." },
-            { name: "Company Logo API", desc: "Fetch any company's logo programmatically by domain — a simple API for enriching directories, CRMs, and content." }
-        ]
-    },
-    {
-        title: "Competitor Analysis Tools",
-        tools: [
-            { name: "Competitor Keyword Research Tool", desc: "Uncover the keywords your competitors rank for and identify content gaps in your strategy.", upcoming: true },
-            { name: "Organic Traffic Analysis", desc: "Compare your organic traffic performance against competitors and industry benchmarks.", upcoming: true }
-        ]
-    },
-    {
-        title: "AI-Powered SEO Assistant",
-        tools: [
-            { name: "AI SEO Assistant", desc: "Get personalized SEO guidance and task recommendations powered by artificial intelligence and industry expertise." },
-            { name: "SEOmator GPT Integration", desc: "Access real-time search volume data, keyword analysis, and SERP insights through advanced AI capabilities.", upcoming: true },
-            { name: "Google AI Mode Checker", desc: "See how your site appears in Google's AI Mode and monitor your visibility across AI-driven search experiences.", upcoming: true }
-        ]
-    }
-];
 export interface RuleResult {
   ruleId: string;
   status: 'pass' | 'warn' | 'fail';
@@ -129,16 +55,6 @@ export default function Dashboard() {
   const messageIndexRef = useRef(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const { token, refreshUser } = useAuth();
-  const navigate = useNavigate();
-
-  const focusInput = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    setTimeout(() => {
-        if (inputRef.current) {
-            inputRef.current.focus();
-        }
-    }, 500);
-  };
 
   const stopPolling = () => {
     if (pollingIntervalRef.current) {
@@ -371,60 +287,6 @@ export default function Dashboard() {
           )}
         </AnimatePresence>
 
-        {/* Free Tools Library Section */}
-        <div className="mt-16 pt-16 border-t border-white/10">
-            <div className="text-center mb-12">
-                <h3 className="text-3xl font-display-lg text-white mb-4">SEO Tools Library</h3>
-                <p className="text-slate-text max-w-2xl mx-auto">Access our complete suite of SEO utilities. Select any tool below to run a specialized audit using our central engine.</p>
-            </div>
-            
-            <div className="space-y-16">
-                {TOOL_CATEGORIES.map((category, idx) => (
-                    <div key={idx}>
-                        <h4 className="text-xl font-bold text-white border-b border-white/10 pb-3 mb-6">
-                            {category.title}
-                        </h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                            {category.tools.map((tool, i) => {
-                                const slug = tool.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                                return (
-                                <button 
-                                    key={i}
-                                    onClick={() => {
-                                        if (slug === 'seo-audit-tool') {
-                                            focusInput();
-                                        } else {
-                                            navigate(`/app/tools/${slug}`);
-                                        }
-                                    }}
-                                    className="group premium-card bg-slate-950/30 border border-white/5 rounded-xl p-5 hover:bg-white/5 hover:border-electric-indigo/40 transition-all text-left flex flex-col justify-between h-full"
-                                >
-                                    <div>
-                                        <div className="flex justify-between items-start mb-2">
-                                            <h5 className="text-base font-bold text-white group-hover:text-electric-indigo transition-colors flex items-center gap-2">
-                                                {tool.name}
-                                                {tool.upcoming && (
-                                                    <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-electric-indigo/20 text-electric-indigo border border-electric-indigo/30">
-                                                        Upcoming
-                                                    </span>
-                                                )}
-                                            </h5>
-                                            <span className="material-symbols-outlined text-electric-indigo opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-sm">
-                                                {slug === 'seo-audit-tool' ? 'arrow_upward' : 'arrow_forward'}
-                                            </span>
-                                        </div>
-                                        <p className="text-xs text-slate-text/80 leading-relaxed line-clamp-3">
-                                            {tool.desc}
-                                        </p>
-                                    </div>
-                                </button>
-                                );
-                            })}
-                        </div>
-                    </div>
-                ))}
-            </div>
-        </div>
       </main>
     </div>
   );

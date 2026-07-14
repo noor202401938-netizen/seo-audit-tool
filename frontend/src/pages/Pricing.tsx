@@ -29,6 +29,7 @@ export default function Pricing() {
             <li className="flex items-center text-slate-text text-body-md gap-3"><span className="material-symbols-outlined text-electric-indigo text-lg">check_circle</span> 5 audits per month</li>
             <li className="flex items-center text-slate-text text-body-md gap-3"><span className="material-symbols-outlined text-electric-indigo text-lg">check_circle</span> Basic SEO rules</li>
             <li className="flex items-center text-slate-text text-body-md gap-3"><span className="material-symbols-outlined text-electric-indigo text-lg">check_circle</span> Up to 10 pages per audit</li>
+            <li className="flex items-center text-slate-text text-body-md gap-3"><span className="material-symbols-outlined text-electric-indigo text-lg">check_circle</span> Access to 5 basic tools</li>
           </ul>
           <Link to="/signup" className="w-full">
             <button className="w-full bg-white/5 border border-white/10 text-on-surface font-bold py-4 rounded-full hover:bg-white/10 transition-all font-body-lg">
@@ -50,7 +51,7 @@ export default function Pricing() {
             <li className="flex items-center text-slate-text text-body-md gap-3"><span className="material-symbols-outlined text-cyan-flare text-xl">check_circle</span> All 251 SEO rules</li>
             <li className="flex items-center text-slate-text text-body-md gap-3"><span className="material-symbols-outlined text-cyan-flare text-xl">check_circle</span> Up to 100 pages per audit</li>
             <li className="flex items-center text-slate-text text-body-md gap-3"><span className="material-symbols-outlined text-cyan-flare text-xl">check_circle</span> AI Recommendations</li>
-            <li className="flex items-center text-slate-text text-body-md gap-3"><span className="material-symbols-outlined text-cyan-flare text-xl">check_circle</span> Playwright Anti-bot bypass</li>
+            <li className="flex items-center text-slate-text text-body-md gap-3"><span className="material-symbols-outlined text-cyan-flare text-xl">check_circle</span> Full suite of 25+ SEO tools</li>
           </ul>
           <Link to="/signup" className="w-full">
             <button className="w-full bg-gradient-to-r from-electric-indigo to-cyan-flare text-white font-bold py-4 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:brightness-110 transition-all btn-shimmer-hover font-body-lg">

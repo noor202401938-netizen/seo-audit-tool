@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { ThreeGraph } from '../components/ThreeGraph';
+import { TOOL_CATEGORIES } from '../data/tools';
 
 export default function Features() {
   return (
@@ -94,6 +95,46 @@ export default function Features() {
           </p>
         </div>
 
+      </section>
+
+      {/* The Complete Tool Suite */}
+      <section className="mt-20 pt-20 border-t border-white/10">
+        <div className="text-center mb-16">
+            <h2 className="text-4xl font-display-lg font-bold text-on-surface mb-6">The Complete SEO Suite</h2>
+            <p className="text-slate-text text-body-lg max-w-2xl mx-auto">
+                Stop paying for 10 different subscriptions. SeoIntelligence includes every tool you need to research, audit, and outrank your competitors.
+            </p>
+        </div>
+
+        <div className="space-y-16">
+            {TOOL_CATEGORIES.map((category, idx) => (
+                <div key={idx} className="relative">
+                    <h4 className="text-2xl font-bold text-white border-b border-white/10 pb-4 mb-8 flex items-center gap-3">
+                        <span className="w-8 h-8 rounded-lg bg-electric-indigo/10 flex items-center justify-center text-electric-indigo">
+                            <span className="material-symbols-outlined text-sm">category</span>
+                        </span>
+                        {category.title}
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {category.tools.map((tool, i) => (
+                            <div key={i} className="glass-card bg-slate-900/40 border border-white/5 rounded-2xl p-6 hover:border-electric-indigo/30 hover:bg-white/5 transition-all">
+                                <h5 className="text-lg font-bold text-white mb-3 flex items-center justify-between">
+                                    {tool.name}
+                                    {tool.upcoming && (
+                                        <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
+                                            Upcoming
+                                        </span>
+                                    )}
+                                </h5>
+                                <p className="text-sm text-slate-text/80 leading-relaxed">
+                                    {tool.desc}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            ))}
+        </div>
       </section>
       
       {/* CTA Section */}

@@ -1,0 +1,3098 @@
+{
+  "url": "https://seointelligence.com",
+  "overallScore": 94,
+  "categoryResults": [
+    {
+      "categoryId": "core",
+      "score": 94,
+      "passCount": 8,
+      "warnCount": 2,
+      "failCount": 9,
+      "results": [
+        {
+          "ruleId": "core-title-present",
+          "status": "fail",
+          "message": "No <title> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-title-length",
+          "status": "fail",
+          "message": "No <title> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-description-present",
+          "status": "fail",
+          "message": "No <meta name=\"description\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-description-length",
+          "status": "warn",
+          "message": "No <meta name=\"description\"> tag found in the document",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-present",
+          "status": "fail",
+          "message": "No <link rel=\"canonical\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-valid",
+          "status": "warn",
+          "message": "No <link rel=\"canonical\"> tag found in the document",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-viewport-present",
+          "status": "fail",
+          "message": "No <meta name=\"viewport\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-favicon-present",
+          "status": "fail",
+          "message": "No favicon link tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-h1-present",
+          "status": "fail",
+          "message": "No <h1> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-h1-single",
+          "status": "fail",
+          "message": "No <h1> tag found in the document",
+          "score": 0,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-header",
+          "status": "pass",
+          "message": "No conflicting canonical signals (neither HTML tag nor Link header present)",
+          "score": 100,
+          "details": {
+            "htmlCanonical": null,
+            "headerCanonical": null,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-nosnippet",
+          "status": "pass",
+          "message": "Page allows search engine snippets",
+          "score": 100,
+          "details": {
+            "directives": [
+              "none found"
+            ],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-robots-meta",
+          "status": "pass",
+          "message": "No robots meta tag found (default: index, follow)",
+          "score": 100,
+          "details": {
+            "allDirectives": [],
+            "defaultBehavior": "index, follow",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-title-unique",
+          "status": "fail",
+          "message": "Page has no title tag",
+          "score": 0,
+          "details": {
+            "title": null,
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-conflicting",
+          "status": "pass",
+          "message": "No conflicting canonical URLs detected (at most one canonical source present)",
+          "score": 100,
+          "details": {
+            "htmlCanonical": null,
+            "headerCanonical": null,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-to-homepage",
+          "status": "pass",
+          "message": "No canonical tag present; skipping homepage check",
+          "score": 100,
+          "details": {
+            "canonicalFound": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-http-mismatch",
+          "status": "pass",
+          "message": "No canonical tag present; skipping protocol check",
+          "score": 100,
+          "details": {
+            "canonicalFound": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-loop",
+          "status": "pass",
+          "message": "No canonical tag present; no loop risk",
+          "score": 100,
+          "details": {
+            "canonicalFound": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "core-canonical-to-noindex",
+          "status": "pass",
+          "message": "No canonical tag present; no noindex conflict possible",
+          "score": 100,
+          "details": {
+            "canonicalFound": false,
+            "hasNoindex": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "technical",
+      "score": 97,
+      "passCount": 10,
+      "warnCount": 1,
+      "failCount": 2,
+      "results": [
+        {
+          "ruleId": "technical-robots-txt-exists",
+          "status": "pass",
+          "message": "robots.txt file exists and is accessible",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com/robots.txt",
+            "statusCode": 200,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-robots-txt-valid",
+          "status": "warn",
+          "message": "robots.txt has 1 syntax issue(s)",
+          "score": 50,
+          "details": {
+            "url": "https://seointelligence.com/robots.txt",
+            "issues": [
+              "Line 3: Unknown directive \"llm-policy\""
+            ],
+            "userAgents": [
+              "*"
+            ],
+            "sitemapUrls": [
+              "/sitemap.xml"
+            ],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-sitemap-exists",
+          "status": "pass",
+          "message": "Sitemap found: 1 sitemap(s) accessible",
+          "score": 100,
+          "details": {
+            "foundSitemaps": [
+              "https://seointelligence.com/sitemap.xml"
+            ],
+            "checkedLocations": [
+              "https://seointelligence.com/sitemap.xml",
+              "/sitemap.xml"
+            ],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-sitemap-valid",
+          "status": "pass",
+          "message": "Sitemap has valid XML structure (1 URLs)",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com/sitemap.xml",
+            "isSitemapIndex": false,
+            "urlCount": 1,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-url-structure",
+          "status": "pass",
+          "message": "URL follows SEO best practices",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "path": "/",
+            "pathLength": 1,
+            "totalLength": 27,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-trailing-slash",
+          "status": "pass",
+          "message": "Trailing slash usage is consistent (no internal paths to analyze)",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "currentHasTrailingSlash": false,
+            "withSlashCount": 0,
+            "withoutSlashCount": 0,
+            "dominantStyle": "mixed",
+            "sampleWithSlash": [],
+            "sampleWithoutSlash": [],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-www-redirect",
+          "status": "fail",
+          "message": "Both www and non-www versions are accessible (should redirect to one canonical version)",
+          "score": 0,
+          "details": {
+            "url": "https://seointelligence.com",
+            "wwwUrl": "https://www.seointelligence.com/",
+            "nonWwwUrl": "https://seointelligence.com/",
+            "currentIsWww": false,
+            "wwwStatus": 200,
+            "nonWwwStatus": 200,
+            "canonicalHostname": null,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-404-page",
+          "status": "fail",
+          "message": "Non-existent page returned 200 instead of 404 (soft 404 issue)",
+          "score": 0,
+          "details": {
+            "testUrl": "https://seointelligence.com/seo-audit-test-nonexistent-page-uavq20rgu7-1783976895774",
+            "statusCode": 200,
+            "issue": "Soft 404 - returns 200 for non-existent pages",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-soft-404",
+          "status": "pass",
+          "message": "Page does not appear to be a soft 404",
+          "score": 100,
+          "details": {
+            "statusCode": 200,
+            "wordCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-server-error",
+          "status": "pass",
+          "message": "Page returned a successful response",
+          "score": 100,
+          "details": {
+            "statusCode": 200,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-4xx-non-404",
+          "status": "pass",
+          "message": "No client error detected",
+          "score": 100,
+          "details": {
+            "statusCode": 200,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-timeout",
+          "status": "pass",
+          "message": "Page response time is 288ms",
+          "score": 100,
+          "details": {
+            "responseTimeMs": 288,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "technical-bad-content-type",
+          "status": "pass",
+          "message": "Content-Type is correct: text/html",
+          "score": 100,
+          "details": {
+            "contentType": "text/html",
+            "mediaType": "text/html",
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "perf",
+      "score": 94,
+      "passCount": 17,
+      "warnCount": 5,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "cwv-lcp",
+          "status": "pass",
+          "message": "LCP is 1.02s (good, under 2.5s)",
+          "score": 100,
+          "details": {
+            "metric": "LCP",
+            "value": 1016,
+            "valueFormatted": "1.02s",
+            "threshold": {
+              "good": 2500,
+              "poor": 4000
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "cwv-cls",
+          "status": "pass",
+          "message": "CLS is 0.000 (good, under 0.1)",
+          "score": 100,
+          "details": {
+            "metric": "CLS",
+            "value": 0,
+            "valueFormatted": "0.000",
+            "threshold": {
+              "good": 0.1,
+              "poor": 0.25
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "cwv-inp",
+          "status": "warn",
+          "message": "Could not measure Interaction to Next Paint (no user interaction detected or metric not available)",
+          "score": 50,
+          "details": {
+            "metric": "INP",
+            "reason": "No interaction or metric not available",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "cwv-ttfb",
+          "status": "pass",
+          "message": "TTFB is 127ms (good, under 800ms)",
+          "score": 100,
+          "details": {
+            "metric": "TTFB",
+            "value": 127,
+            "valueFormatted": "127ms",
+            "threshold": {
+              "good": 800,
+              "poor": 1800
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "cwv-fcp",
+          "status": "pass",
+          "message": "FCP is 1.02s (good, under 1.8s)",
+          "score": 100,
+          "details": {
+            "metric": "FCP",
+            "value": 1016,
+            "valueFormatted": "1.02s",
+            "threshold": {
+              "good": 1800,
+              "poor": 3000
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-dom-size",
+          "status": "pass",
+          "message": "DOM size is optimal (0 nodes, depth 0)",
+          "score": 100,
+          "details": {
+            "totalNodes": 0,
+            "maxDepth": 0,
+            "maxChildren": 0,
+            "deepestSelector": "",
+            "widestSelector": "",
+            "thresholds": {
+              "nodes": {
+                "good": 800,
+                "warning": 1500
+              },
+              "depth": {
+                "good": 32,
+                "warning": 48
+              },
+              "children": {
+                "good": 60
+              }
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-css-file-size",
+          "status": "pass",
+          "message": "CSS is well optimized: No external CSS files (inline only)",
+          "score": 100,
+          "details": {
+            "externalCssCount": 0,
+            "externalCssUrls": [],
+            "inlineStyleCount": 0,
+            "inlineCssKb": 0,
+            "hasPreloadCss": false,
+            "thresholds": {
+              "externalFiles": {
+                "good": 3,
+                "warning": 6
+              },
+              "inlineCssKb": {
+                "good": 50,
+                "warning": 100
+              }
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-font-loading",
+          "status": "pass",
+          "message": "No custom fonts detected",
+          "score": 100,
+          "details": {
+            "preloadedFonts": [],
+            "googleFontsLinks": [],
+            "fontFacesWithDisplay": 0,
+            "fontFacesWithoutDisplay": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-preconnect",
+          "status": "pass",
+          "message": "No third-party origins detected",
+          "score": 100,
+          "details": {
+            "preconnects": [],
+            "dnsPrefetches": [],
+            "thirdPartyOrigins": [],
+            "missingPreconnects": [],
+            "criticalOrigins": [
+              "fonts.googleapis.com",
+              "fonts.gstatic.com",
+              "www.google-analytics.com",
+              "www.googletagmanager.com",
+              "connect.facebook.net",
+              "platform.twitter.com",
+              "cdn.jsdelivr.net",
+              "cdnjs.cloudflare.com",
+              "unpkg.com",
+              "ajax.googleapis.com"
+            ],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-render-blocking",
+          "status": "pass",
+          "message": "No external scripts in head",
+          "score": 100,
+          "details": {
+            "blockingScripts": [],
+            "inlineScriptsInHead": 1,
+            "largeInlineScripts": [],
+            "potentiallyBlockingCss": [],
+            "asyncScripts": 0,
+            "deferScripts": 0,
+            "moduleScripts": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-lazy-above-fold",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "aboveFoldImages": [],
+            "totalImages": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-lcp-hints",
+          "status": "pass",
+          "message": "No clear LCP image candidate detected",
+          "score": 100,
+          "details": {
+            "candidate": null,
+            "preloadedImages": [],
+            "hasAnyOptimization": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-text-compression",
+          "status": "warn",
+          "message": "No text compression detected \u2014 page may load slowly without gzip or Brotli",
+          "score": 50,
+          "details": {
+            "contentEncoding": "none",
+            "supportedEncodings": [
+              "gzip",
+              "br",
+              "deflate",
+              "zstd"
+            ],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-brotli",
+          "status": "warn",
+          "message": "No compression detected \u2014 consider enabling Brotli for optimal transfer size",
+          "score": 50,
+          "details": {
+            "contentEncoding": "none",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-cache-policy",
+          "status": "warn",
+          "message": "No caching headers found \u2014 browsers cannot cache this response efficiently",
+          "score": 50,
+          "details": {
+            "cacheControl": "not set",
+            "expires": "not set",
+            "etag": "not set",
+            "lastModified": "not set",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-minify-css",
+          "status": "pass",
+          "message": "No inline CSS found",
+          "score": 100,
+          "details": {
+            "styleTagCount": 0,
+            "totalBytes": 0,
+            "thresholds": {
+              "minBytesToCheck": 500,
+              "whitespaceRatio": 0.15
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-minify-js",
+          "status": "pass",
+          "message": "Inline JavaScript is minimal (56 bytes across 1 <script> tag(s))",
+          "score": 100,
+          "details": {
+            "scriptTagCount": 1,
+            "totalBytes": 56,
+            "thresholds": {
+              "minBytesToCheck": 500,
+              "whitespaceRatio": 0.15
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-response-time",
+          "status": "pass",
+          "message": "Response time is 288ms \u2014 within optimal range",
+          "score": 100,
+          "details": {
+            "responseTimeMs": 288,
+            "thresholds": {
+              "good": 500,
+              "warning": 1000
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-http2",
+          "status": "warn",
+          "message": "No alt-svc header found \u2014 server may not support HTTP/2 or HTTP/3 (informational)",
+          "score": 50,
+          "details": {
+            "altSvc": "not set",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-page-weight",
+          "status": "pass",
+          "message": "HTML document is 114B \u2014 within optimal range",
+          "score": 100,
+          "details": {
+            "htmlBytes": 114,
+            "htmlSize": "114B",
+            "externalScripts": 0,
+            "externalStylesheets": 0,
+            "imageCount": 0,
+            "thresholds": {
+              "good": "100KB",
+              "warning": "300KB"
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-js-file-size",
+          "status": "pass",
+          "message": "Inline JavaScript is 56B across 1 script(s) \u2014 within optimal range",
+          "score": 100,
+          "details": {
+            "totalBytes": 56,
+            "totalSize": "56B",
+            "inlineScriptCount": 1,
+            "largestScriptBytes": 56,
+            "largestScriptSize": "56B",
+            "thresholds": {
+              "good": "50KB",
+              "warning": "150KB"
+            },
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "perf-video-for-animations",
+          "status": "pass",
+          "message": "No GIF images found \u2014 page uses appropriate media formats",
+          "score": 100,
+          "details": {
+            "gifCount": 0,
+            "gifUrls": [],
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "links",
+      "score": 97,
+      "passCount": 17,
+      "warnCount": 2,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "links-broken-internal",
+          "status": "pass",
+          "message": "No internal links found to check",
+          "score": 100,
+          "details": {
+            "totalLinks": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-external-valid",
+          "status": "pass",
+          "message": "No external links found to check",
+          "score": 100,
+          "details": {
+            "totalLinks": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-internal-present",
+          "status": "warn",
+          "message": "No internal links found on this page",
+          "score": 50,
+          "details": {
+            "internalLinkCount": 0,
+            "selfLinks": 0,
+            "suggestion": "Add internal links to improve site navigation and help search engines crawl your site",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-nofollow-appropriate",
+          "status": "pass",
+          "message": "Nofollow attributes appear to be used appropriately",
+          "score": 100,
+          "details": {
+            "totalLinks": 0,
+            "externalNofollow": 0,
+            "internalNofollow": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-anchor-text",
+          "status": "pass",
+          "message": "All 0 link(s) have descriptive anchor text",
+          "score": 100,
+          "details": {
+            "totalLinks": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-depth",
+          "status": "pass",
+          "message": "This is the homepage (depth 0)",
+          "score": 100,
+          "details": {
+            "depth": 0,
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-dead-end-pages",
+          "status": "warn",
+          "message": "Page is a dead-end with no outgoing internal links",
+          "score": 50,
+          "details": {
+            "internalLinkCount": 0,
+            "recommendation": "Add navigation links, related content links, or breadcrumbs",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-https-downgrade",
+          "status": "pass",
+          "message": "All links maintain HTTPS security",
+          "score": 100,
+          "details": {
+            "totalLinksChecked": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-external-count",
+          "status": "pass",
+          "message": "Page has 0 external link(s) across 0 domain(s)",
+          "score": 100,
+          "details": {
+            "externalLinkCount": 0,
+            "uniqueDomains": 0,
+            "topDomains": [],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-invalid",
+          "status": "pass",
+          "message": "No invalid links found",
+          "score": 100,
+          "details": {
+            "invalidCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-tel-mailto",
+          "status": "pass",
+          "message": "No tel: or mailto: links found",
+          "score": 100,
+          "details": {
+            "totalSpecialLinks": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-redirect-chains",
+          "status": "pass",
+          "message": "No internal links to check",
+          "score": 100,
+          "details": {
+            "totalChecked": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-orphan-pages",
+          "status": "pass",
+          "message": "Page provides 0 internal link(s) to other pages. Full orphan detection requires crawl mode.",
+          "score": 100,
+          "details": {
+            "outgoingInternalLinkCount": 0,
+            "note": "Orphan page detection requires analyzing all pages in crawl mode to build a complete link graph",
+            "recommendation": "Use --crawl flag to enable full orphan page detection across the site",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-localhost",
+          "status": "pass",
+          "message": "No localhost or development URL references found",
+          "score": 100,
+          "details": {
+            "totalElementsChecked": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-local-file",
+          "status": "pass",
+          "message": "No local file references found",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-broken-fragment",
+          "status": "pass",
+          "message": "No same-page fragment links found to check",
+          "score": 100,
+          "details": {
+            "fragmentLinksChecked": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-excessive",
+          "status": "pass",
+          "message": "Page has 0 link(s), within recommended limits",
+          "score": 100,
+          "details": {
+            "totalLinks": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-onclick",
+          "status": "pass",
+          "message": "No onclick-based navigation detected",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "links-whitespace-href",
+          "status": "pass",
+          "message": "All link hrefs are free of whitespace issues",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "images",
+      "score": 100,
+      "passCount": 14,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "images-alt-present",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-alt-quality",
+          "status": "pass",
+          "message": "No images with alt attributes to evaluate",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-dimensions",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-lazy-loading",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-modern-format",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-size",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-responsive",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-broken",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-figure-captions",
+          "status": "pass",
+          "message": "No figure elements found on page",
+          "score": 100,
+          "details": {
+            "figureCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-filename-quality",
+          "status": "pass",
+          "message": "No images found on page",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-inline-svg-size",
+          "status": "pass",
+          "message": "No inline SVGs found on page",
+          "score": 100,
+          "details": {
+            "svgCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-picture-element",
+          "status": "pass",
+          "message": "No picture elements found on page",
+          "score": 100,
+          "details": {
+            "pictureCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-alt-length",
+          "status": "pass",
+          "message": "No images with alt text to evaluate for length",
+          "score": 100,
+          "details": {
+            "imageCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "images-background-seo",
+          "status": "pass",
+          "message": "No inline CSS background images detected",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "security",
+      "score": 88,
+      "passCount": 7,
+      "warnCount": 4,
+      "failCount": 5,
+      "results": [
+        {
+          "ruleId": "security-https",
+          "status": "pass",
+          "message": "Page is served over HTTPS",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "protocol": "https:",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-https-redirect",
+          "status": "fail",
+          "message": "HTTP version is accessible without redirecting to HTTPS",
+          "score": 0,
+          "details": {
+            "httpUrl": "http://seointelligence.com/",
+            "expectedHttpsUrl": "https://seointelligence.com/",
+            "statusCode": 200,
+            "redirectLocation": null,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-hsts",
+          "status": "fail",
+          "message": "Strict-Transport-Security header is missing",
+          "score": 0,
+          "details": {
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-csp",
+          "status": "warn",
+          "message": "Content-Security-Policy header is missing. Consider adding CSP to prevent XSS attacks.",
+          "score": 50,
+          "details": {
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-x-frame-options",
+          "status": "fail",
+          "message": "Neither X-Frame-Options nor CSP frame-ancestors is set. Site is vulnerable to clickjacking.",
+          "score": 0,
+          "details": {
+            "url": "https://seointelligence.com",
+            "xFrameOptions": null,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-x-content-type-options",
+          "status": "fail",
+          "message": "X-Content-Type-Options header is missing. Add \"nosniff\" to prevent MIME type sniffing attacks.",
+          "score": 0,
+          "details": {
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-external-links",
+          "status": "pass",
+          "message": "All external target=\"_blank\" links have noopener/noreferrer",
+          "score": 100,
+          "details": {
+            "checkedLinks": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-form-https",
+          "status": "pass",
+          "message": "No forms found on page",
+          "score": 100,
+          "details": {
+            "formCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-mixed-content",
+          "status": "pass",
+          "message": "No mixed content detected",
+          "score": 100,
+          "details": {
+            "isHttps": true,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-permissions-policy",
+          "status": "warn",
+          "message": "Permissions-Policy header is missing. Consider adding to control browser features.",
+          "score": 50,
+          "details": {
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-referrer-policy",
+          "status": "warn",
+          "message": "Referrer-Policy is not set. Consider adding to control referrer information.",
+          "score": 50,
+          "details": {
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-leaked-secrets",
+          "status": "pass",
+          "message": "No exposed secrets detected",
+          "score": 100,
+          "details": {
+            "patternsChecked": 25,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-password-http",
+          "status": "pass",
+          "message": "Page is served over HTTPS; password inputs are secure",
+          "score": 100,
+          "details": {
+            "isHttps": true,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-protocol-relative",
+          "status": "pass",
+          "message": "No protocol-relative URLs found in resource references",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-ssl-expiry",
+          "status": "warn",
+          "message": "HTTPS is enabled but no Strict-Transport-Security header found; browsers can be downgraded to HTTP",
+          "score": 50,
+          "details": {
+            "isHttps": true,
+            "hasHsts": false,
+            "recommendation": "Add Strict-Transport-Security header with max-age of at least 1 year (31536000 seconds)",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "security-ssl-protocol",
+          "status": "fail",
+          "message": "No Strict-Transport-Security header on HTTPS site; browsers cannot enforce secure connections",
+          "score": 0,
+          "details": {
+            "isHttps": true,
+            "hasHsts": false,
+            "recommendation": "Add Strict-Transport-Security: max-age=31536000; includeSubDomains; preload",
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "crawl",
+      "score": 99,
+      "passCount": 17,
+      "warnCount": 1,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "crawl-schema-noindex-conflict",
+          "status": "pass",
+          "message": "Page has no rich result schema",
+          "score": 100,
+          "details": {
+            "isNoindexed": false,
+            "schemaTypes": [],
+            "richResultTypes": [],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-canonical",
+          "status": "pass",
+          "message": "Page does not appear to be paginated",
+          "score": 100,
+          "details": {
+            "isPaginated": false,
+            "hasPaginationLinks": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-domain",
+          "status": "pass",
+          "message": "All 1 sitemap URLs belong to the expected domain",
+          "score": 100,
+          "details": {
+            "sitemapUrl": "https://seointelligence.com/sitemap.xml",
+            "isSitemapIndex": false,
+            "totalUrls": 1,
+            "expectedHostnames": [
+              "seointelligence.com",
+              "www.seointelligence.com"
+            ],
+            "invalidCount": 0,
+            "invalidDomainUrls": [],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-noindex-in-sitemap",
+          "status": "pass",
+          "message": "Page is indexable (no noindex directive)",
+          "score": 100,
+          "details": {
+            "isNoindexed": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-indexability-conflict",
+          "status": "pass",
+          "message": "No indexability conflict detected",
+          "score": 100,
+          "details": {
+            "url": "/",
+            "robotsTxtStatus": "accessible",
+            "hasNoindex": false,
+            "noindexSources": [],
+            "isDisallowedByRobotsTxt": false,
+            "matchedDisallowRule": null,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-canonical-redirect",
+          "status": "warn",
+          "message": "No canonical tag found",
+          "score": 50,
+          "details": {
+            "hasCanonical": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-url-limit",
+          "status": "pass",
+          "message": "No sitemap content available to check",
+          "score": 100,
+          "details": {
+            "sitemapAvailable": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-size-limit",
+          "status": "pass",
+          "message": "No sitemap content available to check",
+          "score": 100,
+          "details": {
+            "sitemapAvailable": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-duplicate-urls",
+          "status": "pass",
+          "message": "No sitemap URLs available to check",
+          "score": 100,
+          "details": {
+            "sitemapAvailable": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-orphan-urls",
+          "status": "pass",
+          "message": "No sitemap URLs available for orphan detection",
+          "score": 100,
+          "details": {
+            "crawledUrlCount": 1,
+            "sitemapUrlCount": 0,
+            "orphanCount": 0,
+            "orphanUrls": [],
+            "note": "Data is being collected for cross-page analysis",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-blocked-resources",
+          "status": "pass",
+          "message": "No Disallow rules found in robots.txt",
+          "score": 100,
+          "details": {
+            "disallowRuleCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-crawl-delay",
+          "status": "pass",
+          "message": "No Crawl-delay directive found in robots.txt",
+          "score": 100,
+          "details": {
+            "hasCrawlDelay": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-sitemap-in-robotstxt",
+          "status": "pass",
+          "message": "robots.txt references 1 sitemap(s)",
+          "score": 100,
+          "details": {
+            "sitemapDirectiveCount": 1,
+            "sitemapUrls": [
+              "/sitemap.xml"
+            ],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-broken",
+          "status": "pass",
+          "message": "No pagination links found (rel=\"next\"/\"prev\")",
+          "score": 100,
+          "details": {
+            "hasPagination": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-loop",
+          "status": "pass",
+          "message": "No pagination links found (rel=\"next\"/\"prev\")",
+          "score": 100,
+          "details": {
+            "hasPagination": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-sequence",
+          "status": "pass",
+          "message": "No pagination links found",
+          "score": 100,
+          "details": {
+            "hasNext": false,
+            "hasPrev": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-noindex",
+          "status": "pass",
+          "message": "Page is not paginated (no rel=\"next\"/\"prev\" links)",
+          "score": 100,
+          "details": {
+            "isPaginated": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "crawl-pagination-orphaned",
+          "status": "pass",
+          "message": "Page does not appear to be paginated",
+          "score": 100,
+          "details": {
+            "isPaginated": false,
+            "hasPaginationLinks": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "schema",
+      "score": 90,
+      "passCount": 8,
+      "warnCount": 4,
+      "failCount": 1,
+      "results": [
+        {
+          "ruleId": "schema-present",
+          "status": "fail",
+          "message": "No structured data found on the page (JSON-LD, microdata, or RDFa)",
+          "score": 0,
+          "details": {
+            "jsonLdCount": 0,
+            "microdataCount": 0,
+            "rdfaCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-valid",
+          "status": "warn",
+          "message": "No JSON-LD scripts found to validate",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-type",
+          "status": "warn",
+          "message": "No JSON-LD scripts found to check for @type",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-required-fields",
+          "status": "warn",
+          "message": "No JSON-LD scripts found to check for required fields",
+          "score": 50,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-article",
+          "status": "pass",
+          "message": "No Article schema found (not required)",
+          "score": 100,
+          "details": {
+            "articlesFound": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-breadcrumb",
+          "status": "pass",
+          "message": "Homepage - breadcrumb not required",
+          "score": 100,
+          "details": {
+            "isHomepage": true,
+            "breadcrumbsFound": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-faq",
+          "status": "pass",
+          "message": "No FAQPage schema found (not required)",
+          "score": 100,
+          "details": {
+            "faqPagesFound": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-local-business",
+          "status": "pass",
+          "message": "No LocalBusiness schema found (not required)",
+          "score": 100,
+          "details": {
+            "businessesFound": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-organization",
+          "status": "pass",
+          "message": "No Organization schema found (not required)",
+          "score": 100,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-product",
+          "status": "pass",
+          "message": "No Product schema found (not required)",
+          "score": 100,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-review",
+          "status": "pass",
+          "message": "No Review/AggregateRating schema found (not required)",
+          "score": 100,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-video",
+          "status": "pass",
+          "message": "No VideoObject schema found (not required)",
+          "score": 100,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "schema-website-search",
+          "status": "warn",
+          "message": "Homepage missing WebSite schema",
+          "score": 50,
+          "details": {
+            "isHomepage": true,
+            "suggestion": "Add WebSite schema to enable sitelinks searchbox",
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "a11y",
+      "score": 95,
+      "passCount": 10,
+      "warnCount": 2,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "a11y-aria-labels",
+          "status": "pass",
+          "message": "All interactive elements have accessible names",
+          "score": 100,
+          "details": {
+            "checkedElements": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-color-contrast",
+          "status": "pass",
+          "message": "No obvious color contrast issues detected",
+          "score": 100,
+          "details": {
+            "note": "Full WCAG contrast checking requires visual rendering",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-focus-visible",
+          "status": "pass",
+          "message": "No focus indicator issues detected",
+          "score": 100,
+          "details": {
+            "hasFocusVisibleSupport": false,
+            "customTabindexElements": 0,
+            "externalStylesheets": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-form-labels",
+          "status": "pass",
+          "message": "No form inputs found on page",
+          "score": 100,
+          "details": {
+            "totalInputs": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-heading-order",
+          "status": "warn",
+          "message": "No headings found on page",
+          "score": 50,
+          "details": {
+            "recommendation": "Add heading structure for accessibility and SEO",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-landmark-regions",
+          "status": "warn",
+          "message": "Missing essential landmark: <main>. Also missing: main, navigation, banner/header, contentinfo/footer",
+          "score": 50,
+          "details": {
+            "missing": [
+              "main",
+              "navigation",
+              "banner/header",
+              "contentinfo/footer"
+            ],
+            "landmarks": {},
+            "warnings": [],
+            "recommendation": "Add <main> landmark to wrap primary content",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-link-text",
+          "status": "pass",
+          "message": "All links have descriptive text",
+          "score": 100,
+          "details": {
+            "totalLinks": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-skip-link",
+          "status": "pass",
+          "message": "Page is simple enough that skip link may not be needed",
+          "score": 100,
+          "details": {
+            "hasMainLandmark": false,
+            "navElements": 0,
+            "note": "Simple pages without navigation may not require skip links",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-table-headers",
+          "status": "pass",
+          "message": "No data tables found on page",
+          "score": 100,
+          "details": {
+            "layoutTables": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-touch-targets",
+          "status": "pass",
+          "message": "No obvious touch target size issues detected",
+          "score": 100,
+          "details": {
+            "note": "Full touch target analysis requires visual rendering",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-video-captions",
+          "status": "pass",
+          "message": "No video or audio elements found on page",
+          "score": 100,
+          "details": {
+            "note": "If adding video content, include captions or transcripts",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "a11y-zoom-disabled",
+          "status": "pass",
+          "message": "No viewport meta tag found",
+          "score": 100,
+          "details": {
+            "note": "Consider adding viewport meta tag for mobile optimization",
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "content",
+      "score": 98,
+      "passCount": 12,
+      "warnCount": 1,
+      "failCount": 4,
+      "results": [
+        {
+          "ruleId": "content-word-count",
+          "status": "fail",
+          "message": "Extremely thin content: 0 words (minimum 100 recommended)",
+          "score": 0,
+          "details": {
+            "wordCount": 0,
+            "thresholds": {
+              "fail": 100,
+              "warn": 300,
+              "optimal": {
+                "min": 500,
+                "max": 2500
+              }
+            },
+            "impact": "Pages with very little content rarely rank well and may be seen as low quality",
+            "recommendation": "Expand content to at least 300 words, or consider consolidating with other pages",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-reading-level",
+          "status": "pass",
+          "message": "Content too short for readability analysis (0 words)",
+          "score": 100,
+          "details": {
+            "wordCount": 0,
+            "sentenceCount": 1,
+            "skipped": true,
+            "reason": "Minimum 50 words required for meaningful readability analysis",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-keyword-stuffing",
+          "status": "pass",
+          "message": "Content too short for keyword analysis (0 words)",
+          "score": 100,
+          "details": {
+            "wordCount": 0,
+            "skipped": true,
+            "reason": "Minimum 100 words required for meaningful keyword density analysis",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-article-links",
+          "status": "pass",
+          "message": "Content too short for link density check (0 words)",
+          "score": 100,
+          "details": {
+            "wordCount": 0,
+            "linkCount": 0,
+            "skipped": true,
+            "reason": "Minimum 100 words required for meaningful link density analysis",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-broken-html",
+          "status": "pass",
+          "message": "No significant HTML structure issues detected",
+          "score": 100,
+          "details": {
+            "issueCount": 0,
+            "criticalCount": 0,
+            "minorCount": 0,
+            "issues": [],
+            "categories": {
+              "duplicate-id": 0,
+              "invalid-nesting": 0,
+              "missing-attribute": 0,
+              "empty-element": 0,
+              "accessibility": 0,
+              "deprecated-element": 0
+            },
+            "note": "HTML structure appears well-formed",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-meta-in-body",
+          "status": "pass",
+          "message": "All meta elements are correctly placed in document head",
+          "score": 100,
+          "details": {
+            "checkedElements": [
+              "<meta>",
+              "<title>",
+              "<link rel=\"canonical\">",
+              "<link rel=\"icon\">"
+            ],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-mime-type",
+          "status": "warn",
+          "message": "Content-Type header missing charset specification",
+          "score": 50,
+          "details": {
+            "header": "text/html",
+            "mimeType": "text/html",
+            "charset": null,
+            "recommendation": "Add charset=utf-8 to Content-Type header: \"text/html; charset=utf-8\"",
+            "impact": "Missing charset can cause character encoding issues for international content",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-duplicate-description",
+          "status": "fail",
+          "message": "Page has no meta description",
+          "score": 0,
+          "details": {
+            "description": null,
+            "url": "https://seointelligence.com",
+            "impact": "Missing meta description reduces control over how the page appears in search results",
+            "recommendation": "Add a unique, compelling meta description between 120-160 characters",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-heading-hierarchy",
+          "status": "fail",
+          "message": "No headings found in the document",
+          "score": 0,
+          "details": {
+            "headingCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-heading-length",
+          "status": "pass",
+          "message": "No headings found to check",
+          "score": 100,
+          "details": {
+            "headingCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-heading-unique",
+          "status": "pass",
+          "message": "No headings found to check",
+          "score": 100,
+          "details": {
+            "headingCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-text-html-ratio",
+          "status": "fail",
+          "message": "Very low text-to-HTML ratio: 0% (0 text bytes / 114 HTML bytes)",
+          "score": 0,
+          "details": {
+            "textLength": 0,
+            "htmlLength": 114,
+            "ratio": 0,
+            "thresholds": {
+              "good": 25,
+              "low": 10
+            },
+            "impact": "Extremely low text ratio suggests too much code and too little content for search engines to index",
+            "recommendation": "Reduce unnecessary markup, inline styles, and scripts. Add more meaningful text content.",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-title-same-as-h1",
+          "status": "pass",
+          "message": "Title or H1 is missing (handled by other rules)",
+          "score": 100,
+          "details": {
+            "title": null,
+            "h1": null,
+            "reason": "skipped",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-title-pixel-width",
+          "status": "pass",
+          "message": "No title tag found (handled by core rules)",
+          "score": 100,
+          "details": {
+            "title": null,
+            "reason": "skipped",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-description-pixel-width",
+          "status": "pass",
+          "message": "No meta description found (handled by other rules)",
+          "score": 100,
+          "details": {
+            "description": null,
+            "reason": "skipped",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-duplicate-exact",
+          "status": "pass",
+          "message": "Page has insufficient content for duplicate detection",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "textLength": 0,
+            "reason": "skipped",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "content-duplicate-near",
+          "status": "pass",
+          "message": "Page has insufficient content for near-duplicate detection",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "textLength": 0,
+            "reason": "skipped",
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "social",
+      "score": 48,
+      "passCount": 0,
+      "warnCount": 3,
+      "failCount": 6,
+      "results": [
+        {
+          "ruleId": "social-og-title",
+          "status": "fail",
+          "message": "No <meta property=\"og:title\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "social-og-description",
+          "status": "fail",
+          "message": "No <meta property=\"og:description\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "social-og-image",
+          "status": "fail",
+          "message": "No <meta property=\"og:image\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "social-og-image-size",
+          "status": "fail",
+          "message": "No og:image found - cannot check dimensions",
+          "score": 0,
+          "details": {
+            "hasImage": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "social-twitter-card",
+          "status": "fail",
+          "message": "No <meta name=\"twitter:card\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "social-og-url",
+          "status": "fail",
+          "message": "No <meta property=\"og:url\"> tag found in the document",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "social-og-url-canonical",
+          "status": "warn",
+          "message": "Neither og:url nor canonical URL found - add both for consistent SEO signals",
+          "score": 50,
+          "details": {
+            "hasOgUrl": false,
+            "hasCanonical": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "social-share-buttons",
+          "status": "warn",
+          "message": "No social sharing buttons detected. Add share buttons to encourage social engagement",
+          "score": 50,
+          "details": {
+            "hasShareButtons": false,
+            "platformCount": 0,
+            "suggestion": "Add share buttons for Facebook, Twitter/X, and LinkedIn",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "social-profiles",
+          "status": "warn",
+          "message": "No social media profile links found. Add links to your social profiles in header/footer",
+          "score": 50,
+          "details": {
+            "hasProfiles": false,
+            "profileCount": 0,
+            "suggestion": "Add social profile links in header/footer and include sameAs in Organization schema",
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "eeat",
+      "score": 86,
+      "passCount": 8,
+      "warnCount": 6,
+      "failCount": 0,
+      "results": [
+        {
+          "status": "warn",
+          "score": 50,
+          "message": "No about page link found - important for trust and E-E-A-T",
+          "details": {
+            "hasAboutPage": false,
+            "recommendation": "Add an \"About\" or \"About Us\" page explaining who you are and link to it from your navigation",
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-about-page"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No affiliate or sponsored content detected",
+          "details": {
+            "hasAffiliateLinks": false,
+            "hasDisclosure": false,
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-affiliate-disclosure"
+        },
+        {
+          "ruleId": "eeat-author-byline",
+          "status": "warn",
+          "message": "No author byline found",
+          "score": 50,
+          "details": {
+            "signals": [],
+            "recommendation": "Add author attribution using Schema.org Person markup, meta author tag, or visible byline",
+            "impact": "Missing author info can negatively impact E-E-A-T signals, especially for YMYL content",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "status": "warn",
+          "score": 50,
+          "message": "No author present - expertise check not applicable",
+          "details": {
+            "signals": [],
+            "note": "This check requires author attribution. See eeat-author-byline rule.",
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-author-expertise"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No external citations found (may not be needed for this content type)",
+          "details": {
+            "citationCount": 0,
+            "hasCitationMarkup": false,
+            "hasReferencesSection": false,
+            "recommendation": "For content making claims, consider citing authoritative sources to build credibility",
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-citations"
+        },
+        {
+          "status": "warn",
+          "score": 50,
+          "message": "No contact page or contact methods found - important for trust",
+          "details": {
+            "hasContactPage": false,
+            "contactMethods": [],
+            "recommendation": "Add a contact page with multiple ways to reach you: email, phone, contact form, and physical address",
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-contact-page"
+        },
+        {
+          "ruleId": "eeat-content-dates",
+          "status": "warn",
+          "message": "No content date signals found",
+          "score": 50,
+          "details": {
+            "signals": [],
+            "recommendation": "Add datePublished and dateModified to Article schema, or use <time> elements with datetime attributes",
+            "impact": "Search engines use date signals to assess content freshness, which can affect rankings for time-sensitive queries",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "Non-YMYL content - disclaimers not required",
+          "details": {
+            "isYMYL": false,
+            "disclaimers": [],
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-disclaimers"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No editorial policy (may not be applicable for this site type)",
+          "details": {
+            "hasEditorialPolicy": false,
+            "signals": [],
+            "isContentSite": false,
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-editorial-policy"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No physical address found (may not be required for this site type)",
+          "details": {
+            "hasAddress": false,
+            "isBusinessSite": false,
+            "recommendation": "Consider adding a physical address if you operate a business to build trust",
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-physical-address"
+        },
+        {
+          "status": "warn",
+          "score": 50,
+          "message": "No privacy policy link found - important for trust and legal compliance",
+          "details": {
+            "hasPrivacyPolicy": false,
+            "recommendation": "Add a link to your privacy policy in the footer of every page",
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-privacy-policy"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No terms of service link found (may not be required for this site type)",
+          "details": {
+            "hasTermsOfService": false,
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-terms-of-service"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No trust signals detected (may not be required for this site type)",
+          "details": {
+            "signalCount": 0,
+            "signalTypes": [],
+            "recommendation": "Add trust signals: customer reviews/testimonials, certifications, security badges, media mentions, or client logos",
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-trust-signals"
+        },
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No YMYL content detected",
+          "details": {
+            "isYMYL": false,
+            "categories": [],
+            "confidence": "none",
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "eeat-ymyl-detection"
+        }
+      ]
+    },
+    {
+      "categoryId": "url",
+      "score": 100,
+      "passCount": 14,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "url-slug-keywords",
+          "status": "pass",
+          "message": "URL contains descriptive keywords: ",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "path": "/",
+            "slugSegments": [],
+            "hasDescriptiveSlug": true,
+            "isGeneric": false,
+            "isDynamic": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-stop-words",
+          "status": "pass",
+          "message": "URL contains no stop words",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "path": "/",
+            "words": [],
+            "stopWordsFound": [],
+            "stopWordCount": 0,
+            "stopWordRatio": 0,
+            "suggestions": [],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-uppercase",
+          "status": "pass",
+          "message": "URL path is all lowercase",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "path": "/",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-underscores",
+          "status": "pass",
+          "message": "Root path has no underscores",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "path": "/",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-double-slash",
+          "status": "pass",
+          "message": "URL path has no double slashes",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "path": "/",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-spaces",
+          "status": "pass",
+          "message": "URL contains no spaces",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "path": "/",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-non-ascii",
+          "status": "pass",
+          "message": "URL path contains only ASCII characters",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "path": "/",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-length",
+          "status": "pass",
+          "message": "URL length is 27 characters (good, <= 75)",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "length": 27,
+            "maxRecommended": 75,
+            "maxAcceptable": 200,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-repetitive-path",
+          "status": "pass",
+          "message": "URL path has no repetitive segments",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "path": "/",
+            "segments": [],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-parameters",
+          "status": "pass",
+          "message": "URL has no query parameters",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "parameterCount": 0,
+            "parameters": [],
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-session-ids",
+          "status": "pass",
+          "message": "No session IDs found in URL",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-tracking-params",
+          "status": "pass",
+          "message": "No tracking parameters found in URL",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-internal-search",
+          "status": "pass",
+          "message": "URL does not appear to be an internal search page",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "url-http-https-duplicate",
+          "status": "pass",
+          "message": "No canonical URL specified (no protocol mismatch to check)",
+          "score": 100,
+          "details": {
+            "url": "https://seointelligence.com",
+            "canonical": null,
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "mobile",
+      "score": 100,
+      "passCount": 5,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "mobile-font-size",
+          "status": "pass",
+          "message": "No mobile font size issues detected",
+          "score": 100,
+          "details": {
+            "note": "Static analysis - verify on actual mobile device",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "mobile-horizontal-scroll",
+          "status": "pass",
+          "message": "No elements likely to cause horizontal scrolling detected",
+          "score": 100,
+          "details": {
+            "note": "Static analysis - test on actual mobile devices",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "mobile-interstitials",
+          "status": "pass",
+          "message": "No intrusive interstitials detected",
+          "score": 100,
+          "details": {
+            "note": "Static analysis - JavaScript-triggered popups may not be detected",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "mobile-viewport-width",
+          "status": "pass",
+          "message": "No viewport meta tag present; skipping width check (handled by viewport-present rule)",
+          "score": 100,
+          "details": {
+            "viewportFound": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "mobile-multiple-viewports",
+          "status": "pass",
+          "message": "No viewport meta tags found (handled by viewport-present rule)",
+          "score": 100,
+          "details": {
+            "viewportCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "i18n",
+      "score": 100,
+      "passCount": 9,
+      "warnCount": 0,
+      "failCount": 1,
+      "results": [
+        {
+          "ruleId": "i18n-lang-attribute",
+          "status": "fail",
+          "message": "Missing lang attribute on <html> element",
+          "score": 0,
+          "details": {
+            "found": true,
+            "hasLang": false,
+            "recommendation": "Add lang attribute: <html lang=\"en\">",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang",
+          "status": "pass",
+          "message": "No hreflang tags found (single-language site)",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "note": "Add hreflang tags if you have multi-language or regional versions",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-return-links",
+          "status": "pass",
+          "message": "No hreflang tags found (single-language site)",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-to-noindex",
+          "status": "pass",
+          "message": "No hreflang tags found, no conflict possible",
+          "score": 100,
+          "details": {
+            "hasHreflang": false,
+            "hasNoindex": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-to-non-canonical",
+          "status": "pass",
+          "message": "No hreflang tags found, no conflict possible",
+          "score": 100,
+          "details": {
+            "hasHreflang": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-to-broken",
+          "status": "pass",
+          "message": "No hreflang tags found",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-to-redirect",
+          "status": "pass",
+          "message": "No hreflang tags found",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-conflicting",
+          "status": "pass",
+          "message": "No hreflang tags found",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-lang-mismatch",
+          "status": "pass",
+          "message": "No hreflang tags found, no mismatch possible",
+          "score": 100,
+          "details": {
+            "hasHreflang": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "i18n-hreflang-multiple-methods",
+          "status": "pass",
+          "message": "No hreflang declarations found",
+          "score": 100,
+          "details": {
+            "htmlHreflang": false,
+            "headerHreflang": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "legal",
+      "score": 100,
+      "passCount": 1,
+      "warnCount": 0,
+      "failCount": 0,
+      "results": [
+        {
+          "status": "pass",
+          "score": 100,
+          "message": "No cookie consent mechanism detected (may not be required if no tracking cookies used)",
+          "details": {
+            "hasConsent": false,
+            "hasTracking": false,
+            "pageUrl": "https://seointelligence.com"
+          },
+          "ruleId": "legal-cookie-consent"
+        }
+      ]
+    },
+    {
+      "categoryId": "js",
+      "score": 92,
+      "passCount": 8,
+      "warnCount": 3,
+      "failCount": 2,
+      "results": [
+        {
+          "ruleId": "js-rendered-title",
+          "status": "pass",
+          "message": "Title tag is present in the rendered DOM",
+          "score": 100,
+          "details": {
+            "renderedTitle": "Access Denied",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-description",
+          "status": "fail",
+          "message": "Meta description is missing in the rendered DOM after JavaScript execution",
+          "score": 0,
+          "details": {
+            "renderedDescription": null,
+            "recommendation": "Ensure your JavaScript framework injects <meta name=\"description\"> during rendering",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-h1",
+          "status": "pass",
+          "message": "H1 heading is present in the rendered DOM",
+          "score": 100,
+          "details": {
+            "renderedH1": "Access Denied",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-canonical",
+          "status": "fail",
+          "message": "Canonical link tag is missing in the rendered DOM after JavaScript execution",
+          "score": 0,
+          "details": {
+            "renderedCanonical": null,
+            "recommendation": "Ensure your JavaScript framework injects <link rel=\"canonical\"> during rendering",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-canonical-mismatch",
+          "status": "pass",
+          "message": "Canonical tag not present in either raw or rendered DOM (no mismatch)",
+          "score": 100,
+          "details": {
+            "rawCanonical": null,
+            "renderedCanonical": null,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-noindex-mismatch",
+          "status": "pass",
+          "message": "Noindex status is consistent between raw and rendered DOM",
+          "score": 100,
+          "details": {
+            "rawHasNoindex": false,
+            "renderedHasNoindex": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-title-modified",
+          "status": "warn",
+          "message": "Title was modified by JavaScript execution",
+          "score": 50,
+          "details": {
+            "rawTitle": null,
+            "renderedTitle": "Access Denied",
+            "impact": "Search engines primarily use the raw HTML title; the JS-modified title may not be indexed",
+            "recommendation": "Set the correct title in server-side HTML rather than modifying it with JavaScript",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-description-modified",
+          "status": "pass",
+          "message": "Meta description is not present in either raw or rendered DOM (no modification detected)",
+          "score": 100,
+          "details": {
+            "rawDescription": null,
+            "renderedDescription": null,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-h1-modified",
+          "status": "warn",
+          "message": "H1 heading was modified by JavaScript execution",
+          "score": 50,
+          "details": {
+            "rawH1": null,
+            "renderedH1": "Access Denied",
+            "impact": "Search engines may index the raw HTML H1; the JS-modified heading may not be used",
+            "recommendation": "Set the correct H1 heading in server-side HTML rather than modifying it with JavaScript",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-content",
+          "status": "warn",
+          "message": "Most page content is injected by JavaScript; raw HTML has significantly less content",
+          "score": 50,
+          "details": {
+            "rawContentLength": 0,
+            "renderedContentLength": 229,
+            "ratio": "N/A",
+            "impact": "Search engines may not index all content if JavaScript rendering is delayed or fails",
+            "recommendation": "Consider server-side rendering for critical content to ensure indexability",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-rendered-links",
+          "status": "pass",
+          "message": "Links are mostly present in raw HTML",
+          "score": 100,
+          "details": {
+            "rawLinkCount": 0,
+            "renderedLinkCount": 0,
+            "addedByJs": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-blocked-resources",
+          "status": "pass",
+          "message": "No Disallow rules found in robots.txt",
+          "score": 100,
+          "details": {
+            "disallowCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "js-ssr-check",
+          "status": "pass",
+          "message": "Page appears to be server-side rendered with content in the initial HTML",
+          "score": 100,
+          "details": {
+            "bodyTextLength": 0,
+            "hasEmptyRoot": false,
+            "rootSelector": null,
+            "hasJsRequiredNoscript": false,
+            "scriptCount": 1,
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "redirect",
+      "score": 97,
+      "passCount": 7,
+      "warnCount": 1,
+      "failCount": 0,
+      "results": [
+        {
+          "ruleId": "redirect-meta-refresh",
+          "status": "pass",
+          "message": "No meta refresh redirect found",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "redirect-javascript",
+          "status": "warn",
+          "message": "JavaScript redirect detected (2 pattern(s) found); search engines may not follow",
+          "score": 50,
+          "details": {
+            "matchedPatterns": [
+              "window\\.location\\s*[=.]",
+              "location\\.href\\s*="
+            ],
+            "inlineScriptCount": 1,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "redirect-http-refresh",
+          "status": "pass",
+          "message": "No Refresh HTTP header present",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "redirect-loop",
+          "status": "pass",
+          "message": "No redirect chain to check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "redirect-type",
+          "status": "pass",
+          "message": "Page is not a redirect",
+          "score": 100,
+          "details": {
+            "statusCode": 200,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "redirect-broken",
+          "status": "pass",
+          "message": "No redirect chain to check",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "redirect-resource",
+          "status": "pass",
+          "message": "No HTTP resources found on HTTPS page",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "redirect-case-normalization",
+          "status": "pass",
+          "message": "No canonical URL to compare",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "htmlval",
+      "score": 100,
+      "passCount": 8,
+      "warnCount": 0,
+      "failCount": 1,
+      "results": [
+        {
+          "ruleId": "htmlval-missing-doctype",
+          "status": "pass",
+          "message": "DOCTYPE declaration is present",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-missing-charset",
+          "status": "fail",
+          "message": "No charset declaration found. Add <meta charset=\"utf-8\"> as the first element in <head>",
+          "score": 0,
+          "details": {
+            "found": false,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-invalid-head",
+          "status": "pass",
+          "message": "<head> contains only valid metadata elements",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-noscript-in-head",
+          "status": "pass",
+          "message": "No <noscript> elements found in <head>",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-multiple-heads",
+          "status": "pass",
+          "message": "Document has a single <head> element",
+          "score": 100,
+          "details": {
+            "count": 1,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-size-limit",
+          "status": "pass",
+          "message": "HTML document size is 114 B",
+          "score": 100,
+          "details": {
+            "sizeBytes": 114,
+            "sizeFormatted": "114 B",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-lorem-ipsum",
+          "status": "pass",
+          "message": "No placeholder text detected",
+          "score": 100,
+          "details": {
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-multiple-titles",
+          "status": "pass",
+          "message": "No <title> element found (checked by core-title-present)",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "htmlval-multiple-descriptions",
+          "status": "pass",
+          "message": "No meta description found (checked by core-description-present)",
+          "score": 100,
+          "details": {
+            "count": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    },
+    {
+      "categoryId": "geo",
+      "score": 89,
+      "passCount": 2,
+      "warnCount": 1,
+      "failCount": 2,
+      "results": [
+        {
+          "ruleId": "geo-semantic-html",
+          "status": "fail",
+          "message": "Poor semantic HTML - AI systems struggle to parse content (only 0 semantic element(s) found)",
+          "score": 0,
+          "details": {
+            "found": [],
+            "foundCount": 0,
+            "elementCounts": {},
+            "missingRecommended": [
+              "main",
+              "article",
+              "header",
+              "footer",
+              "nav"
+            ],
+            "totalSemanticChecked": 13,
+            "recommendation": "Add semantic elements like <main>, <article>, <header>, <footer>, and <nav> to help AI understand your content structure",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "geo-content-structure",
+          "status": "fail",
+          "message": "Poor content structure for AI extraction (0/4 signals). Missing: main content area (<main>, <article>, or [role=\"main\"]); hierarchical headings (h1 followed by h2, h3, etc.); paragraph content (at least 30 words of prose in <p> elements); structured data (<ul>, <ol>, <dl>, or <table> elements)",
+          "score": 0,
+          "details": {
+            "presentSignals": [],
+            "missingSignals": [
+              "main content area (<main>, <article>, or [role=\"main\"])",
+              "hierarchical headings (h1 followed by h2, h3, etc.)",
+              "paragraph content (at least 30 words of prose in <p> elements)",
+              "structured data (<ul>, <ol>, <dl>, or <table> elements)"
+            ],
+            "signalCount": 0,
+            "headingLevels": [],
+            "paragraphWordCount": 0,
+            "hasLists": false,
+            "hasTables": false,
+            "recommendation": "Add a clear <main> or <article> area, use hierarchical headings, write paragraph prose, and include lists or tables for structured information",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "geo-ai-bot-access",
+          "status": "pass",
+          "message": "AI bots are not blocked in robots.txt",
+          "score": 100,
+          "details": {
+            "robotsTxtUrl": "https://seointelligence.com/robots.txt",
+            "robotsTxtAccessible": true,
+            "blockedBots": [],
+            "allowedBots": [
+              "GPTBot",
+              "ChatGPT-User",
+              "Google-Extended",
+              "CCBot",
+              "anthropic-ai",
+              "Claude-Web",
+              "Bytespider",
+              "PerplexityBot",
+              "Amazonbot"
+            ],
+            "totalBotsChecked": 9,
+            "blockedCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "geo-llms-txt",
+          "status": "warn",
+          "message": "No llms.txt reference found - consider adding for AI discoverability",
+          "score": 50,
+          "details": {
+            "references": [],
+            "referenceCount": 0,
+            "note": "llms.txt is an emerging standard (llmstxt.org) - not yet required but recommended for AI visibility",
+            "recommendation": "Add <link rel=\"llms\" href=\"/llms.txt\"> in <head>, or create /llms.txt describing your site for LLMs (see llmstxt.org)",
+            "pageUrl": "https://seointelligence.com"
+          }
+        },
+        {
+          "ruleId": "geo-schema-drift",
+          "status": "pass",
+          "message": "No JSON-LD structured data to check",
+          "score": 100,
+          "details": {
+            "jsonLdCount": 0,
+            "pageUrl": "https://seointelligence.com"
+          }
+        }
+      ]
+    }
+  ],
+  "timestamp": "2026-07-13T21:08:16.548Z",
+  "crawledPages": 1,
+  "ai_recommendation": "# Technical SEO Optimization Roadmap: seointelligence.com\n\nThis document outlines a direct, technical roadmap to resolve the critical, important, and recommended issues identified on **https://seointelligence.com**. \n\nCurrently, the site suffers from severe security misconfigurations, server-level routing errors, missing core HTML tags, and an absolute lack of domain authority (0/100). Implementing the steps below will stabilize your crawl budget, improve search indexing, secure your user data, and establish a foundation for ranking.\n\n---\n\n## Phase 1: Critical Fixes (Implement Immediately)\n\nThese issues directly impact search engine indexing, mobile-friendliness, security rankings, and brand identity consolidated authority.\n\n### 1. Resolve HTTP-to-HTTPS & WWW Redirect Loops\n*   **The Issue:** The site fails to enforce a single canonical domain variant. Users and crawlers can access both secure/insecure and www/non-www versions independently, leading to duplicate content and security warnings.\n*   **The Fix:** Force all traffic to the secure, non-www version: `https://seointelligence.com`.\n    *   **For Apache (.htaccess):** Add the following rules at the top of your file:\n        ```apache\n        RewriteEngine On\n        # Force HTTPS\n        RewriteCond %{HTTPS} off\n        RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\n        # Force non-WWW\n        RewriteCond %{HTTP_HOST} ^www\\.(.*)$ [NC]\n        RewriteRule ^(.*)$ https://%1/$1 [R=301,L]\n        ```\n    *   **For Nginx (nginx.conf):**\n        ```nginx\n        server {\n            listen 80;\n            server_name seointelligence.com www.seointelligence.com;\n            return 301 https://seointelligence.com$request_uri;\n        }\n        server {\n            listen 443 ssl;\n            server_name www.seointelligence.com;\n            return 301 https://seointelligence.com$request_uri;\n        }\n        ```\n*   **Verification:** Open your terminal and run: `curl -I http://seointelligence.com`. Verify it returns a `301 Moved Permanently` pointing directly to `https://seointelligence.com`.\n\n### 2. Implement Missing Core Meta Tags (Viewport, Title, Canonical, and H1)\n*   **The Issue:** The homepage lacks a viewport tag (destroying mobile usability scores), has no title tag, lacks a canonical declaration, and has no H1 tag.\n*   **The Fix:** Edit your homepage HTML template (usually `index.html`, `header.php`, or your CMS layout generator) and insert these elements inside the `<head>` and `<body>` tags.\n    *   **The Code Edit (Add to `<head>`):**\n        ```html\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n        <title>SEO Intelligence | Advanced Search Engine Optimization Solutions</title>\n        <link rel=\"canonical\" href=\"https://seointelligence.com/\">\n        ```\n    *   **The Code Edit (Add to `<body>`):** Ensure there is exactly **one** H1 tag on the homepage, positioned at the top of the content hierarchy:\n        ```html\n        <h1>Enterprise SEO Intelligence & Search Analytics</h1>\n        ```\n*   **Verification:** Right-click your homepage, select **View Page Source**, and search (`Ctrl+F`) for `<title>`, `<link rel=\"canonical\"`, `viewport`, and `<h1>` to verify presence and uniqueness.\n\n### 3. Deprecate Outdated SSL Protocols & Enable HSTS\n*   **The Issue:** Your server supports legacy TLS 1.0 or 1.1 protocols (vulnerable to attack) and lacks HTTP Strict Transport Security (HSTS), putting user security at risk.\n*   **The Fix:** Disable outdated protocols and force modern TLS (1.2 and 1.3) along with the HSTS security header.\n    *   **For Nginx:** Update your SSL block:\n        ```nginx\n        ssl_protocols TLSv1.2 TLSv1.3;\n        add_header Strict-Transport-Security \"max-age=63072000; includeSubDomains; preload\" always;\n        ```\n    *   **For Apache:** Update your `ssl.conf`:\n        ```apache\n        SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1\n        Header always set Strict-Transport-Security \"max-age=63072000; includeSubDomains; preload\"\n        ```\n*   **Verification:** Run your domain through the [Qualys SSL Labs Tool](https://www.ssllabs.com/ssltest/) and ensure you receive an **A+** grade.\n\n### 4. Deploy Missing Critical Security Headers\n*   **The Issue:** Missing `X-Frame-Options` (prevents clickjacking) and `X-Content-Type-Options` (prevents MIME-sniffing).\n*   **The Fix:** Inject these headers via your server configuration or server-side code.\n    *   **For Apache (.htaccess):**\n        ```apache\n        Header always set X-Frame-Options \"SAMEORIGIN\"\n        Header always set X-Content-Type-Options \"nosniff\"\n        ```\n    *   **For Nginx:**\n        ```nginx\n        add_header X-Frame-Options \"SAMEORIGIN\" always;\n        add_header X-Content-Type-Options \"nosniff\" always;\n        ```\n*   **Verification:** Use curl: `curl -I https://seointelligence.com` and confirm both headers appear in the response payload.\n\n---\n\n## Phase 2: Important Fixes (Implement Next)\n\nThese optimizations improve performance, crawler instructions, user experience (UX), and metadata click-through-rates (CTR).\n\n### 1. Fix the Meta Description & Character Lengths\n*   **The Issue:** No meta description exists, leading to search engines auto-generating poor search snippets. \n*   **The Fix:** Write and insert a compelling meta description of **120-155 characters** into your homepage `<head>`.\n    *   **The Code Edit:**\n        ```html\n        <meta name=\"meta-description\" content=\"Unlock enterprise-grade organic growth. Discover advanced technical SEO audits, search data intelligence, and actionable growth frameworks.\">\n        ```\n*   **Verification:** Inspect your page source to ensure the tag exists and contains exactly the text above.\n\n### 2. Configure a Valid 404 Error Page & Robots.txt\n*   **The Issue:** The server does not handle missing pages properly (often returning a `200 OK` status for broken links), and the `robots.txt` file is either missing or contains invalid syntax.\n*   **The Fix:**\n    1.  **Configure 404 Status:** Ensure your server returns an actual HTTP 404 response header for non-existent paths.\n        *   *Apache:* Add `ErrorDocument 404 /404.html` to `.htaccess`. Create a friendly, styled `404.html` page.\n    2.  **Deploy a Valid robots.txt:** Create a text file named `robots.txt` and upload it to your root directory (`https://seointelligence.com/robots.txt`):\n        ```text\n        User-agent: *\n        Allow: /\n\n        Sitemap: https://seointelligence.com/sitemap.xml\n        ```\n*   **Verification:** Visit `https://seointelligence.com/non-existent-page-test`. Use Chrome DevTools (Network Tab) to confirm the status code is `404 Not Found`, not `200 OK`.\n\n### 3. Implement Text Compression (Gzip/Brotli) & Enable HTTP/2\n*   **The Issue:** Large HTML, CSS, and JS assets are being served uncompressed, and the server is using outdated HTTP/1.1 protocols, slowing down your page load times.\n*   **The Fix:** Enable HTTP/2 and Gzip/Brotli compression at the host/server level.\n    *   **Nginx Configuration:**\n        ```nginx\n        # Enable HTTP/2\n        listen 443 ssl http2;\n\n        # Enable Gzip\n        gzip on;\n        gzip_types text/plain text/css application/json application/javascript text/xml;\n        ```\n    *   **Apache Configuration (via .htaccess):**\n        ```apache\n        <IfModule mod_deflate.c>\n            AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json\n        </IfModule>\n        ```\n*   **Verification:** Open Chrome DevTools > Network Tab. Add the \"Protocol\" column to confirm it says `h2`. Check the \"Content-Encoding\" response header to confirm it reads `gzip` or `br`.\n\n### 4. Optimize Interaction to Next Paint (INP) & Cache Policy\n*   **The Issue:** Real-user latency issues are flagged via Core Web Vitals (INP), and static files lack caching headers.\n*   **The Fix:**\n    1.  **Cache Control (Apache):**\n        ```apache\n        <IfModule mod_expires.c>\n            ExpiresActive On\n            ExpiresByType image/jpg \"access plus 1 year\"\n            ExpiresByType image/png \"access plus 1 year\"\n            ExpiresByType text/css \"access plus 1 month\"\n            ExpiresByType application/javascript \"access plus 1 month\"\n        </IfModule>\n        ```\n    2.  **Optimize INP:** Identify and defer non-critical JavaScript files using the `defer` or `async` tags:\n        ```html\n        <script src=\"non-critical-script.js\" defer></script>\n        ```\n        Minimize long tasks in main-thread JS execution.\n\n### 5. Add a Valid Favicon\n*   **The Issue:** No favicon is specified, resulting in generic blank browser tabs and lower trust in SERPs.\n*   **The Fix:** Upload a `.ico` or `.png` icon (sized 32x32px) to your root directory and reference it in your `<head>`:\n    ```html\n    <link rel=\"icon\" type=\"image/png\" href=\"/favicon-32x32.png\">\n    ```\n\n---\n\n## Phase 3: Recommended Actions (Long-Term Growth)\n\nThese actions build trust, secure the server footprint, and systematically resolve your **0/100 Off-Page Authority score**.\n\n### 1. Harden Web Security (CSP, Permissions-Policy, Referrer-Policy)\n*   **The Issue:** Missing advanced security policies, making the site vulnerable to cross-site scripting (XSS) and referrer leaks.\n*   **The Fix:** Deploy these headers inside your server block or `.htaccess`:\n    ```apache\n    # Referrer Policy\n    Header always set Referrer-Policy \"strict-origin-when-cross-origin\"\n    # Permissions Policy\n    Header always set Permissions-Policy \"geolocation=(), camera=(), microphone=()\"\n    # Basic Content Security Policy (Adjust based on third-party scripts)\n    Header always set Content-Security-Policy \"default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:;\"\n    ```\n\n### 2. Fix Dead Ends & Establish an Internal Link Architecture\n*   **The Issue:** Search engines detect isolated \"dead-end\" pages that do not link back to other areas of your site.\n*   **The Fix:**\n    *   Build a global navigation header and footer on every single page.\n    *   Ensure every transactional or informational page has at least **2-3 internal links** pointing to relevant internal resources.\n*   **Verification:** Run a crawl using tools like Screaming Frog to identify pages with an Outlink count of `0` and resolve them.\n\n### 3. Establish Off-Page Authority (From 0 to 100)\n*   **The Issue:** Your backlink footprint is non-existent (DA: None, Backlinks: None).\n*   **The Fix:** You need a high-quality link acquisition strategy to build domain authority:\n    1.  **Claim Directory Foundations:** Secure your listings on Google Business Profile, Crunchbase, LinkedIn, and trusted industry-specific local/national directories.\n    2.  **Produce Linkable Assets:** Write deep-dive, original industry reports or free diagnostic templates that other marketing blogs will naturally reference and link to.\n    3.  **Active PR Outreach:** Use platforms like Connectively (formerly HARO) to provide expert commentary on SEO and digital marketing trends to earn high-authority backlinks.",
+  "ai_tone": "Professional & Direct",
+  "status": "success"
+}

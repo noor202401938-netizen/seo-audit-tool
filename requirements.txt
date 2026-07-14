@@ -16,8 +16,8 @@ passlib[bcrypt]
 python-multipart
 rq
 redis
-google-generativeai
+google-genai
 email-validator
 pytrends==4.9.2
-googlesearch-python==1.2.3
+googlesearch-python==1.3.0
 fake-useragent==1.4.0

@@ -1,9 +1,8 @@
 import json
 import random
 import asyncio
-import warnings
-warnings.filterwarnings("ignore", category=FutureWarning, module="google.generativeai")
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 import config
 from utils.logger import get_logger
 from prisma import Prisma
@@ -18,12 +17,24 @@ TONES = [
 
 class AIRecommendationGenerator:
     @staticmethod
-    async def _get_best_tone():
+    def _get_best_tone():
         try:
-            prisma = Prisma()
-            await prisma.connect()
-            records = await prisma.aifeedback.find_many()
-            await prisma.disconnect()
+            import sqlite3
+            import os
+            
+            db_url = os.getenv("DATABASE_URL", "file:data/seo_auditor.db")
+            if db_url.startswith("file:"):
+                db_path = db_url.split("file:")[1]
+            else:
+                db_path = "data/seo_auditor.db"
+                
+            if not os.path.isabs(db_path) and not os.path.exists(db_path):
+                db_path = "seo_auditor.db"
+                
+            conn = sqlite3.connect(db_path)
+            conn.row_factory = sqlite3.Row
+            records = conn.execute("SELECT * FROM AIFeedback").fetchall()
+            conn.close()
             
             # Epsilon-Greedy: 20% exploration or no data
             if not records or random.random() < 0.2:
@@ -33,11 +44,11 @@ class AIRecommendationGenerator:
             best_tone = TONES[0]
             best_rate = -1.0
             for r in records:
-                if r.trials > 0:
-                    rate = r.wins / r.trials
+                if r['trials'] > 0:
+                    rate = r['wins'] / r['trials']
                     if rate > best_rate:
                         best_rate = rate
-                        best_tone = r.tone
+                        best_tone = r['tone']
                         
             # In case the best tone from DB is no longer in our TONES list, fallback
             return best_tone if best_tone in TONES else random.choice(TONES)
@@ -60,10 +71,9 @@ class AIRecommendationGenerator:
             )
 
         try:
-            chosen_tone = asyncio.run(AIRecommendationGenerator._get_best_tone())
+            chosen_tone = AIRecommendationGenerator._get_best_tone()
             
-            # Configure API key
-            genai.configure(api_key=config.GEMINI_API_KEY)
+            client = genai.Client(api_key=config.GEMINI_API_KEY)
             
             # Format issues for the prompt to save token space
             formatted_issues = []
@@ -82,8 +92,6 @@ class AIRecommendationGenerator:
                 f"Crucially, you MUST adopt the following tone and style for your response: {chosen_tone}."
             )
 
-            model = genai.GenerativeModel('gemini-2.5-flash', system_instruction=system_instruction)
-            
             prompt = (
                 f"Please review the SEO Audit profile for the website: {website}\n\n"
                 f"Scores:\n"
@@ -100,8 +108,14 @@ class AIRecommendationGenerator:
                 f"Important (Fix next), and Recommended. For each issue, provide detailed instructions (where to go in their code/CMS, "
                 f"exactly what to edit, and how to verify it works)."
             )
-            
-            response = model.generate_content(prompt)
+
+            response = client.models.generate_content(
+                model='gemini-flash-latest',
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=system_instruction
+                )
+            )
             return response.text.strip(), chosen_tone
             
         except Exception as e:
