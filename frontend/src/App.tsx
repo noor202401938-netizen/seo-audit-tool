@@ -12,6 +12,7 @@ import Privacy from './pages/Privacy';
 import Cookies from './pages/Cookies';
 import Terms from './pages/Terms';
 import Features from './pages/Features';
+import Profile from './pages/Profile';
 import ToolRunner from './pages/ToolRunner';
 import { Footer } from './components/Footer';
 import { ThreeBackground } from './components/ThreeBackground';
@@ -33,6 +34,7 @@ export default function App() {
       <Routes>
         <Route path="/app" element={<ProtectedRoute><SaaSLayout /></ProtectedRoute>}>
           <Route index element={<Dashboard />} />
+          <Route path="profile" element={<Profile />} />
           <Route path="tools/seo-audit-tool" element={<Dashboard />} />
           <Route path="tools/:toolId" element={<ToolRunner />} />
         </Route>

@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, Loader2 } from 'lucide-react';
+import { Search, Loader2, Download, RefreshCw, ArrowRight, Clock } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { ResultsDashboard } from '../components/ResultsDashboard';
 import { useAuth } from '../contexts/AuthContext';
+import { TOOL_CATEGORIES } from '../data/tools';
+import { Link } from 'react-router-dom';
 export interface RuleResult {
   ruleId: string;
   status: 'pass' | 'warn' | 'fail';
@@ -64,6 +66,7 @@ export default function Dashboard() {
   };
 
   const [recentAudits, setRecentAudits] = useState<any[]>([]);
+  const [recentTools, setRecentTools] = useState<string[]>([]);
 
   const fetchRecentAudits = async () => {
     try {
@@ -80,9 +83,25 @@ export default function Dashboard() {
     }
   };
 
+  const fetchRecentTools = async () => {
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const res = await fetch(`${apiUrl}/api/tools/recent`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setRecentTools(data);
+      }
+    } catch (e) {
+      console.error('Failed to fetch recent tools', e);
+    }
+  };
+
   useEffect(() => {
     if (token) {
       fetchRecentAudits();
+      fetchRecentTools();
     }
   }, [token]);
 
@@ -108,10 +127,13 @@ export default function Dashboard() {
     }
   };
 
-  const handleAudit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!url) return;
+  const handleDownload = (e: React.MouseEvent, targetUrl: string) => {
+    e.stopPropagation();
+    const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+    window.open(`${apiUrl}/api/audit/pdf?url=${encodeURIComponent(targetUrl)}`, '_blank');
+  };
 
+  const executeAudit = async (targetUrl: string) => {
     stopPolling();
     setIsLoading(true);
     setError('');
@@ -119,10 +141,9 @@ export default function Dashboard() {
     setPollingMessage(POLLING_MESSAGES[0]);
     messageIndexRef.current = 0;
 
-    // Normalize URL
-    let targetUrl = url.trim();
-    if (!targetUrl.startsWith('http://') && !targetUrl.startsWith('https://')) {
-      targetUrl = 'https://' + targetUrl;
+    let normalizedUrl = targetUrl.trim();
+    if (!normalizedUrl.startsWith('http://') && !normalizedUrl.startsWith('https://')) {
+      normalizedUrl = 'https://' + normalizedUrl;
     }
 
     try {
@@ -133,7 +154,7 @@ export default function Dashboard() {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}` 
         },
-        body: JSON.stringify({ url: targetUrl, crawl, max_pages: maxPages }),
+        body: JSON.stringify({ url: normalizedUrl, crawl, max_pages: maxPages }),
       });
 
       if (!response.ok) {
@@ -143,51 +164,49 @@ export default function Dashboard() {
       }
 
       const { job_id } = await response.json();
-
-      if (!job_id) {
-        throw new Error('Backend did not return a job ID.');
-      }
-
-      // Step 2: Poll for status every 3 seconds
+      refreshUser(); // update audit quota
+      
       pollingIntervalRef.current = setInterval(async () => {
-        // Cycle through informational messages
-        messageIndexRef.current = (messageIndexRef.current + 1) % POLLING_MESSAGES.length;
-        setPollingMessage(POLLING_MESSAGES[messageIndexRef.current]);
-
         try {
-          const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-          const statusRes = await fetch(`${apiUrl}/api/audit/status/${job_id}`, {
-            headers: { 'Authorization': `Bearer ${token}` }
-          });
-          if (!statusRes.ok) {
-            throw new Error('Error fetching job status.');
-          }
-
+          const statusRes = await fetch(`${apiUrl}/api/audit/status/${job_id}`);
           const statusData = await statusRes.json();
 
-          if (statusData.status === 'success') {
+          if (statusData.status === 'completed') {
             stopPolling();
-            setResult(statusData as AuditResult);
+            setResult(statusData.result);
             setIsLoading(false);
-            // Refresh the user context to update the remaining audits count
-            await refreshUser();
+            fetchRecentAudits();
           } else if (statusData.status === 'failed') {
             stopPolling();
-            setError(`Audit failed: ${statusData.error || 'Unknown worker error.'}`);
+            setError(statusData.error || 'Audit failed');
             setIsLoading(false);
+          } else {
+            messageIndexRef.current = (messageIndexRef.current + 1) % POLLING_MESSAGES.length;
+            setPollingMessage(POLLING_MESSAGES[messageIndexRef.current]);
           }
-          // If status is 'processing' or 'queued', keep polling
-        } catch (pollErr: any) {
-          stopPolling();
-          setError(pollErr.message || 'Lost connection to backend while polling.');
-          setIsLoading(false);
+        } catch (e) {
+          console.error('Polling error', e);
         }
-      }, 3000);
+      }, 2000);
     } catch (err: any) {
-      setError(err.message || 'An unknown error occurred.');
+      stopPolling();
+      setError(err.message || 'An unexpected error occurred');
       setIsLoading(false);
     }
   };
+
+  const handleRerun = (e: React.MouseEvent, targetUrl: string) => {
+    e.stopPropagation();
+    setUrl(targetUrl);
+    executeAudit(targetUrl);
+  };
+
+  const handleAudit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!url) return;
+    executeAudit(url);
+  };
+
 
   return (
     <div className="min-h-screen obsidian-gradient text-on-surface font-sans selection:bg-electric-indigo/30">
@@ -206,40 +225,43 @@ export default function Dashboard() {
             Instantly analyze any website's technical SEO, discover contact details, and get AI-driven growth recommendations.
           </p>
 
-          <form onSubmit={handleAudit} className="mt-8 flex items-center max-w-2xl mx-auto space-x-2">
-            <div className="flex-1 space-y-4">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-text" />
-                <Input
-                  ref={inputRef}
-                  type="text"
-                  placeholder="https://example.com"
-                  className="pl-10 h-14 text-lg border-white/20 bg-slate-950/50 text-on-surface focus-visible:ring-electric-indigo rounded-xl placeholder:text-slate-text/50 glass-card"
-                  value={url}
-                  onChange={(e) => setUrl(e.target.value)}
-                  disabled={isLoading}
-                />
+          <form onSubmit={handleAudit} className="mt-8 flex flex-col sm:flex-row items-start justify-center max-w-3xl mx-auto space-y-4 sm:space-y-0 sm:space-x-4">
+            <div className="flex-1 w-full space-y-4">
+              <div className="relative group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-electric-indigo to-cyan-flare rounded-xl blur opacity-30 group-focus-within:opacity-100 transition duration-1000 group-hover:duration-200"></div>
+                <div className="relative flex items-center bg-slate-950/80 rounded-xl leading-none shadow-xl border border-white/10">
+                  <Search className="absolute left-4 h-5 w-5 text-slate-500" />
+                  <Input
+                    ref={inputRef}
+                    type="text"
+                    placeholder="https://example.com"
+                    className="pl-12 h-14 text-lg border-none bg-transparent text-white focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl placeholder:text-slate-600 w-full"
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    disabled={isLoading}
+                  />
+                </div>
               </div>
-              <div className="flex items-center space-x-4 glass-card p-3 rounded-lg border border-white/10">
-                <label className="flex items-center space-x-2 text-sm font-medium text-slate-text cursor-pointer">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0 p-4 rounded-xl border border-white/5 bg-white/[0.02] shadow-inner">
+                <label className="flex items-center space-x-3 text-sm font-medium text-slate-300 cursor-pointer">
                   <input
                     type="checkbox"
-                    className="rounded border-white/20 bg-slate-950 text-electric-indigo focus:ring focus:ring-electric-indigo/50 h-4 w-4"
+                    className="rounded border-white/20 bg-slate-950 text-electric-indigo focus:ring-0 h-5 w-5 cursor-pointer"
                     checked={crawl}
                     onChange={(e) => setCrawl(e.target.checked)}
                     disabled={isLoading}
                   />
-                  <span className="text-on-surface">Enable deep crawling</span>
+                  <span>Enable deep crawling</span>
                 </label>
                 
                 {crawl && (
-                  <div className="flex items-center space-x-2 flex-1 ml-4 border-l border-white/20 pl-4">
-                    <span className="text-sm text-slate-text whitespace-nowrap">Max pages: {maxPages}</span>
+                  <div className="flex items-center space-x-4 w-full sm:w-64 animate-in fade-in slide-in-from-left-4 duration-300">
+                    <span className="text-sm font-medium text-electric-indigo whitespace-nowrap min-w-[80px]">Max: {maxPages}</span>
                     <input
                       type="range"
                       min="1"
                       max="100"
-                      className="w-full h-2 bg-slate-950/50 rounded-lg appearance-none cursor-pointer accent-electric-indigo"
+                      className="w-full h-2 bg-slate-900/50 rounded-lg appearance-none cursor-pointer accent-electric-indigo"
                       value={maxPages}
                       onChange={(e) => setMaxPages(parseInt(e.target.value))}
                       disabled={isLoading}
@@ -251,16 +273,19 @@ export default function Dashboard() {
             <Button
               type="submit"
               size="lg"
-              className="h-14 self-start px-8 rounded-xl bg-electric-indigo hover:bg-electric-indigo/90 text-white font-headline-md text-lg transition-colors btn-shimmer-hover"
+              className="h-14 sm:h-[124px] w-full sm:w-32 rounded-xl bg-electric-indigo hover:bg-electric-indigo/90 text-white font-bold text-lg transition-all btn-shimmer-hover shadow-[0_0_30px_rgba(99,102,241,0.3)] hover:shadow-[0_0_50px_rgba(99,102,241,0.6)] shrink-0"
               disabled={isLoading || !url.trim()}
             >
               {isLoading ? (
-                <>
-                  <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                  Auditing...
-                </>
+                <div className="flex flex-col items-center">
+                  <Loader2 className="mb-2 h-6 w-6 animate-spin" />
+                  <span className="text-sm">Auditing</span>
+                </div>
               ) : (
-                'Run Audit'
+                <div className="flex flex-col items-center">
+                  <span>Run</span>
+                  <span>Audit</span>
+                </div>
               )}
             </Button>
           </form>
@@ -324,32 +349,95 @@ export default function Dashboard() {
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
-              className="text-center py-12 text-slate-text"
+              className="text-center py-12 text-slate-text w-full max-w-5xl mx-auto"
             >
-              <Search className="h-12 w-12 mx-auto mb-4 opacity-20 text-cyan-flare" />
-              <p>Enter a URL above to generate a comprehensive SEO report.</p>
+              <div className="mb-12">
+                <Search className="h-12 w-12 mx-auto mb-4 opacity-20 text-cyan-flare" />
+                <p>Enter a URL above to generate a comprehensive SEO report.</p>
+              </div>
 
               {recentAudits.length > 0 && (
-                <div className="mt-16 text-left max-w-4xl mx-auto">
-                  <h3 className="text-xl font-bold text-on-surface mb-6">Recent Audits</h3>
+                <div className="mt-8 text-left">
+                  <h3 className="text-xl font-bold text-on-surface mb-6 flex items-center">
+                    <Clock className="w-5 h-5 mr-2 text-cyan-flare" />
+                    Recent Audits
+                  </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {recentAudits.map((audit) => (
                       <div 
                         key={audit.id} 
                         onClick={() => loadRecentAudit(audit.id)}
-                        className="glass-card p-4 rounded-xl cursor-pointer hover:border-electric-indigo/50 transition-all flex justify-between items-center group"
+                        className="glass-card p-5 rounded-xl cursor-pointer hover:border-electric-indigo/50 transition-all flex flex-col justify-between group"
                       >
-                        <div className="overflow-hidden flex-1 mr-4">
-                          <div className="font-medium text-on-surface truncate group-hover:text-electric-indigo transition-colors">{audit.url}</div>
-                          <div className="text-sm text-slate-text mt-1">
-                            {new Date(audit.createdAt).toLocaleDateString()} at {new Date(audit.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                        <div className="flex justify-between items-start mb-4">
+                          <div className="overflow-hidden flex-1 mr-4">
+                            <div className="font-medium text-on-surface truncate group-hover:text-electric-indigo transition-colors" title={audit.url}>{audit.url}</div>
+                            <div className="text-sm text-slate-text mt-1">
+                              {new Date(audit.createdAt).toLocaleDateString()} at {new Date(audit.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                            </div>
+                          </div>
+                          <div className="flex-shrink-0 bg-slate-900 rounded-full h-12 w-12 flex items-center justify-center font-bold text-electric-indigo border border-white/10 group-hover:border-electric-indigo/30 transition-colors shadow-inner">
+                            {audit.overallScore}
                           </div>
                         </div>
-                        <div className="flex-shrink-0 bg-slate-900 rounded-full h-12 w-12 flex items-center justify-center font-bold text-electric-indigo border border-white/10 group-hover:border-electric-indigo/30 transition-colors">
-                          {audit.overallScore}
+                        <div className="flex items-center gap-2 mt-2 pt-4 border-t border-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="bg-transparent hover:bg-white/5 text-slate-300 border-white/10 text-xs h-8"
+                            onClick={(e) => handleRerun(e, audit.url)}
+                          >
+                            <RefreshCw className="w-3 h-3 mr-1.5" />
+                            Rerun Audit
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="bg-transparent hover:bg-white/5 text-slate-300 border-white/10 text-xs h-8"
+                            onClick={(e) => handleDownload(e, audit.url)}
+                          >
+                            <Download className="w-3 h-3 mr-1.5" />
+                            Download PDF
+                          </Button>
                         </div>
                       </div>
                     ))}
+                  </div>
+                </div>
+              )}
+
+              {recentTools.length > 0 && (
+                <div className="mt-16 text-left">
+                  <h3 className="text-xl font-bold text-on-surface mb-6 flex items-center">
+                    <Search className="w-5 h-5 mr-2 text-cyan-flare" />
+                    Recently Used Tools
+                  </h3>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    {recentTools.map((toolId) => {
+                      const category = TOOL_CATEGORIES.find(c => 
+                        c.tools.some(t => t.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === toolId)
+                      );
+                      const tool = category?.tools.find(t => 
+                        t.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === toolId
+                      );
+                      if (!tool) return null;
+                      
+                      return (
+                        <Link to={`/app/tools/${toolId}`} key={toolId}>
+                          <div className="glass-card p-4 rounded-xl cursor-pointer hover:border-cyan-flare/50 transition-all flex flex-col h-full group">
+                            <div className="flex items-center space-x-3 mb-3">
+                              <div className="p-2 bg-slate-900 rounded-lg text-cyan-flare group-hover:scale-110 transition-transform">
+                                <Search className="w-5 h-5" />
+                              </div>
+                              <h3 className="font-medium text-sm text-on-surface line-clamp-1">{tool.name}</h3>
+                            </div>
+                            <div className="mt-auto flex items-center text-xs text-electric-indigo font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                              Open Tool <ArrowRight className="w-3 h-3 ml-1" />
+                            </div>
+                          </div>
+                        </Link>
+                      );
+                    })}
                   </div>
                 </div>
               )}

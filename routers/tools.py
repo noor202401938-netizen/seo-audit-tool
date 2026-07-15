@@ -29,6 +29,44 @@ class SerpToolRequest(BaseModel):
 class AIQueryRequest(BaseModel):
     query: str
 
+class TrackToolRequest(BaseModel):
+    tool_id: str
+
+from db_client import get_db
+
+@router.post("/track")
+async def track_tool_usage(req: TrackToolRequest, user: dict = Depends(get_current_user)):
+    db = get_db()
+    # Check if we already have a record for this user and tool
+    existing = await db.toolusage.find_first(where={
+        "userId": user["id"],
+        "toolId": req.tool_id
+    })
+    
+    import datetime
+    if existing:
+        await db.toolusage.update(
+            where={"id": existing.id},
+            data={"lastUsed": datetime.datetime.utcnow()}
+        )
+    else:
+        await db.toolusage.create(data={
+            "userId": user["id"],
+            "toolId": req.tool_id,
+            "lastUsed": datetime.datetime.utcnow()
+        })
+    return {"status": "ok"}
+
+@router.get("/recent")
+async def get_recent_tools(user: dict = Depends(get_current_user)):
+    db = get_db()
+    records = await db.toolusage.find_many(
+        where={"userId": user["id"]},
+        order={"lastUsed": "desc"},
+        take=4
+    )
+    return [r.toolId for r in records]
+
 @router.post("/robots-txt-tester")
 async def run_robots_txt_tester(req: ToolRequest, current_user = Depends(get_current_user)):
     return tool_runners.run_robots_txt_tester(req.url)

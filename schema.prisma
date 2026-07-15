@@ -18,6 +18,7 @@ model User {
   
   subscription   Subscription?
   audits         AuditRecord[]
+  toolUsages     ToolUsage[]
 }
 
 model Subscription {
@@ -49,4 +50,14 @@ model AIFeedback {
   tone     String @id
   wins     Int    @default(0)
   trials   Int    @default(0)
+}
+
+model ToolUsage {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  toolId    String
+  lastUsed  DateTime @default(now())
+
+  @@unique([userId, toolId])
 }

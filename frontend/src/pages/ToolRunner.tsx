@@ -49,13 +49,26 @@ export default function ToolRunner() {
     const { toolId } = useParams<{ toolId: string }>();
     const navigate = useNavigate();
 
+    const { token } = useAuth();
+    
     useEffect(() => {
         if (toolId === 'seo-audit-tool') {
             navigate('/app');
+            return;
         }
-    }, [toolId, navigate]);
-
-    const { token } = useAuth();
+        
+        if (toolId && token) {
+            const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+            fetch(`${apiUrl}/api/tools/track`, {
+                method: 'POST',
+                headers: { 
+                  'Content-Type': 'application/json',
+                  'Authorization': `Bearer ${token}` 
+                },
+                body: JSON.stringify({ tool_id: toolId })
+            }).catch(e => console.error("Failed to track tool usage:", e));
+        }
+    }, [toolId, navigate, token]);
     
     const [url, setUrl] = useState('');
     const [isLoading, setIsLoading] = useState(false);

@@ -79,7 +79,7 @@ class ReportGenerator:
         )
 
         # Header / Title Block
-        story.append(Paragraph("SEO TELEMETRY REPORT", title_style))
+        story.append(Paragraph("SEO Intelligence Report", title_style))
         story.append(Paragraph(f"<b>Target Website:</b> {html.escape(website)}", body_style))
         story.append(Spacer(1, 15))
 

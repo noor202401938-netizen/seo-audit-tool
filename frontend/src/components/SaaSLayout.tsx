@@ -3,7 +3,6 @@ import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   LayoutDashboard, 
-  Settings, 
   LogOut, 
   Menu, 
   X, 
@@ -22,6 +21,14 @@ export const SaaSLayout = () => {
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [expandedCategories, setExpandedCategories] = useState<string[]>([TOOL_CATEGORIES[0].title]);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isSearchFocused, setIsSearchFocused] = useState(false);
+
+  const matchingTools = searchQuery.trim() === '' 
+    ? [] 
+    : TOOL_CATEGORIES.flatMap(cat => cat.tools)
+        .filter(tool => tool.name.toLowerCase().includes(searchQuery.toLowerCase()) || tool.desc.toLowerCase().includes(searchQuery.toLowerCase()))
+        .slice(0, 5);
 
   const toggleCategory = (title: string) => {
     setExpandedCategories(prev => 
@@ -160,34 +167,66 @@ export const SaaSLayout = () => {
       <main className="flex-1 flex flex-col min-w-0 bg-[#0a0a0f] relative z-10">
         {/* Top Header */}
         <header className="h-16 flex items-center justify-between px-4 lg:px-8 bg-slate-950/50 backdrop-blur-md border-b border-white/5 sticky top-0 z-30">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 relative flex-1 max-w-xl">
             <button 
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg"
+              className="lg:hidden p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg shrink-0"
             >
               <Menu className="w-6 h-6" />
             </button>
-            <div className="hidden md:flex items-center gap-2 px-4 py-2 bg-black/40 border border-white/10 rounded-full w-96 focus-within:border-electric-indigo/50 focus-within:ring-1 focus-within:ring-electric-indigo/50 transition-all">
-              <Search className="w-4 h-4 text-slate-500" />
-              <input 
-                type="text" 
-                placeholder="Search tools, projects, or keywords..." 
-                className="bg-transparent border-none outline-none text-sm text-white w-full placeholder:text-slate-600"
-              />
+            <div className="hidden md:flex flex-col relative w-full z-40">
+              <div className="flex items-center gap-2 px-4 py-2 bg-black/40 border border-white/10 rounded-full focus-within:border-electric-indigo/50 focus-within:ring-1 focus-within:ring-electric-indigo/50 transition-all">
+                <Search className="w-4 h-4 text-slate-500 shrink-0" />
+                <input 
+                  type="text" 
+                  placeholder="Search tools, projects, or keywords..." 
+                  className="bg-transparent border-none outline-none text-sm text-white w-full placeholder:text-slate-600"
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onFocus={() => setIsSearchFocused(true)}
+                  onBlur={() => setTimeout(() => setIsSearchFocused(false), 200)}
+                />
+              </div>
+              
+              <AnimatePresence>
+                {isSearchFocused && searchQuery.trim() !== '' && (
+                  <motion.div 
+                    initial={{ opacity: 0, y: 5 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 5 }}
+                    className="absolute top-full mt-2 w-full bg-slate-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden glass-card"
+                  >
+                    {matchingTools.length > 0 ? (
+                      <div className="py-2">
+                        {matchingTools.map((tool, idx) => (
+                          <Link
+                            key={idx}
+                            to={`/app/tools/${generateSlug(tool.name)}`}
+                            className="block px-4 py-3 hover:bg-white/5 transition-colors"
+                            onClick={() => setSearchQuery('')}
+                          >
+                            <div className="text-sm font-semibold text-white">{tool.name}</div>
+                            <div className="text-xs text-slate-400 truncate mt-0.5">{tool.desc}</div>
+                          </Link>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="px-4 py-6 text-sm text-slate-500 text-center">No tools found for "{searchQuery}"</div>
+                    )}
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
           
           <div className="flex items-center gap-4">
-            <div className="hidden sm:flex items-center gap-3 pr-4 border-r border-white/10">
+            <Link to="/app/profile" className="hidden sm:flex items-center gap-3 hover:bg-white/5 p-2 rounded-xl transition-colors cursor-pointer">
               <div className="text-right">
                 <p className="text-sm font-medium text-white">{user?.email}</p>
                 <p className="text-xs text-electric-indigo">Pro Plan</p>
               </div>
-              <UserCircle className="w-8 h-8 text-slate-400" />
-            </div>
-            <button className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg">
-              <Settings className="w-5 h-5" />
-            </button>
+              <UserCircle className="w-8 h-8 text-slate-400 hover:text-white transition-colors" />
+            </Link>
           </div>
         </header>
 
