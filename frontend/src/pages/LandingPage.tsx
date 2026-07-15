@@ -46,17 +46,12 @@ export default function LandingPage() {
                             Transcend traditional SEO audits. Leverage our neural crawling engine to decode search algorithms and execute high-performance growth strategies.
                         </p>
                         <div className="flex flex-wrap gap-5 pt-6">
-                            <Link to="/signup" className="group relative flex items-center gap-4 bg-gradient-to-r from-electric-indigo to-vibrant-violet text-white pl-8 pr-2 py-2 rounded-full font-headline-md text-headline-md active:scale-95 transition-all">
-                                <span>Initialize Engine</span>
-                                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 group-hover:bg-white/30 transition-all backdrop-blur-md">
-                                    <span className="material-symbols-outlined text-lg">arrow_forward</span>
-                                </div>
+                            <Link to="/signup" className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-electric-indigo to-cyan-flare text-white px-8 py-4 rounded-lg font-headline-md text-headline-md hover:opacity-90 active:scale-95 transition-all shadow-lg hover:shadow-cyan-flare/20">
+                                <span>Get Started</span>
+                                <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
                             </Link>
-                            <Link to="/features" className="group relative flex items-center gap-4 bg-white/5 border border-white/10 glass-card text-on-surface pl-8 pr-2 py-2 rounded-full font-headline-md text-headline-md hover:bg-white/10 active:scale-95 transition-all">
-                                <span>View Protocol</span>
-                                <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center group-hover:scale-110 group-hover:bg-white/20 transition-all backdrop-blur-md">
-                                    <span className="material-symbols-outlined text-lg">play_arrow</span>
-                                </div>
+                            <Link to="/features" className="group relative inline-flex items-center justify-center gap-2 bg-surface-raised border border-white/10 text-on-surface px-8 py-4 rounded-lg font-headline-md text-headline-md hover:bg-white/5 active:scale-95 transition-all">
+                                <span>View Features</span>
                             </Link>
                         </div>
                         <div className="flex items-center gap-6 pt-8 border-t border-white/10">
