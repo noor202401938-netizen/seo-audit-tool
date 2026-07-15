@@ -32,11 +32,11 @@ class AIQueryRequest(BaseModel):
 class TrackToolRequest(BaseModel):
     tool_id: str
 
-from db_client import get_db
+from db_client import prisma
 
 @router.post("/track")
 async def track_tool_usage(req: TrackToolRequest, user: dict = Depends(get_current_user)):
-    db = get_db()
+    db = prisma
     # Check if we already have a record for this user and tool
     existing = await db.toolusage.find_first(where={
         "userId": user["id"],
@@ -59,7 +59,7 @@ async def track_tool_usage(req: TrackToolRequest, user: dict = Depends(get_curre
 
 @router.get("/recent")
 async def get_recent_tools(user: dict = Depends(get_current_user)):
-    db = get_db()
+    db = prisma
     records = await db.toolusage.find_many(
         where={"userId": user["id"]},
         order={"lastUsed": "desc"},
