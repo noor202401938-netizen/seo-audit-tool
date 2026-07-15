@@ -31,7 +31,7 @@ def _resolve_seomator() -> str:
 _SEOMATOR = _resolve_seomator()
 
 
-def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_id: str = None):
+def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_id: str = None, audit_record_id: str = None):
     try:
         import tempfile
         import os
@@ -146,7 +146,8 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
         # Generate the PDF report
         try:
             safe_name = os.path.basename(url.replace('https://', '').replace('http://', '').replace('/', '_'))
-            pdf_filename = f"output/{safe_name}_seo_report.pdf"
+            pdf_filename = f"data/output/{safe_name}_seo_report.pdf"
+            os.makedirs(os.path.dirname(pdf_filename), exist_ok=True)
             ReportGenerator.generate_pdf(
                 filename=pdf_filename,
                 website=url,
@@ -173,6 +174,8 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
                     
                 conn = sqlite3.connect(db_path)
                 conn.execute("UPDATE Subscription SET auditsRemaining = auditsRemaining - 1 WHERE userId = ? AND auditsRemaining > 0", (user_id,))
+                if audit_record_id:
+                    conn.execute("UPDATE AuditRecord SET resultJson = ?, overallScore = ? WHERE id = ?", (json.dumps(audit_data), overall_score, audit_record_id))
                 conn.commit()
                 conn.close()
             except Exception as e:

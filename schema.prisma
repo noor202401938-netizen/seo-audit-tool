@@ -41,6 +41,7 @@ model AuditRecord {
   deepCrawl    Boolean  @default(false)
   maxPages     Int      @default(1)
   overallScore Int      @default(0)
+  resultJson   String?
   createdAt    DateTime @default(now())
 }
 

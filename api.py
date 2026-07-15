@@ -162,7 +162,7 @@ async def perform_audit(request: AuditRequest, current_user = Depends(get_curren
             raise HTTPException(status_code=403, detail="Not enough audits remaining. Please upgrade your plan.")
 
         # Save history record
-        await prisma.auditrecord.create(
+        record = await prisma.auditrecord.create(
             data={
                 "userId": current_user.id,
                 "url": request.url,
@@ -175,22 +175,22 @@ async def perform_audit(request: AuditRequest, current_user = Depends(get_curren
 
         if _redis_available:
             # Normal path: enqueue in Redis/RQ
-            job = q.enqueue(perform_audit_task, request.url, request.crawl, request.max_pages, current_user.id, job_timeout=3600)
+            job = q.enqueue(perform_audit_task, request.url, request.crawl, request.max_pages, current_user.id, record.id, job_timeout=3600)
             job_id = job.id
         else:
             # Fallback: run synchronously in a thread pool, store result in memory
             job_id = str(uuid.uuid4())
             _inline_jobs[job_id] = {"status": "processing"}
 
-            def _run_and_store(jid, url, crawl, max_pages, uid):
+            def _run_and_store(jid, url, crawl, max_pages, uid, rec_id):
                 try:
-                    result = perform_audit_task(url, crawl, max_pages, uid)
+                    result = perform_audit_task(url, crawl, max_pages, uid, rec_id)
                     _inline_jobs[jid] = result
                 except Exception as exc:
                     _inline_jobs[jid] = {"status": "failed", "error": str(exc)}
 
             loop = asyncio.get_event_loop()
-            loop.run_in_executor(_executor, _run_and_store, job_id, request.url, request.crawl, request.max_pages, current_user.id)
+            loop.run_in_executor(_executor, _run_and_store, job_id, request.url, request.crawl, request.max_pages, current_user.id, record.id)
 
         return {
             "status": "queued",
@@ -226,10 +226,40 @@ def get_audit_status(job_id: str):
     except Exception:
         raise HTTPException(status_code=404, detail="Job not found or error fetching status.")
 
+@app.get("/api/audit/recent")
+async def get_recent_audits(current_user = Depends(get_current_user)):
+    try:
+        # Fetch last 10 audits with resultJson not null
+        records = await prisma.auditrecord.find_many(
+            where={
+                "userId": current_user.id,
+                "resultJson": {"not": None}
+            },
+            order={"createdAt": "desc"},
+            take=10
+        )
+        return records
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/audit/history/{record_id}")
+async def get_audit_history(record_id: str, current_user = Depends(get_current_user)):
+    try:
+        record = await prisma.auditrecord.find_unique(where={"id": record_id})
+        if not record or record.userId != current_user.id:
+            raise HTTPException(status_code=404, detail="Audit not found")
+        if not record.resultJson:
+            raise HTTPException(status_code=404, detail="Audit result not available")
+        return json.loads(record.resultJson)
+    except HTTPException:
+        raise
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
 @app.get("/api/audit/pdf")
 def get_pdf(url: str):
     safe_name = os.path.basename(url.replace('https://', '').replace('http://', '').replace('/', '_'))
-    filename = f"output/{safe_name}_seo_report.pdf"
+    filename = f"data/output/{safe_name}_seo_report.pdf"
     if os.path.exists(filename):
         return FileResponse(filename, media_type="application/pdf", filename=os.path.basename(filename))
     else:

@@ -64,7 +64,6 @@ export const TOOL_CATEGORIES = [
         title: "AI-Powered SEO Assistant",
         tools: [
             { name: "AI SEO Assistant", desc: "Get personalized SEO guidance and task recommendations powered by artificial intelligence and industry expertise." },
-            { name: "SEOmator GPT Integration", desc: "Access real-time search volume data, keyword analysis, and SERP insights through advanced AI capabilities.", upcoming: true },
             { name: "Google AI Mode Checker", desc: "See how your site appears in Google's AI Mode and monitor your visibility across AI-driven search experiences.", upcoming: true }
         ]
     }

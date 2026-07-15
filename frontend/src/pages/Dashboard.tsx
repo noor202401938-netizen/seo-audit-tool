@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search, Loader2 } from 'lucide-react';
 import { Button } from '../components/ui/button';
@@ -60,6 +60,51 @@ export default function Dashboard() {
     if (pollingIntervalRef.current) {
       clearInterval(pollingIntervalRef.current);
       pollingIntervalRef.current = null;
+    }
+  };
+
+  const [recentAudits, setRecentAudits] = useState<any[]>([]);
+
+  const fetchRecentAudits = async () => {
+    try {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const res = await fetch(`${apiUrl}/api/audit/recent`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        setRecentAudits(data);
+      }
+    } catch (e) {
+      console.error('Failed to fetch recent audits', e);
+    }
+  };
+
+  useEffect(() => {
+    if (token) {
+      fetchRecentAudits();
+    }
+  }, [token]);
+
+  const loadRecentAudit = async (id: string) => {
+    try {
+      setIsLoading(true);
+      setError('');
+      setResult(null);
+      setPollingMessage('Loading previous audit report...');
+      
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
+      const res = await fetch(`${apiUrl}/api/audit/history/${id}`, {
+        headers: { 'Authorization': `Bearer ${token}` }
+      });
+      
+      if (!res.ok) throw new Error('Failed to load past audit');
+      const data = await res.json();
+      setResult(data as AuditResult);
+    } catch (e: any) {
+      setError(e.message || 'Error loading audit');
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -283,6 +328,31 @@ export default function Dashboard() {
             >
               <Search className="h-12 w-12 mx-auto mb-4 opacity-20 text-cyan-flare" />
               <p>Enter a URL above to generate a comprehensive SEO report.</p>
+
+              {recentAudits.length > 0 && (
+                <div className="mt-16 text-left max-w-4xl mx-auto">
+                  <h3 className="text-xl font-bold text-on-surface mb-6">Recent Audits</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {recentAudits.map((audit) => (
+                      <div 
+                        key={audit.id} 
+                        onClick={() => loadRecentAudit(audit.id)}
+                        className="glass-card p-4 rounded-xl cursor-pointer hover:border-electric-indigo/50 transition-all flex justify-between items-center group"
+                      >
+                        <div className="overflow-hidden flex-1 mr-4">
+                          <div className="font-medium text-on-surface truncate group-hover:text-electric-indigo transition-colors">{audit.url}</div>
+                          <div className="text-sm text-slate-text mt-1">
+                            {new Date(audit.createdAt).toLocaleDateString()} at {new Date(audit.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                          </div>
+                        </div>
+                        <div className="flex-shrink-0 bg-slate-900 rounded-full h-12 w-12 flex items-center justify-center font-bold text-electric-indigo border border-white/10 group-hover:border-electric-indigo/30 transition-colors">
+                          {audit.overallScore}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
             </motion.div>
           )}
         </AnimatePresence>
