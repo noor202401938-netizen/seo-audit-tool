@@ -95,10 +95,14 @@ export const SaaSLayout = () => {
                 <div key={idx} className="space-y-1">
                   <button 
                     onClick={() => toggleCategory(category.title)}
-                    className="flex items-center justify-between w-full px-2 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider hover:text-slate-300 transition-colors"
+                    className={`flex items-center justify-between w-full px-3 py-2.5 mb-1 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                      isExpanded 
+                        ? 'bg-slate-900 text-electric-indigo border border-white/10 shadow-sm' 
+                        : 'bg-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200 border border-transparent'
+                    }`}
                   >
-                    {category.title}
-                    {isExpanded ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
+                    <span className="truncate text-left">{category.title}</span>
+                    {isExpanded ? <ChevronDown className="w-4 h-4 shrink-0" /> : <ChevronRight className="w-4 h-4 shrink-0" />}
                   </button>
                   
                   <AnimatePresence>

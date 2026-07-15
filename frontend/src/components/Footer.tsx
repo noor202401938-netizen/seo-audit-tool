@@ -8,37 +8,29 @@ export function Footer() {
             <h2 className="font-display-lg text-headline-md tracking-tighter text-on-surface">SEOINTELLIGENCE</h2>
             <p className="font-body-sm text-body-sm text-slate-text">Providing high-performance, AI-driven search intelligence for the world's most ambitious brands.</p>
             <div className="flex gap-4">
-                <a className="text-slate-text hover:text-white transition-colors" href="#"><span className="material-symbols-outlined">share</span></a>
-                <a className="text-slate-text hover:text-white transition-colors" href="#"><span className="material-symbols-outlined">public</span></a>
-                <a className="text-slate-text hover:text-white transition-colors" href="#"><span className="material-symbols-outlined">mail</span></a>
+                <Link className="text-slate-text hover:text-white transition-colors" to="/"><span className="material-symbols-outlined">share</span></Link>
+                <Link className="text-slate-text hover:text-white transition-colors" to="/"><span className="material-symbols-outlined">public</span></Link>
+                <Link className="text-slate-text hover:text-white transition-colors" to="/contact"><span className="material-symbols-outlined">mail</span></Link>
             </div>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
-            <div className="flex flex-col gap-4">
-                <h4 className="font-label-caps text-label-caps text-on-surface">Product</h4>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/features">Site Audit</Link>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/features">Keyword Explorer</Link>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/features">AI Insights</Link>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/features">Link Building</Link>
-            </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-12">
             <div className="flex flex-col gap-4">
                 <h4 className="font-label-caps text-label-caps text-on-surface">Resources</h4>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/about">API Docs</Link>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/about">Case Studies</Link>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/about">SEO Guides</Link>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/about">Blog</Link>
+                <div className="flex items-center gap-2">
+                    <span className="font-body-sm text-body-sm text-slate-text opacity-70 cursor-not-allowed">Blog</span>
+                    <span className="text-[10px] uppercase tracking-wider bg-electric-indigo/20 text-electric-indigo px-2 py-0.5 rounded-full font-bold">Upcoming</span>
+                </div>
             </div>
             <div className="flex flex-col gap-4">
                 <h4 className="font-label-caps text-label-caps text-on-surface">Legal</h4>
                 <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/privacy">Privacy Policy</Link>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/privacy">Terms of Service</Link>
+                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/terms">Terms of Service</Link>
                 <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/cookies">Cookie Policy</Link>
             </div>
             <div className="flex flex-col gap-4">
                 <h4 className="font-label-caps text-label-caps text-on-surface">Support</h4>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/contact">Help Center</Link>
+                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/about">About Us</Link>
                 <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/contact">Contact Us</Link>
-                <Link className="font-body-sm text-body-sm text-slate-text hover:text-white transition-colors" to="/contact">Status</Link>
             </div>
         </div>
         </div>

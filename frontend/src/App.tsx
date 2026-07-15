@@ -10,6 +10,7 @@ import Contact from './pages/Contact';
 import About from './pages/About';
 import Privacy from './pages/Privacy';
 import Cookies from './pages/Cookies';
+import Terms from './pages/Terms';
 import Features from './pages/Features';
 import ToolRunner from './pages/ToolRunner';
 import { Footer } from './components/Footer';
@@ -52,6 +53,7 @@ export default function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/features" element={<Features />} />
         </Routes>

@@ -124,25 +124,40 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
       </div>
 
       {/* Tabs Navigation */}
-      <div className="flex flex-wrap gap-2 border-b border-white/10 pb-4 mt-6 mb-2">
+      <div className="flex flex-wrap gap-2 mt-8 mb-6 p-2 rounded-2xl bg-slate-950/60 border border-white/10 shadow-inner w-fit mx-auto md:mx-0">
         <Button
           variant={activeTab === 'overview' ? 'default' : 'ghost'}
           onClick={() => setActiveTab('overview')}
-          className={activeTab === 'overview' ? 'bg-electric-indigo text-white hover:bg-electric-indigo/90' : 'text-slate-text hover:text-white hover:bg-white/5'}
+          size="lg"
+          className={`rounded-xl text-base font-bold transition-all ${
+            activeTab === 'overview' 
+              ? 'bg-gradient-to-r from-electric-indigo to-cyan-flare text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:brightness-110 px-8' 
+              : 'text-slate-text hover:text-white hover:bg-white/10 px-6'
+          }`}
         >
           Overview
         </Button>
         <Button
           variant={activeTab === 'recommendations' ? 'default' : 'ghost'}
           onClick={() => setActiveTab('recommendations')}
-          className={activeTab === 'recommendations' ? 'bg-electric-indigo text-white hover:bg-electric-indigo/90' : 'text-slate-text hover:text-white hover:bg-white/5'}
+          size="lg"
+          className={`rounded-xl text-base font-bold transition-all ${
+            activeTab === 'recommendations' 
+              ? 'bg-gradient-to-r from-electric-indigo to-cyan-flare text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:brightness-110 px-8' 
+              : 'text-slate-text hover:text-white hover:bg-white/10 px-6'
+          }`}
         >
           AI Recommendations
         </Button>
         <Button
           variant={activeTab === 'problems' ? 'default' : 'ghost'}
           onClick={() => setActiveTab('problems')}
-          className={activeTab === 'problems' ? 'bg-electric-indigo text-white hover:bg-electric-indigo/90' : 'text-slate-text hover:text-white hover:bg-white/5'}
+          size="lg"
+          className={`rounded-xl text-base font-bold transition-all ${
+            activeTab === 'problems' 
+              ? 'bg-gradient-to-r from-electric-indigo to-cyan-flare text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:brightness-110 px-8' 
+              : 'text-slate-text hover:text-white hover:bg-white/10 px-6'
+          }`}
         >
           Problems ({allIssues.length})
         </Button>
