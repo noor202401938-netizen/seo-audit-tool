@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  LayoutDashboard, 
   LogOut, 
   Menu, 
   X, 
@@ -79,20 +78,7 @@ export const SaaSLayout = () => {
         </div>
 
         <div className="flex-1 overflow-y-auto py-6 px-4 custom-scrollbar">
-          <div className="mb-8">
-            <Link 
-              to="/app" 
-              onClick={() => setMobileMenuOpen(false)}
-              className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all ${
-                location.pathname === '/app' 
-                  ? 'bg-electric-indigo/10 text-electric-indigo border border-electric-indigo/20' 
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              <LayoutDashboard className="w-5 h-5" />
-              <span className="font-medium">Dashboard Overview</span>
-            </Link>
-          </div>
+
 
           <div className="space-y-6">
             {TOOL_CATEGORIES.map((category, idx) => {
@@ -231,8 +217,8 @@ export const SaaSLayout = () => {
         </header>
 
         {/* Scrollable Content */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar p-4 lg:p-8">
-          <div className="max-w-7xl mx-auto">
+        <div className="flex-1 overflow-y-auto custom-scrollbar">
+          <div className="w-full">
             <Outlet />
           </div>
         </div>

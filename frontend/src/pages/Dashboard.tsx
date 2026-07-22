@@ -209,14 +209,14 @@ export default function Dashboard() {
 
 
   return (
-    <div className="min-h-screen obsidian-gradient text-on-surface font-sans selection:bg-electric-indigo/30">
+    <div className="w-full min-h-full text-on-surface font-sans selection:bg-electric-indigo/30">
       <header className="relative py-12 px-6 flex flex-col items-center justify-center border-b border-white/10 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-electric-indigo/5 to-transparent pointer-events-none"></div>
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="max-w-3xl w-full text-center space-y-4"
+          className="max-w-3xl w-full text-center space-y-4 relative z-10"
         >
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl drop-shadow-sm">
             Universal SEO Auditor
@@ -225,9 +225,9 @@ export default function Dashboard() {
             Instantly analyze any website's technical SEO, discover contact details, and get AI-driven growth recommendations.
           </p>
 
-          <form onSubmit={handleAudit} className="mt-8 flex flex-col sm:flex-row items-start justify-center max-w-3xl mx-auto space-y-4 sm:space-y-0 sm:space-x-4">
-            <div className="flex-1 w-full space-y-4">
-              <div className="relative group">
+          <form onSubmit={handleAudit} className="mt-8 flex flex-col items-center justify-center max-w-3xl mx-auto w-full space-y-4">
+            <div className="flex w-full flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+              <div className="relative group flex-1">
                 <div className="absolute -inset-0.5 bg-gradient-to-r from-electric-indigo to-cyan-flare rounded-xl blur opacity-30 group-focus-within:opacity-100 transition duration-1000 group-hover:duration-200"></div>
                 <div className="relative flex items-center bg-slate-950/80 rounded-xl leading-none shadow-xl border border-white/10">
                   <Search className="absolute left-4 h-5 w-5 text-slate-500" />
@@ -242,52 +242,50 @@ export default function Dashboard() {
                   />
                 </div>
               </div>
-              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between space-y-4 sm:space-y-0 p-4 rounded-xl border border-white/5 bg-white/[0.02] shadow-inner">
-                <label className="flex items-center space-x-3 text-sm font-medium text-slate-300 cursor-pointer">
+              <Button
+                type="submit"
+                size="lg"
+                className="h-14 w-full sm:w-40 rounded-xl bg-gradient-to-r from-electric-indigo to-cyan-flare hover:brightness-110 text-white font-bold text-lg transition-all shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] shrink-0"
+                disabled={isLoading || !url.trim()}
+              >
+                {isLoading ? (
+                  <div className="flex items-center">
+                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                    Auditing
+                  </div>
+                ) : (
+                  "Run Audit"
+                )}
+              </Button>
+            </div>
+            
+            <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-xl border border-white/5 bg-white/[0.02] shadow-inner">
+              <label className="flex items-center space-x-3 text-sm font-medium text-slate-300 cursor-pointer">
+                <input
+                  type="checkbox"
+                  className="rounded border-white/20 bg-slate-950 text-electric-indigo focus:ring-0 h-5 w-5 cursor-pointer"
+                  checked={crawl}
+                  onChange={(e) => setCrawl(e.target.checked)}
+                  disabled={isLoading}
+                />
+                <span>Enable deep crawling</span>
+              </label>
+              
+              {crawl && (
+                <div className="flex items-center space-x-4 w-full sm:w-64 mt-4 sm:mt-0 animate-in fade-in slide-in-from-left-4 duration-300">
+                  <span className="text-sm font-medium text-electric-indigo whitespace-nowrap min-w-[80px]">Max: {maxPages}</span>
                   <input
-                    type="checkbox"
-                    className="rounded border-white/20 bg-slate-950 text-electric-indigo focus:ring-0 h-5 w-5 cursor-pointer"
-                    checked={crawl}
-                    onChange={(e) => setCrawl(e.target.checked)}
+                    type="range"
+                    min="1"
+                    max="100"
+                    className="w-full h-2 bg-slate-900/50 rounded-lg appearance-none cursor-pointer accent-electric-indigo"
+                    value={maxPages}
+                    onChange={(e) => setMaxPages(parseInt(e.target.value))}
                     disabled={isLoading}
                   />
-                  <span>Enable deep crawling</span>
-                </label>
-                
-                {crawl && (
-                  <div className="flex items-center space-x-4 w-full sm:w-64 animate-in fade-in slide-in-from-left-4 duration-300">
-                    <span className="text-sm font-medium text-electric-indigo whitespace-nowrap min-w-[80px]">Max: {maxPages}</span>
-                    <input
-                      type="range"
-                      min="1"
-                      max="100"
-                      className="w-full h-2 bg-slate-900/50 rounded-lg appearance-none cursor-pointer accent-electric-indigo"
-                      value={maxPages}
-                      onChange={(e) => setMaxPages(parseInt(e.target.value))}
-                      disabled={isLoading}
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-            <Button
-              type="submit"
-              size="lg"
-              className="h-14 sm:h-[124px] w-full sm:w-32 rounded-xl bg-electric-indigo hover:bg-electric-indigo/90 text-white font-bold text-lg transition-all btn-shimmer-hover shadow-[0_0_30px_rgba(99,102,241,0.3)] hover:shadow-[0_0_50px_rgba(99,102,241,0.6)] shrink-0"
-              disabled={isLoading || !url.trim()}
-            >
-              {isLoading ? (
-                <div className="flex flex-col items-center">
-                  <Loader2 className="mb-2 h-6 w-6 animate-spin" />
-                  <span className="text-sm">Auditing</span>
-                </div>
-              ) : (
-                <div className="flex flex-col items-center">
-                  <span>Run</span>
-                  <span>Audit</span>
                 </div>
               )}
-            </Button>
+            </div>
           </form>
 
           <AnimatePresence>

@@ -192,7 +192,7 @@ export default function ToolRunner() {
     }
 
     return (
-        <div className="text-on-surface font-sans selection:bg-electric-indigo/30 pb-24">
+        <div className="text-on-surface font-sans selection:bg-electric-indigo/30 px-4 lg:px-8 pt-8 pb-24">
             <div className="max-w-4xl mx-auto">
 
                 <motion.div

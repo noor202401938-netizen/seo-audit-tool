@@ -8,7 +8,7 @@ export default function Profile() {
   const { user } = useAuth();
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8 animate-in fade-in duration-500">
+    <div className="max-w-4xl mx-auto px-4 lg:px-8 py-8 space-y-8 animate-in fade-in duration-500">
       <div>
         <h1 className="text-3xl font-extrabold text-white tracking-tight">Account Settings</h1>
         <p className="text-slate-400 mt-1">Manage your profile, billing, and application preferences.</p>

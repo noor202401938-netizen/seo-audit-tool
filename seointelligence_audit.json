@@ -1,6 +1,6 @@
 {
   "url": "https://seointelligence.com",
-  "overallScore": 94,
+  "overallScore": 93,
   "categoryResults": [
     {
       "categoryId": "core",
@@ -325,7 +325,7 @@
           "message": "Non-existent page returned 200 instead of 404 (soft 404 issue)",
           "score": 0,
           "details": {
-            "testUrl": "https://seointelligence.com/seo-audit-test-nonexistent-page-uavq20rgu7-1783976895774",
+            "testUrl": "https://seointelligence.com/seo-audit-test-nonexistent-page-grgjo1ie57r-1784622693188",
             "statusCode": 200,
             "issue": "Soft 404 - returns 200 for non-existent pages",
             "pageUrl": "https://seointelligence.com"
@@ -365,10 +365,10 @@
         {
           "ruleId": "technical-timeout",
           "status": "pass",
-          "message": "Page response time is 288ms",
+          "message": "Page response time is 1442ms",
           "score": 100,
           "details": {
-            "responseTimeMs": 288,
+            "responseTimeMs": 1442,
             "pageUrl": "https://seointelligence.com"
           }
         },
@@ -387,40 +387,30 @@
     },
     {
       "categoryId": "perf",
-      "score": 94,
-      "passCount": 17,
-      "warnCount": 5,
-      "failCount": 0,
+      "score": 86,
+      "passCount": 12,
+      "warnCount": 9,
+      "failCount": 1,
       "results": [
         {
           "ruleId": "cwv-lcp",
-          "status": "pass",
-          "message": "LCP is 1.02s (good, under 2.5s)",
-          "score": 100,
+          "status": "warn",
+          "message": "Could not measure Largest Contentful Paint",
+          "score": 50,
           "details": {
             "metric": "LCP",
-            "value": 1016,
-            "valueFormatted": "1.02s",
-            "threshold": {
-              "good": 2500,
-              "poor": 4000
-            },
+            "reason": "Metric not available",
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "cwv-cls",
-          "status": "pass",
-          "message": "CLS is 0.000 (good, under 0.1)",
-          "score": 100,
+          "status": "warn",
+          "message": "Could not measure Cumulative Layout Shift",
+          "score": 50,
           "details": {
             "metric": "CLS",
-            "value": 0,
-            "valueFormatted": "0.000",
-            "threshold": {
-              "good": 0.1,
-              "poor": 0.25
-            },
+            "reason": "Metric not available",
             "pageUrl": "https://seointelligence.com"
           }
         },
@@ -437,33 +427,23 @@
         },
         {
           "ruleId": "cwv-ttfb",
-          "status": "pass",
-          "message": "TTFB is 127ms (good, under 800ms)",
-          "score": 100,
+          "status": "warn",
+          "message": "Could not measure Time to First Byte",
+          "score": 50,
           "details": {
             "metric": "TTFB",
-            "value": 127,
-            "valueFormatted": "127ms",
-            "threshold": {
-              "good": 800,
-              "poor": 1800
-            },
+            "reason": "Metric not available",
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "cwv-fcp",
-          "status": "pass",
-          "message": "FCP is 1.02s (good, under 1.8s)",
-          "score": 100,
+          "status": "warn",
+          "message": "Could not measure First Contentful Paint",
+          "score": 50,
           "details": {
             "metric": "FCP",
-            "value": 1016,
-            "valueFormatted": "1.02s",
-            "threshold": {
-              "good": 1800,
-              "poor": 3000
-            },
+            "reason": "Metric not available",
             "pageUrl": "https://seointelligence.com"
           }
         },
@@ -666,11 +646,11 @@
         },
         {
           "ruleId": "perf-response-time",
-          "status": "pass",
-          "message": "Response time is 288ms \u2014 within optimal range",
-          "score": 100,
+          "status": "fail",
+          "message": "Response time is 1442ms (threshold: 1000ms) \u2014 consider server-side optimizations, caching, or a CDN",
+          "score": 0,
           "details": {
-            "responseTimeMs": 288,
+            "responseTimeMs": 1442,
             "thresholds": {
               "good": 500,
               "warning": 1000
@@ -2648,135 +2628,107 @@
     },
     {
       "categoryId": "js",
-      "score": 92,
-      "passCount": 8,
-      "warnCount": 3,
-      "failCount": 2,
+      "score": 100,
+      "passCount": 13,
+      "warnCount": 0,
+      "failCount": 0,
       "results": [
         {
           "ruleId": "js-rendered-title",
           "status": "pass",
-          "message": "Title tag is present in the rendered DOM",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
           "score": 100,
           "details": {
-            "renderedTitle": "Access Denied",
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-rendered-description",
-          "status": "fail",
-          "message": "Meta description is missing in the rendered DOM after JavaScript execution",
-          "score": 0,
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
           "details": {
-            "renderedDescription": null,
-            "recommendation": "Ensure your JavaScript framework injects <meta name=\"description\"> during rendering",
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-rendered-h1",
           "status": "pass",
-          "message": "H1 heading is present in the rendered DOM",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
           "score": 100,
           "details": {
-            "renderedH1": "Access Denied",
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-rendered-canonical",
-          "status": "fail",
-          "message": "Canonical link tag is missing in the rendered DOM after JavaScript execution",
-          "score": 0,
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
           "details": {
-            "renderedCanonical": null,
-            "recommendation": "Ensure your JavaScript framework injects <link rel=\"canonical\"> during rendering",
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-canonical-mismatch",
           "status": "pass",
-          "message": "Canonical tag not present in either raw or rendered DOM (no mismatch)",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
           "score": 100,
           "details": {
-            "rawCanonical": null,
-            "renderedCanonical": null,
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-noindex-mismatch",
           "status": "pass",
-          "message": "Noindex status is consistent between raw and rendered DOM",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
           "score": 100,
           "details": {
-            "rawHasNoindex": false,
-            "renderedHasNoindex": false,
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-title-modified",
-          "status": "warn",
-          "message": "Title was modified by JavaScript execution",
-          "score": 50,
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
           "details": {
-            "rawTitle": null,
-            "renderedTitle": "Access Denied",
-            "impact": "Search engines primarily use the raw HTML title; the JS-modified title may not be indexed",
-            "recommendation": "Set the correct title in server-side HTML rather than modifying it with JavaScript",
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-description-modified",
           "status": "pass",
-          "message": "Meta description is not present in either raw or rendered DOM (no modification detected)",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
           "score": 100,
           "details": {
-            "rawDescription": null,
-            "renderedDescription": null,
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-h1-modified",
-          "status": "warn",
-          "message": "H1 heading was modified by JavaScript execution",
-          "score": 50,
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
           "details": {
-            "rawH1": null,
-            "renderedH1": "Access Denied",
-            "impact": "Search engines may index the raw HTML H1; the JS-modified heading may not be used",
-            "recommendation": "Set the correct H1 heading in server-side HTML rather than modifying it with JavaScript",
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-rendered-content",
-          "status": "warn",
-          "message": "Most page content is injected by JavaScript; raw HTML has significantly less content",
-          "score": 50,
+          "status": "pass",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
+          "score": 100,
           "details": {
-            "rawContentLength": 0,
-            "renderedContentLength": 229,
-            "ratio": "N/A",
-            "impact": "Search engines may not index all content if JavaScript rendering is delayed or fails",
-            "recommendation": "Consider server-side rendering for critical content to ensure indexability",
             "pageUrl": "https://seointelligence.com"
           }
         },
         {
           "ruleId": "js-rendered-links",
           "status": "pass",
-          "message": "Links are mostly present in raw HTML",
+          "message": "Rendered DOM not available (CWV/rendering not enabled), skipping check",
           "score": 100,
           "details": {
-            "rawLinkCount": 0,
-            "renderedLinkCount": 0,
-            "addedByJs": 0,
             "pageUrl": "https://seointelligence.com"
           }
         },
@@ -3090,9 +3042,9 @@
       ]
     }
   ],
-  "timestamp": "2026-07-13T21:08:16.548Z",
+  "timestamp": "2026-07-21T08:31:36.430Z",
   "crawledPages": 1,
-  "ai_recommendation": "# Technical SEO Optimization Roadmap: seointelligence.com\n\nThis document outlines a direct, technical roadmap to resolve the critical, important, and recommended issues identified on **https://seointelligence.com**. \n\nCurrently, the site suffers from severe security misconfigurations, server-level routing errors, missing core HTML tags, and an absolute lack of domain authority (0/100). Implementing the steps below will stabilize your crawl budget, improve search indexing, secure your user data, and establish a foundation for ranking.\n\n---\n\n## Phase 1: Critical Fixes (Implement Immediately)\n\nThese issues directly impact search engine indexing, mobile-friendliness, security rankings, and brand identity consolidated authority.\n\n### 1. Resolve HTTP-to-HTTPS & WWW Redirect Loops\n*   **The Issue:** The site fails to enforce a single canonical domain variant. Users and crawlers can access both secure/insecure and www/non-www versions independently, leading to duplicate content and security warnings.\n*   **The Fix:** Force all traffic to the secure, non-www version: `https://seointelligence.com`.\n    *   **For Apache (.htaccess):** Add the following rules at the top of your file:\n        ```apache\n        RewriteEngine On\n        # Force HTTPS\n        RewriteCond %{HTTPS} off\n        RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]\n        # Force non-WWW\n        RewriteCond %{HTTP_HOST} ^www\\.(.*)$ [NC]\n        RewriteRule ^(.*)$ https://%1/$1 [R=301,L]\n        ```\n    *   **For Nginx (nginx.conf):**\n        ```nginx\n        server {\n            listen 80;\n            server_name seointelligence.com www.seointelligence.com;\n            return 301 https://seointelligence.com$request_uri;\n        }\n        server {\n            listen 443 ssl;\n            server_name www.seointelligence.com;\n            return 301 https://seointelligence.com$request_uri;\n        }\n        ```\n*   **Verification:** Open your terminal and run: `curl -I http://seointelligence.com`. Verify it returns a `301 Moved Permanently` pointing directly to `https://seointelligence.com`.\n\n### 2. Implement Missing Core Meta Tags (Viewport, Title, Canonical, and H1)\n*   **The Issue:** The homepage lacks a viewport tag (destroying mobile usability scores), has no title tag, lacks a canonical declaration, and has no H1 tag.\n*   **The Fix:** Edit your homepage HTML template (usually `index.html`, `header.php`, or your CMS layout generator) and insert these elements inside the `<head>` and `<body>` tags.\n    *   **The Code Edit (Add to `<head>`):**\n        ```html\n        <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n        <title>SEO Intelligence | Advanced Search Engine Optimization Solutions</title>\n        <link rel=\"canonical\" href=\"https://seointelligence.com/\">\n        ```\n    *   **The Code Edit (Add to `<body>`):** Ensure there is exactly **one** H1 tag on the homepage, positioned at the top of the content hierarchy:\n        ```html\n        <h1>Enterprise SEO Intelligence & Search Analytics</h1>\n        ```\n*   **Verification:** Right-click your homepage, select **View Page Source**, and search (`Ctrl+F`) for `<title>`, `<link rel=\"canonical\"`, `viewport`, and `<h1>` to verify presence and uniqueness.\n\n### 3. Deprecate Outdated SSL Protocols & Enable HSTS\n*   **The Issue:** Your server supports legacy TLS 1.0 or 1.1 protocols (vulnerable to attack) and lacks HTTP Strict Transport Security (HSTS), putting user security at risk.\n*   **The Fix:** Disable outdated protocols and force modern TLS (1.2 and 1.3) along with the HSTS security header.\n    *   **For Nginx:** Update your SSL block:\n        ```nginx\n        ssl_protocols TLSv1.2 TLSv1.3;\n        add_header Strict-Transport-Security \"max-age=63072000; includeSubDomains; preload\" always;\n        ```\n    *   **For Apache:** Update your `ssl.conf`:\n        ```apache\n        SSLProtocol all -SSLv3 -TLSv1 -TLSv1.1\n        Header always set Strict-Transport-Security \"max-age=63072000; includeSubDomains; preload\"\n        ```\n*   **Verification:** Run your domain through the [Qualys SSL Labs Tool](https://www.ssllabs.com/ssltest/) and ensure you receive an **A+** grade.\n\n### 4. Deploy Missing Critical Security Headers\n*   **The Issue:** Missing `X-Frame-Options` (prevents clickjacking) and `X-Content-Type-Options` (prevents MIME-sniffing).\n*   **The Fix:** Inject these headers via your server configuration or server-side code.\n    *   **For Apache (.htaccess):**\n        ```apache\n        Header always set X-Frame-Options \"SAMEORIGIN\"\n        Header always set X-Content-Type-Options \"nosniff\"\n        ```\n    *   **For Nginx:**\n        ```nginx\n        add_header X-Frame-Options \"SAMEORIGIN\" always;\n        add_header X-Content-Type-Options \"nosniff\" always;\n        ```\n*   **Verification:** Use curl: `curl -I https://seointelligence.com` and confirm both headers appear in the response payload.\n\n---\n\n## Phase 2: Important Fixes (Implement Next)\n\nThese optimizations improve performance, crawler instructions, user experience (UX), and metadata click-through-rates (CTR).\n\n### 1. Fix the Meta Description & Character Lengths\n*   **The Issue:** No meta description exists, leading to search engines auto-generating poor search snippets. \n*   **The Fix:** Write and insert a compelling meta description of **120-155 characters** into your homepage `<head>`.\n    *   **The Code Edit:**\n        ```html\n        <meta name=\"meta-description\" content=\"Unlock enterprise-grade organic growth. Discover advanced technical SEO audits, search data intelligence, and actionable growth frameworks.\">\n        ```\n*   **Verification:** Inspect your page source to ensure the tag exists and contains exactly the text above.\n\n### 2. Configure a Valid 404 Error Page & Robots.txt\n*   **The Issue:** The server does not handle missing pages properly (often returning a `200 OK` status for broken links), and the `robots.txt` file is either missing or contains invalid syntax.\n*   **The Fix:**\n    1.  **Configure 404 Status:** Ensure your server returns an actual HTTP 404 response header for non-existent paths.\n        *   *Apache:* Add `ErrorDocument 404 /404.html` to `.htaccess`. Create a friendly, styled `404.html` page.\n    2.  **Deploy a Valid robots.txt:** Create a text file named `robots.txt` and upload it to your root directory (`https://seointelligence.com/robots.txt`):\n        ```text\n        User-agent: *\n        Allow: /\n\n        Sitemap: https://seointelligence.com/sitemap.xml\n        ```\n*   **Verification:** Visit `https://seointelligence.com/non-existent-page-test`. Use Chrome DevTools (Network Tab) to confirm the status code is `404 Not Found`, not `200 OK`.\n\n### 3. Implement Text Compression (Gzip/Brotli) & Enable HTTP/2\n*   **The Issue:** Large HTML, CSS, and JS assets are being served uncompressed, and the server is using outdated HTTP/1.1 protocols, slowing down your page load times.\n*   **The Fix:** Enable HTTP/2 and Gzip/Brotli compression at the host/server level.\n    *   **Nginx Configuration:**\n        ```nginx\n        # Enable HTTP/2\n        listen 443 ssl http2;\n\n        # Enable Gzip\n        gzip on;\n        gzip_types text/plain text/css application/json application/javascript text/xml;\n        ```\n    *   **Apache Configuration (via .htaccess):**\n        ```apache\n        <IfModule mod_deflate.c>\n            AddOutputFilterByType DEFLATE text/html text/plain text/css application/javascript application/json\n        </IfModule>\n        ```\n*   **Verification:** Open Chrome DevTools > Network Tab. Add the \"Protocol\" column to confirm it says `h2`. Check the \"Content-Encoding\" response header to confirm it reads `gzip` or `br`.\n\n### 4. Optimize Interaction to Next Paint (INP) & Cache Policy\n*   **The Issue:** Real-user latency issues are flagged via Core Web Vitals (INP), and static files lack caching headers.\n*   **The Fix:**\n    1.  **Cache Control (Apache):**\n        ```apache\n        <IfModule mod_expires.c>\n            ExpiresActive On\n            ExpiresByType image/jpg \"access plus 1 year\"\n            ExpiresByType image/png \"access plus 1 year\"\n            ExpiresByType text/css \"access plus 1 month\"\n            ExpiresByType application/javascript \"access plus 1 month\"\n        </IfModule>\n        ```\n    2.  **Optimize INP:** Identify and defer non-critical JavaScript files using the `defer` or `async` tags:\n        ```html\n        <script src=\"non-critical-script.js\" defer></script>\n        ```\n        Minimize long tasks in main-thread JS execution.\n\n### 5. Add a Valid Favicon\n*   **The Issue:** No favicon is specified, resulting in generic blank browser tabs and lower trust in SERPs.\n*   **The Fix:** Upload a `.ico` or `.png` icon (sized 32x32px) to your root directory and reference it in your `<head>`:\n    ```html\n    <link rel=\"icon\" type=\"image/png\" href=\"/favicon-32x32.png\">\n    ```\n\n---\n\n## Phase 3: Recommended Actions (Long-Term Growth)\n\nThese actions build trust, secure the server footprint, and systematically resolve your **0/100 Off-Page Authority score**.\n\n### 1. Harden Web Security (CSP, Permissions-Policy, Referrer-Policy)\n*   **The Issue:** Missing advanced security policies, making the site vulnerable to cross-site scripting (XSS) and referrer leaks.\n*   **The Fix:** Deploy these headers inside your server block or `.htaccess`:\n    ```apache\n    # Referrer Policy\n    Header always set Referrer-Policy \"strict-origin-when-cross-origin\"\n    # Permissions Policy\n    Header always set Permissions-Policy \"geolocation=(), camera=(), microphone=()\"\n    # Basic Content Security Policy (Adjust based on third-party scripts)\n    Header always set Content-Security-Policy \"default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:;\"\n    ```\n\n### 2. Fix Dead Ends & Establish an Internal Link Architecture\n*   **The Issue:** Search engines detect isolated \"dead-end\" pages that do not link back to other areas of your site.\n*   **The Fix:**\n    *   Build a global navigation header and footer on every single page.\n    *   Ensure every transactional or informational page has at least **2-3 internal links** pointing to relevant internal resources.\n*   **Verification:** Run a crawl using tools like Screaming Frog to identify pages with an Outlink count of `0` and resolve them.\n\n### 3. Establish Off-Page Authority (From 0 to 100)\n*   **The Issue:** Your backlink footprint is non-existent (DA: None, Backlinks: None).\n*   **The Fix:** You need a high-quality link acquisition strategy to build domain authority:\n    1.  **Claim Directory Foundations:** Secure your listings on Google Business Profile, Crunchbase, LinkedIn, and trusted industry-specific local/national directories.\n    2.  **Produce Linkable Assets:** Write deep-dive, original industry reports or free diagnostic templates that other marketing blogs will naturally reference and link to.\n    3.  **Active PR Outreach:** Use platforms like Connectively (formerly HARO) to provide expert commentary on SEO and digital marketing trends to earn high-authority backlinks.",
+  "ai_recommendation": "# Technical SEO Optimization Roadmap: seointelligence.com\n\nThis roadmap details the specific corrective actions required to resolve the issues identified in your SEO audit. \n\nYour site currently possesses a strong baseline On-Page score of **93/100**, but critical technical, structural, and security vulnerabilities are actively hindering search engine crawling, indexing, and rendering. Furthermore, with an Off-Page score of **0/100**, your domain currently lacks the authority required to compete.\n\nImplement the following fixes in order of priority.\n\n---\n\n## Phase 1: Critical (Fix First)\n\nThese issues affect your site\u2019s basic crawlability, security, mobile rendering, and how it is represented in Search Engine Results Pages (SERPs).\n\n### 1. Resolve Missing and Malformed Meta Tags & HTML Structure\n* **Problem**: The homepage (`https://seointelligence.com`) is missing a `<title>` tag, meta description, canonical tag, viewport meta tag, and a single structured `<h1>` header. Without these, search engines cannot index your page accurately.\n* **Where to Edit**: The main layout file (e.g., `index.html`, `header.php` in WordPress, or your layout component in React/Next.js/Nuxt).\n* **What to Edit**:\n  Insert the following code blocks into the `<head>` section of your homepage:\n  ```html\n  <head>\n    <!-- Viewport for Mobile Responsiveness -->\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n\n    <!-- SEO Title (Keep between 50-60 characters) -->\n    <title>SEO Intelligence | Enterprise Technical SEO & Data Analytics</title>\n\n    <!-- Meta Description (Keep between 120-150 characters) -->\n    <meta name=\"description\" content=\"Unlock advanced search engine performance with SEO Intelligence. We specialize in enterprise technical SEO audits, data-driven optimization, and growth.\">\n\n    <!-- Canonical Tag (Self-referential to prevent duplicate issues) -->\n    <link rel=\"canonical\" href=\"https://seointelligence.com/\">\n  </head>\n  ```\n  In the `<body>` of your homepage, ensure there is exactly **one** `<h1>` tag containing your primary keyword:\n  ```html\n  <h1>Data-Driven SEO Intelligence & Technical Auditing</h1>\n  ```\n* **How to Verify**: \n  1. Open your homepage in a browser.\n  2. Right-click and select **View Page Source** (Ctrl+U / Cmd+Option+U).\n  3. Search (`Ctrl+F`) for `<title>`, `<meta name=\"viewport\"`, `canonical`, and `<h1>`. Verify only one instance of each exists and is populated correctly.\n\n### 2. Enforce HTTPS & Canonical Domain Redirections\n* **Problem**: Both your HTTP-to-HTTPS redirect and your WWW-to-non-WWW redirects are failing or misconfigured. This creates duplicate content issues and security warnings.\n* **Where to Edit**: Your server configuration file (e.g., `.htaccess` for Apache, or `nginx.conf` for Nginx).\n* **What to Edit**:\n  * **Apache (.htaccess)**: Add the following lines to the top of your file:\n    ```apache\n    RewriteEngine On\n    # Redirect HTTP to HTTPS\n    RewriteCond %{HTTPS} off\n    RewriteRule ^(.*)$ https://seointelligence.com/$1 [R=301,L]\n\n    # Redirect WWW to non-WWW\n    RewriteCond %{HTTP_HOST} ^www\\.seointelligence\\.com [NC]\n    RewriteRule ^(.*)$ https://seointelligence.com/$1 [R=301,L]\n    ```\n  * **Nginx (nginx.conf)**: Add these server blocks:\n    ```nginx\n    server {\n        listen 80;\n        server_name seointelligence.com www.seointelligence.com;\n        return 301 https://seointelligence.com$request_uri;\n    }\n    server {\n        listen 443 ssl;\n        server_name www.seointelligence.com;\n        return 301 https://seointelligence.com$request_uri;\n    }\n    ```\n* **How to Verify**: Open a terminal and run the following curl commands. Ensure they return a `301 Moved Permanently` pointing to `https://seointelligence.com`:\n  ```bash\n  curl -I http://seointelligence.com\n  curl -I https://www.seointelligence.com\n  ```\n\n### 3. Implement Critical Security Headers (HSTS & X-Frame-Options)\n* **Problem**: Missing HSTS (Strict-Transport-Security) and X-Frame-Options headers. This leaves your site vulnerable to man-in-the-middle attacks and clickjacking, triggering trust issues with search engines.\n* **Where to Edit**: Your server configuration file (`.htaccess` or `nginx.conf`).\n* **What to Edit**:\n  * **Apache (.htaccess)**:\n    ```apache\n    Header always set Strict-Transport-Security \"max-age=63072000; includeSubDomains; preload\"\n    Header always set X-Frame-Options \"SAMEORIGIN\"\n    ```\n  * **Nginx (nginx.conf)**:\n    ```nginx\n    add_header Strict-Transport-Security \"max-age=63072000; includeSubDomains; preload\" always;\n    add_header X-Frame-Options \"SAMEORIGIN\" always;\n    ```\n* **How to Verify**: Run your site through [SecurityHeaders.com](https://securityheaders.com/) or run:\n  ```bash\n  curl -I https://seointelligence.com\n  ```\n  Verify that `Strict-Transport-Security` and `X-Frame-Options` appear in the HTTP response headers.\n\n---\n\n## Phase 2: Important (Fix Next)\n\nThese optimizations focus on site speed, backend configuration, crawl path hygiene, and mobile performance (Core Web Vitals).\n\n### 1. Optimize Server Response Time (TTFB) & Connection Protocols\n* **Problem**: The server response time (Time to First Byte) is too high. The site is also failing to run on the HTTP/2 or HTTP/3 protocol, forcing browsers to download assets sequentially.\n* **Where to Edit**: Your hosting management dashboard (Cloudflare, cPanel, Kinsta, AWS, etc.) or server config.\n* **What to Edit**:\n  1. **Enable HTTP/2 / HTTP/3**: If using a CDN like Cloudflare, navigate to **Speed > Optimization > Protocol Optimization** and toggle on HTTP/2 and HTTP/3. If hosting on a VPS, update Nginx to listen with `http2` parameter: `listen 443 ssl http2;`.\n  2. **Reduce TTFB**: \n     * Implement server-side caching (Redis, Memcached, or a plugin like WP Rocket/LiteSpeed Cache if on WordPress).\n     * Upgrade PHP/engine runtime to the latest stable version (e.g., PHP 8.2+).\n* **How to Verify**: Run a PageSpeed Insights audit and check the **Diagnostics** section for \"Reduce initial server response time.\" Check your connection protocol via Chrome DevTools Network Tab (ensure the \"Protocol\" column reads `h2` or `h3`).\n\n### 2. Enable Text Compression (Gzip/Brotli) & Leverage Browser Caching\n* **Problem**: Large text-based assets (HTML, CSS, JS) are sent uncompressed, draining bandwidth and increasing load times.\n* **Where to Edit**: Your server configuration file (`.htaccess` or `nginx.conf`).\n* **What to Edit**:\n  * **Apache (.htaccess) for Gzip & Caching**:\n    ```apache\n    # Enable Gzip Compression\n    <IfModule mod_deflate.c>\n      AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css application/xml application/xhtml+xml application/rss+xml application/javascript application/x-javascript\n    </IfModule>\n\n    # Leverage Browser Caching\n    <IfModule mod_expires.c>\n      ExpiresActive On\n      ExpiresByType image/jpg \"access plus 1 year\"\n      ExpiresByType image/jpeg \"access plus 1 year\"\n      ExpiresByType image/png \"access plus 1 year\"\n      ExpiresByType text/css \"access plus 1 month\"\n      ExpiresByType application/javascript \"access plus 1 month\"\n    </IfModule>\n    ```\n  * **Nginx (nginx.conf) for Brotli/Gzip & Caching**:\n    ```nginx\n    gzip on;\n    gzip_types text/plain text/css application/json application/javascript text/xml;\n    \n    location ~* \\.(js|css|png|jpg|jpeg|gif|ico|svg)$ {\n        expires 1y;\n        add_header Cache-Control \"public, no-transform\";\n    }\n    ```\n* **How to Verify**: Inspect your assets in the Network Tab of your browser's DevTools. Look for the response header: `Content-Encoding: gzip` or `br`.\n\n### 3. Build a Valid Custom 404 Page and Validate `robots.txt`\n* **Problem**: Missing or misconfigured 404 handler and a warning regarding `robots.txt` validity.\n* **Where to Edit**: Root directory of your server.\n* **What to Edit**:\n  1. **Create/Configure 404**:\n     Create a static `404.html` page at your root directory.\n     * For Apache, append this to `.htaccess`:\n       ```apache\n       ErrorDocument 404 /404.html\n       ```\n     * For Nginx, add to your server block:\n       ```nginx\n       error_page 404 /404.html;\n       ```\n  2. **Update `robots.txt`**:\n     Ensure `https://seointelligence.com/robots.txt` exists and is formatted correctly. Replace the file contents with:\n     ```text\n     User-agent: *\n     Allow: /\n\n     Sitemap: https://seointelligence.com/sitemap.xml\n     ```\n* **How to Verify**: Visit `https://seointelligence.com/this-page-does-not-exist` and ensure it serves your custom 404 design while returning a true `404 Not Found` HTTP status code (verify in DevTools Network tab, not a 200 OK redirect).\n\n---\n\n## Phase 3: Recommended (Optimization & Growth)\n\nThese actions polish your user experience, refine internal crawling structure, secure the client browser environment, and build the domain authority currently lacking from your profile.\n\n### 1. Fix Internal Link Architecture and Resolve Dead Ends\n* **Problem**: The audit flagged dead-end pages (pages that link to nothing else) and a lack of proper internal linking structure. This traps search engine spiders.\n* **Where to Edit**: Within your site's main content body templates and footer layouts.\n* **What to Edit**:\n  * **Eliminate Dead Ends**: Ensure every page on your site has a call-to-action (CTA) link, a \"Back to Blog/Services\" link, or standard footer navigation. No page should be an isolated node.\n  * **Build Contextual Internal Links**: Ensure your target hub pages (e.g., core services, tools) are contextually linked from your homepage and informational articles using descriptive anchor text.\n* **How to Verify**: Use a crawler tool like Screaming Frog or Ahrefs Site Audit to ensure there are zero pages with an Outlink count of `0`.\n\n### 2. Implement Content Security Policy (CSP) & Deploy Favicon\n* **Problem**: Lack of a CSP leaves your site susceptible to Cross-Site Scripting (XSS) attacks. Additionally, a missing favicon affects brand trust in search results.\n* **Where to Edit**: Your server configuration file (CSP) and root directory (Favicon).\n* **What to Edit**:\n  1. **Deploy Favicon**: Upload a `favicon.ico` (32x32px) and a `favicon.png` (180x180px) to your root directory. Add this to your HTML `<head>`:\n     ```html\n     <link rel=\"icon\" href=\"/favicon.ico\" type=\"image/x-icon\">\n     <link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/favicon.png\">\n     ```\n  2. **Implement CSP**:\n     * Apache:\n       ```apache\n       Header set Content-Security-Policy \"default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:;\"\n       ```\n     * Nginx:\n       ```nginx\n       add_header Content-Security-Policy \"default-src 'self' https:; script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; style-src 'self' 'unsafe-inline' https:; img-src 'self' data: https:;\" always;\n       ```\n* **How to Verify**: Check your homepage using Chrome DevTools Console. If your CSP is configured correctly, there should be no unexpected errors, and your favicon should render in the browser tab.\n\n### 3. Initiate an Off-Page Authority Building Campaign\n* **Problem**: Your Off-Page score is **0/100** with no domain authority or backlinks detected. No amount of on-page optimization will rank your site for competitive search queries without establishing baseline authority.\n* **Action Plan**:\n  1. **Build Foundational Profiles**: Register and secure links from high-authority brand directories (e.g., Crunchbase, LinkedIn, Trustpilot, Clutch, and G2).\n  2. **Execute Digital PR & Guest Posting**: Target industry-adjacent publications (marketing, SaaS, tech, data analytics). Pitch educational content, case studies, or expert commentary in exchange for contextual, do-follow links back to `seointelligence.com`.\n  3. **Monitor Backlink Growth**: Set up an account with Ahrefs, Semrush, or Moz to track your Domain Authority (DA) progress and monitor for any low-quality spam links that may require disavowing.",
   "ai_tone": "Professional & Direct",
   "status": "success"
 }
