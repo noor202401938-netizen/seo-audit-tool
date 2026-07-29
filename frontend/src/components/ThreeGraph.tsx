@@ -18,18 +18,18 @@ export const ThreeGraph: React.FC = () => {
         renderer.setPixelRatio(window.devicePixelRatio);
         container.appendChild(renderer.domElement);
 
-        const primaryColor = 0x6366f1; 
-        const secondaryColor = 0x06b6d4; 
+        const primaryColor = 0x10b981; 
+        const secondaryColor = 0x3f3f46; 
 
-        const nodeCount = 50;
+        const nodeCount = 45;
         const nodes: THREE.Mesh[] = [];
-        const nodeGeometry = new THREE.SphereGeometry(0.08, 16, 16);
+        const nodeGeometry = new THREE.SphereGeometry(0.07, 16, 16);
         const nodeMaterial = new THREE.MeshPhongMaterial({ 
             color: primaryColor, 
             emissive: primaryColor, 
-            emissiveIntensity: 0.6,
+            emissiveIntensity: 0.4,
             transparent: true,
-            opacity: 0.9
+            opacity: 0.85
         });
 
         const group = new THREE.Group();
@@ -41,24 +41,24 @@ export const ThreeGraph: React.FC = () => {
             (Math.random() - 0.5) * 12
             );
             node.userData.velocity = new THREE.Vector3(
-            (Math.random() - 0.5) * 0.015,
-            (Math.random() - 0.5) * 0.015,
-            (Math.random() - 0.5) * 0.015
+            (Math.random() - 0.5) * 0.012,
+            (Math.random() - 0.5) * 0.012,
+            (Math.random() - 0.5) * 0.012
             );
             nodes.push(node);
             group.add(node);
         }
         scene.add(group);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
         scene.add(ambientLight);
-        const pointLight = new THREE.PointLight(primaryColor, 1.5, 60);
+        const pointLight = new THREE.PointLight(primaryColor, 1.2, 50);
         pointLight.position.set(5, 5, 5);
         scene.add(pointLight);
 
         camera.position.z = 8;
 
-        const lineMaterial = new THREE.LineBasicMaterial({ color: secondaryColor, transparent: true, opacity: 0.25 });
+        const lineMaterial = new THREE.LineBasicMaterial({ color: secondaryColor, transparent: true, opacity: 0.35 });
         let lines: THREE.LineSegments | null = null;
 
         function updateLines() {
@@ -67,7 +67,7 @@ export const ThreeGraph: React.FC = () => {
             for (let i = 0; i < nodes.length; i++) {
                 for (let j = i + 1; j < nodes.length; j++) {
                     const dist = nodes[i].position.distanceTo(nodes[j].position);
-                    if (dist < 3.5) {
+                    if (dist < 3.2) {
                         positions.push(nodes[i].position.x, nodes[i].position.y, nodes[i].position.z);
                         positions.push(nodes[j].position.x, nodes[j].position.y, nodes[j].position.z);
                     }
@@ -91,8 +91,8 @@ export const ThreeGraph: React.FC = () => {
             });
 
             updateLines();
-            group.rotation.y += 0.0012;
-            group.rotation.x += 0.0006;
+            group.rotation.y += 0.001;
+            group.rotation.x += 0.0005;
             
             renderer.render(scene, camera);
         }

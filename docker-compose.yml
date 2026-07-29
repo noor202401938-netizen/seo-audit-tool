@@ -10,6 +10,7 @@ services:
     environment:
       - DATABASE_URL=file:/app/data/seo_auditor.db
       - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - JWT_SECRET=${JWT_SECRET}
       - FRONTEND_URL=${FRONTEND_URL:-http://localhost:5173}
       - REDIS_URL=redis://redis:6379/0
     volumes:

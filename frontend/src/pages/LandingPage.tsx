@@ -8,7 +8,7 @@ export default function LandingPage() {
     useEffect(() => {
         const observerOptions = {
             threshold: 0.05,
-            rootMargin: '0px 0px -100px 0px'
+            rootMargin: '0px 0px -50px 0px'
         };
 
         const revealObserver = new IntersectionObserver((entries) => {
@@ -27,243 +27,256 @@ export default function LandingPage() {
     }, []);
 
     return (
-        <main className="relative">
-            {/* Hero Section */}
-            <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-                <div className="relative z-10 max-w-container-max mx-auto px-margin-desktop grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pt-32 pb-24">
-                    <div className="space-y-stack-md reveal">
-                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-electric-indigo/10 border border-electric-indigo/20 text-electric-indigo font-label-caps text-label-caps">
-                            <span className="relative flex h-2 w-2">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-flare opacity-75"></span>
-                                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-flare"></span>
-                            </span>
-                            AI-DRIVEN ENGINE v4.0 NOW LIVE
+        <main className="relative bg-zinc-950 text-white min-h-screen">
+            {/* Section 1: Hero (DARK BLOCK) */}
+            <section className="relative min-h-[85vh] flex items-center overflow-hidden pt-28 pb-16 md:pt-36 md:pb-24 bg-zinc-950 text-white">
+                <div className="absolute inset-0 bg-grid-pattern opacity-60 pointer-events-none"></div>
+                <div className="relative z-10 max-w-6xl mx-auto px-6 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    <div className="lg:col-span-7 space-y-6 reveal">
+                        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-zinc-900 border border-zinc-700 text-xs font-mono font-semibold text-zinc-200">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                            AUTOMATED SEO & CRAWL ENGINE v4.0
                         </div>
-                        <h2 className="font-display-lg text-display-lg text-on-surface leading-tight tracking-tight drop-shadow-sm">
-                            The Elite Command Center for <span className="text-transparent bg-clip-text bg-gradient-to-r from-electric-indigo via-cyan-flare to-vibrant-violet">Search Intelligence</span>
-                        </h2>
-                        <p className="font-body-lg text-body-lg text-slate-text max-w-2xl leading-relaxed">
-                            Transcend traditional SEO audits. Leverage our neural crawling engine to decode search algorithms and execute high-performance growth strategies.
+                        
+                        <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1]">
+                            Automated Technical SEO Audit & Search Intelligence
+                        </h1>
+                        
+                        <p className="text-base md:text-lg text-zinc-300 max-w-xl leading-relaxed font-normal">
+                            Run 249+ automated checks across technical SEO, indexability, metadata, Core Web Vitals, and public contact discovery in seconds.
                         </p>
-                        <div className="flex flex-wrap gap-5 pt-6">
-                            <Link to="/signup" className="group relative inline-flex items-center justify-center gap-2 bg-gradient-to-r from-electric-indigo to-cyan-flare text-white px-8 py-4 rounded-lg font-headline-md text-headline-md hover:opacity-90 active:scale-95 transition-all shadow-lg hover:shadow-cyan-flare/20">
-                                <span>Get Started</span>
-                                <span className="material-symbols-outlined text-xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        
+                        <div className="flex flex-wrap items-center gap-4 pt-2">
+                            <Link to="/app" className="inline-flex items-center gap-2 bg-white hover:bg-zinc-100 text-black px-6 py-3.5 rounded-lg font-bold text-sm transition-all border border-white shadow-xl">
+                                <span>Run Free Site Audit</span>
+                                <span className="material-symbols-outlined text-base">arrow_forward</span>
                             </Link>
-                            <Link to="/features" className="group relative inline-flex items-center justify-center gap-2 bg-surface-raised border border-white/10 text-on-surface px-8 py-4 rounded-lg font-headline-md text-headline-md hover:bg-white/5 active:scale-95 transition-all">
-                                <span>View Features</span>
+                            <Link to="/features" className="inline-flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white px-6 py-3.5 rounded-lg font-semibold text-sm transition-all border border-zinc-700">
+                                <span>Explore 25+ Tools</span>
                             </Link>
                         </div>
-                        <div className="flex items-center gap-6 pt-8 border-t border-white/10">
-                            <p className="text-slate-text font-body-sm text-body-sm">Trusted by <span className="text-on-surface font-bold">2,500+</span> elite marketing teams worldwide</p>
+                        
+                        <div className="flex items-center gap-6 pt-6 border-t border-zinc-800 text-xs text-zinc-300">
+                            <div className="flex items-center gap-1.5 font-medium">
+                                <span className="material-symbols-outlined text-emerald-400 text-sm">verified</span>
+                                <span>No Credit Card Required</span>
+                            </div>
+                            <div className="flex items-center gap-1.5 font-medium">
+                                <span className="material-symbols-outlined text-cyan-400 text-sm">speed</span>
+                                <span>12s Average Crawl Time</span>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Dashboard Preview */}
-                    <div className="relative group reveal" style={{ animationDelay: '0.2s' }}>
-                        <div className="absolute -inset-4 bg-gradient-to-r from-electric-indigo to-cyan-flare opacity-10 blur-2xl group-hover:opacity-20 transition-opacity"></div>
-                        <div className="premium-card bg-slate-950/30 rounded-2xl overflow-hidden shadow-2xl relative border border-white/20">
-                            <div className="h-8 bg-surface-container-highest/60 flex items-center px-4 gap-2 border-b border-white/10">
-                                <div className="w-3 h-3 rounded-full bg-error/40"></div>
-                                <div className="w-3 h-3 rounded-full bg-primary/40"></div>
-                                <div className="w-3 h-3 rounded-full bg-cyan-flare/40"></div>
-                                <div className="ml-4 h-4 w-48 bg-white/5 rounded-full"></div>
+                    {/* Terminal Live Feed Preview */}
+                    <div className="lg:col-span-5 reveal" style={{ animationDelay: '0.15s' }}>
+                        <div className="bg-zinc-900 rounded-xl overflow-hidden border-2 border-zinc-700 shadow-2xl relative">
+                            <div className="h-9 bg-zinc-950 flex items-center justify-between px-4 border-b border-zinc-800 text-xs font-mono text-zinc-300">
+                                <div className="flex items-center gap-2">
+                                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
+                                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
+                                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-700"></div>
+                                    <span className="ml-2 text-[11px] text-zinc-300 font-semibold">live-crawler-feed.log</span>
+                                </div>
+                                <span className="text-[10px] text-emerald-400 bg-emerald-950 font-bold px-2 py-0.5 rounded border border-emerald-700">LIVE EXECUTION</span>
                             </div>
-                            <div className="p-6">
-                                <div className="grid grid-cols-3 gap-4 mb-6">
-                                    <div className="p-6 bg-white/5 rounded-xl border border-white/5">
-                                        <p className="text-slate-text font-label-caps text-label-caps mb-1">HEALTH SCORE</p>
-                                        <p className="text-3xl font-bold text-cyan-flare">94%</p>
-                                    </div>
-                                    <div className="p-6 bg-white/5 rounded-xl border border-white/5">
-                                        <p className="text-slate-text font-label-caps text-label-caps mb-1">INDEXABILITY</p>
-                                        <p className="text-3xl font-bold text-electric-indigo">1.2M</p>
-                                    </div>
-                                    <div className="p-6 bg-white/5 rounded-xl border border-white/5">
-                                        <p className="text-slate-text font-label-caps text-label-caps mb-1">AI INSIGHTS</p>
-                                        <p className="text-3xl font-bold text-vibrant-violet">128</p>
-                                    </div>
-                                </div>
-                                <div className="aspect-video w-full relative rounded-lg overflow-hidden border border-white/10 shadow-[inset_0_0_20px_rgba(0,0,0,0.5)] bg-[#050505]">
-                                    <LiveExtractionFeed />
-                                </div>
+                            <div className="h-[320px] relative bg-[#09090b]">
+                                <LiveExtractionFeed />
                             </div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Feature Bento Grid */}
-            <section className="max-w-container-max mx-auto px-margin-desktop py-24">
-                <div className="text-center mb-16 reveal">
-                    <h3 className="font-headline-lg text-headline-lg text-on-surface mb-4">Precision Engineering for Modern SEO</h3>
-                    <p className="font-body-lg text-body-lg text-slate-text max-w-2xl mx-auto leading-relaxed">Our toolkit is built for speed, depth, and actionable clarity, powered by proprietary AI models trained on trillions of search results.</p>
-                </div>
-                <div className="grid grid-cols-12 gap-gutter">
-                    {/* Feature 1: Deep Crawling (3D Interactive Content) */}
-                    <div className="col-span-12 lg:col-span-8 premium-card bg-slate-950/30 rounded-2xl p-8 relative overflow-hidden group min-h-[480px] reveal">
-                        <div className="flex flex-col h-full justify-between relative z-20 pointer-events-none">
+            {/* Section 2: Core Feature Bento Grid (LIGHT BLOCK) */}
+            <section className="bg-zinc-100 text-zinc-950 border-y border-zinc-300 py-24 relative">
+                <div className="absolute inset-0 bg-grid-pattern-light opacity-50 pointer-events-none"></div>
+                <div className="max-w-6xl mx-auto px-6 relative z-10">
+                    <div className="mb-14 reveal">
+                        <span className="text-xs font-mono uppercase tracking-widest text-emerald-700 font-bold">Precision Infrastructure</span>
+                        <h2 className="text-3xl md:text-4xl font-extrabold text-zinc-950 mt-1 tracking-tight">Built for Depth, Speed, and Actionable Auditing</h2>
+                    </div>
+                    
+                    <div className="grid grid-cols-12 gap-6">
+                        {/* Feature 1: Deep Crawl 3D Network */}
+                        <div className="col-span-12 lg:col-span-8 bg-white rounded-xl p-8 border border-zinc-300 relative overflow-hidden group min-h-[420px] reveal flex flex-col justify-between shadow-md">
+                            <div className="relative z-20 pointer-events-none max-w-md">
+                                <span className="material-symbols-outlined text-emerald-600 mb-3 text-3xl">hub</span>
+                                <h3 className="text-xl font-bold text-zinc-950 mb-2">Deep Crawling Engine & Headless Rendering</h3>
+                                <p className="text-sm text-zinc-700 leading-relaxed font-normal">
+                                    Our crawler mimics search engine spiders, executing client-side JavaScript via headless Playwright instances to uncover hidden indexing bottlenecks.
+                                </p>
+                            </div>
+                            <div className="flex gap-2 relative z-20 pt-6 font-mono text-xs">
+                                <span className="px-3 py-1 rounded bg-zinc-100 border border-zinc-300 text-zinc-800 font-bold">Playwright Chromium</span>
+                                <span className="px-3 py-1 rounded bg-zinc-100 border border-zinc-300 text-zinc-800 font-bold">Robots.txt Adherence</span>
+                            </div>
+                            <ThreeGraph />
+                        </div>
+
+                        {/* Feature 2: 249-Rule Audit Engine */}
+                        <div className="col-span-12 lg:col-span-4 bg-white rounded-xl p-8 border border-zinc-300 reveal flex flex-col justify-between shadow-md" style={{ animationDelay: '0.1s' }}>
                             <div>
-                                <span className="material-symbols-outlined text-cyan-flare mb-4" style={{ fontSize: '40px' }}>radar</span>
-                                <h4 className="font-headline-md text-headline-md text-on-surface mb-2">Deep Crawling Neural Engine</h4>
-                                <p className="font-body-md text-body-md text-slate-text max-w-md">Our spider architecture mimics modern search engine behavior, discovering hidden technical debt and indexing bottlenecks across millions of URLs in seconds.</p>
+                                <span className="material-symbols-outlined text-cyan-600 mb-3 text-3xl">fact_check</span>
+                                <h3 className="text-xl font-bold text-zinc-950 mb-2">249-Rule Diagnostic Matrix</h3>
+                                <p className="text-sm text-zinc-700 leading-relaxed font-normal">
+                                    Validates every crawled page against 249 technical, metadata, schema, and security rules.
+                                </p>
                             </div>
-                            <div className="flex gap-4">
-                                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold backdrop-blur-md">Headless Browser Rendering</span>
-                                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-xs font-semibold backdrop-blur-md">JS Execution Analysis</span>
-                            </div>
-                        </div>
-                        {/* 3D SEO Knowledge Graph Container */}
-                        <ThreeGraph />
-                    </div>
-
-                    {/* Feature 2: 251-Rule Engine */}
-                    <div className="col-span-12 lg:col-span-4 premium-card bg-slate-950/30 rounded-2xl p-8 border-l-4 border-l-electric-indigo reveal" style={{ animationDelay: '0.1s' }}>
-                        <span className="material-symbols-outlined text-electric-indigo mb-4" style={{ fontSize: '40px' }}>rule</span>
-                        <h4 className="font-headline-md text-headline-md text-on-surface mb-2">251-Rule Audit Engine</h4>
-                        <p className="font-body-md text-body-md text-slate-text">Every crawl is validated against our proprietary 251-rule framework, covering technical, on-page, and authority signals that others miss.</p>
-                        <div className="mt-8 space-y-4">
-                            <div className="flex items-center gap-3">
-                                <div className="h-2 flex-1 bg-white/10 rounded-full overflow-hidden">
-                                    <div className="h-full w-4/5 bg-electric-indigo"></div>
+                            <div className="mt-8 space-y-4 font-mono text-xs">
+                                <div>
+                                    <div className="flex justify-between text-zinc-900 font-bold mb-1">
+                                        <span>Technical SEO</span>
+                                        <span className="text-emerald-700">84 Checks</span>
+                                    </div>
+                                    <div className="h-2 w-full bg-zinc-200 rounded-full overflow-hidden border border-zinc-300">
+                                        <div className="h-full w-4/5 bg-emerald-600"></div>
+                                    </div>
                                 </div>
-                                <span className="text-xs font-bold">Tech</span>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <div className="h-2 flex-1 bg-white/10 rounded-full overflow-hidden">
-                                    <div className="h-full w-2/3 bg-vibrant-violet"></div>
+                                <div>
+                                    <div className="flex justify-between text-zinc-900 font-bold mb-1">
+                                        <span>Metadata & Schema</span>
+                                        <span className="text-cyan-700">62 Checks</span>
+                                    </div>
+                                    <div className="h-2 w-full bg-zinc-200 rounded-full overflow-hidden border border-zinc-300">
+                                        <div className="h-full w-2/3 bg-cyan-600"></div>
+                                    </div>
                                 </div>
-                                <span className="text-xs font-bold">Content</span>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <div className="h-2 flex-1 bg-white/10 rounded-full overflow-hidden">
-                                    <div className="h-full w-5/6 bg-cyan-flare"></div>
+                                <div>
+                                    <div className="flex justify-between text-zinc-900 font-bold mb-1">
+                                        <span>Public Contact Extraction</span>
+                                        <span className="text-zinc-800">45 Checks</span>
+                                    </div>
+                                    <div className="h-2 w-full bg-zinc-200 rounded-full overflow-hidden border border-zinc-300">
+                                        <div className="h-full w-5/6 bg-zinc-800"></div>
+                                    </div>
                                 </div>
-                                <span className="text-xs font-bold">Links</span>
                             </div>
                         </div>
-                    </div>
 
-                    {/* Feature 3: AI Roadmaps */}
-                    <div className="col-span-12 lg:col-span-5 premium-card bg-slate-950/30 rounded-2xl p-8 reveal" style={{ animationDelay: '0.2s' }}>
-                        <span className="material-symbols-outlined text-vibrant-violet mb-4" style={{ fontSize: '40px' }}>psychology</span>
-                        <h4 className="font-headline-md text-headline-md text-on-surface mb-2">AI-Generated Roadmaps</h4>
-                        <p className="font-body-md text-body-md text-slate-text">Don't just find problems. Get an prioritized execution plan generated by GPT-4 and trained on winning SEO case studies.</p>
-                        <div className="mt-6 p-4 rounded-xl bg-slate-950/60 border border-vibrant-violet/30 backdrop-blur-md relative z-10">
-                            <div className="flex items-center gap-2 mb-2">
-                                <span className="material-symbols-outlined text-vibrant-violet text-sm">auto_awesome</span>
-                                <span className="text-xs text-vibrant-violet font-bold uppercase tracking-widest">Next Best Action</span>
-                            </div>
-                            <p className="text-sm italic">"Consolidate 12 near-duplicate pages into a single authoritative pillar... Estimated traffic lift: +24%"</p>
-                        </div>
-                    </div>
-
-                    {/* Feature 4: Competitor Intelligence */}
-                    <div className="col-span-12 lg:col-span-7 premium-card bg-slate-950/30 rounded-2xl p-8 overflow-hidden relative group reveal" style={{ animationDelay: '0.3s' }}>
-                        <div className="flex flex-col h-full justify-between relative z-10">
-                            <div>
-                                <span className="material-symbols-outlined text-primary mb-4" style={{ fontSize: '40px' }}>monitoring</span>
-                                <h4 className="font-headline-md text-headline-md text-on-surface mb-2">Competitor Reverse Engineering</h4>
-                                <p className="font-body-md text-body-md text-slate-text max-w-sm">Dismantle your competitors' strategy. See their backlink velocity, content gaps, and exact keyword spend in real-time.</p>
-                            </div>
-                        </div>
-                        <div className="absolute -right-8 -bottom-8 w-64 h-64 opacity-20 group-hover:scale-110 group-hover:opacity-40 transition-all duration-700 bg-gradient-to-tl from-primary/50 to-transparent rounded-full blur-3xl"></div>
-                    </div>
-                </div>
-            </section>
-
-            {/* Comprehensive Tool Suite Section */}
-            <section className="max-w-container-max mx-auto px-margin-desktop py-24 border-t border-white/10 bg-slate-900/20">
-                <div className="text-center mb-16 reveal">
-                    <h3 className="font-headline-lg text-headline-lg text-on-surface mb-4">Complete SEO Tool Suite</h3>
-                    <p className="font-body-lg text-body-lg text-slate-text max-w-2xl mx-auto leading-relaxed">Access our comprehensive library of specialized utilities. From SERP tracking to deep technical analysis, we have a tool for every SEO challenge.</p>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 reveal">
-                    {TOOL_CATEGORIES.flatMap(category => category.tools).slice(0, 12).map((tool, i) => (
-                        <div key={i} className="group premium-card bg-slate-950/30 border border-white/5 rounded-2xl p-6 hover:bg-white/5 hover:border-electric-indigo/40 transition-all flex flex-col">
-                            <h5 className="text-lg font-bold text-white group-hover:text-electric-indigo transition-colors mb-3 flex items-center justify-between">
-                                {tool.name}
-                                {tool.upcoming && (
-                                    <span className="text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-electric-indigo/20 text-electric-indigo border border-electric-indigo/30">
-                                        Soon
-                                    </span>
-                                )}
-                            </h5>
-                            <p className="text-sm text-slate-text/80 leading-relaxed">
-                                {tool.desc}
+                        {/* Feature 3: Actionable Fixes */}
+                        <div className="col-span-12 lg:col-span-5 bg-white rounded-xl p-8 border border-zinc-300 reveal shadow-md" style={{ animationDelay: '0.2s' }}>
+                            <span className="material-symbols-outlined text-emerald-600 mb-3 text-3xl">alt_route</span>
+                            <h3 className="text-xl font-bold text-zinc-950 mb-2">Prioritized Action Plans</h3>
+                            <p className="text-sm text-zinc-700 leading-relaxed font-normal mb-4">
+                                Issues are categorized by severity (Critical, Warning, Info) with explicit code-level recommendations.
                             </p>
+                            <div className="p-4 rounded-lg bg-zinc-100 border border-zinc-300 font-mono text-xs text-zinc-900">
+                                <div className="text-emerald-700 font-bold mb-1 flex items-center gap-1.5">
+                                    <span className="material-symbols-outlined text-sm">build</span>
+                                    <span>Recommended Remediation</span>
+                                </div>
+                                <p className="text-zinc-800">Fix canonical URL mismatch on 14 detail pages to stop duplicate indexing penalty.</p>
+                            </div>
                         </div>
-                    ))}
-                </div>
-                <div className="mt-12 text-center reveal">
-                    <Link to="/features" className="inline-flex items-center gap-2 text-electric-indigo hover:text-cyan-flare font-bold transition-colors">
-                        View all 25+ tools <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                    </Link>
-                </div>
-            </section>
 
-            {/* Command Center Section */}
-            <section className="max-w-container-max mx-auto px-margin-desktop py-24 border-t border-white/10">
-                <div className="flex flex-col lg:flex-row gap-16 items-center">
-                    <div className="w-full lg:w-1/2 order-2 lg:order-1 reveal">
-                        <div className="grid grid-cols-2 gap-4">
-                            <div className="p-6 rounded-2xl premium-card bg-slate-950/30 hover:border-electric-indigo/40">
-                                <h5 className="text-3xl font-bold text-white mb-2">99.9%</h5>
-                                <p className="text-slate-text text-sm">Uptime for Enterprise crawling tasks</p>
-                            </div>
-                            <div className="p-6 rounded-2xl premium-card bg-slate-950/30 hover:border-cyan-flare/40">
-                                <h5 className="text-3xl font-bold text-white mb-2">12s</h5>
-                                <p className="text-slate-text text-sm">Average time for initial landing audit</p>
-                            </div>
-                            <div className="p-6 rounded-2xl premium-card bg-slate-950/30 hover:border-vibrant-violet/40">
-                                <h5 className="text-3xl font-bold text-white mb-2">50B+</h5>
-                                <p className="text-slate-text text-sm">Backlinks indexed in our global database</p>
-                            </div>
-                            <div className="p-6 rounded-2xl premium-card bg-slate-950/30 hover:border-primary/40">
-                                <h5 className="text-3xl font-bold text-white mb-2">4.9/5</h5>
-                                <p className="text-slate-text text-sm">Satisfaction rating from Fortune 500s</p>
+                        {/* Feature 4: Contact Extraction */}
+                        <div className="col-span-12 lg:col-span-7 bg-white rounded-xl p-8 border border-zinc-300 reveal shadow-md" style={{ animationDelay: '0.3s' }}>
+                            <span className="material-symbols-outlined text-cyan-600 mb-3 text-3xl">contacts</span>
+                            <h3 className="text-xl font-bold text-zinc-950 mb-2">Public Contact & Lead Intelligence</h3>
+                            <p className="text-sm text-zinc-700 leading-relaxed font-normal mb-4">
+                                Extract verified public contact emails, phone numbers, contact forms, and social media channels with full audit log trails.
+                            </p>
+                            <div className="grid grid-cols-3 gap-3 font-mono text-xs">
+                                <div className="p-3.5 rounded bg-zinc-100 border border-zinc-300 text-center">
+                                    <div className="text-zinc-600 text-[10px] font-bold">EMAILS</div>
+                                    <div className="text-emerald-700 font-extrabold text-xs mt-1">Regex + Mailto</div>
+                                </div>
+                                <div className="p-3.5 rounded bg-zinc-100 border border-zinc-300 text-center">
+                                    <div className="text-zinc-600 text-[10px] font-bold">PHONES</div>
+                                    <div className="text-cyan-700 font-extrabold text-xs mt-1">Tel: Validated</div>
+                                </div>
+                                <div className="p-3.5 rounded bg-zinc-100 border border-zinc-300 text-center">
+                                    <div className="text-zinc-600 text-[10px] font-bold">EXPORT</div>
+                                    <div className="text-zinc-950 font-extrabold text-xs mt-1">CSV / Excel</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className="w-full lg:w-1/2 order-1 lg:order-2 space-y-6 reveal" style={{ animationDelay: '0.1s' }}>
-                        <h2 className="font-display-lg text-headline-lg text-on-surface">The Intelligence Layer for Your Marketing Stack</h2>
-                        <p className="font-body-lg text-body-lg text-slate-text max-w-2xl leading-relaxed">
-                            Integrate SEO Intelligence directly into your existing workflow. With robust API support and native integrations for Google Search Console, Slack, and JIRA, your team stays aligned and your rankings keep rising.
-                        </p>
-                        <ul className="space-y-4">
-                            <li className="flex items-center gap-3">
-                                <span className="material-symbols-outlined text-electric-indigo">check_circle</span>
-                                <span className="font-body-md text-body-md">White-labeled reporting for agencies</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="material-symbols-outlined text-electric-indigo">check_circle</span>
-                                <span className="font-body-md text-body-md">Real-time keyword position tracking</span>
-                            </li>
-                            <li className="flex items-center gap-3">
-                                <span className="material-symbols-outlined text-electric-indigo">check_circle</span>
-                                <span className="font-body-md text-body-md">Advanced schema markup validation</span>
-                            </li>
-                        </ul>
                     </div>
                 </div>
             </section>
 
-            {/* CTA Section */}
-            <section className="max-w-container-max mx-auto px-margin-desktop py-24 pb-32">
-                <div className="relative rounded-3xl overflow-hidden p-12 lg:p-20 text-center premium-card bg-slate-950 reveal border border-white/20">
-                    <div className="absolute inset-0 bg-gradient-to-br from-electric-indigo/15 to-vibrant-violet/15"></div>
-                    <div className="relative z-10 max-w-3xl mx-auto space-y-8">
-                        <h2 className="font-display-lg text-display-lg !text-6xl text-on-surface">Ready to Command the SERPs?</h2>
-                        <p className="font-body-lg text-body-lg text-slate-text max-w-2xl mx-auto leading-relaxed">
-                            Join the world's most sophisticated SEO teams and start turning data into dominance. No credit card required to start your first crawl.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                            <Link to="/signup" className="bg-white text-slate-950 px-10 py-5 rounded-xl font-headline-md text-headline-md active:scale-95 transition-transform hover:shadow-2xl hover:shadow-white/20 block text-center">
-                                Create Free Account
-                            </Link>
-                            <Link to="/contact" className="bg-transparent border border-white/20 text-white px-10 py-5 rounded-xl font-headline-md text-headline-md hover:bg-white/10 transition-colors backdrop-blur-md block text-center">
-                                Book Enterprise Demo
-                            </Link>
+            {/* Section 3: Specialized Tool Suite (DARK BLOCK) */}
+            <section className="bg-zinc-950 text-white py-24 border-b border-zinc-800 relative">
+                <div className="max-w-6xl mx-auto px-6">
+                    <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 reveal">
+                        <div>
+                            <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold">Toolkit Catalog</span>
+                            <h2 className="text-3xl md:text-4xl font-extrabold text-white mt-2 tracking-tight">Comprehensive Audit Utilities</h2>
+                        </div>
+                        <Link to="/features" className="text-xs font-mono font-bold text-zinc-300 hover:text-white flex items-center gap-1 mt-4 md:mt-0 transition-colors">
+                            View All Tools <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                        </Link>
+                    </div>
+                    
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+                        {TOOL_CATEGORIES.flatMap(category => category.tools).slice(0, 8).map((tool, i) => (
+                            <div key={i} className="bg-zinc-900 border border-zinc-700 rounded-lg p-5 hover:border-zinc-500 transition-all flex flex-col justify-between shadow-md">
+                                <div>
+                                    <div className="flex items-center justify-between mb-2">
+                                        <h4 className="text-sm font-bold text-white">{tool.name}</h4>
+                                        {tool.upcoming && (
+                                            <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+                                                Soon
+                                            </span>
+                                        )}
+                                    </div>
+                                    <p className="text-xs text-zinc-300 leading-relaxed font-normal">
+                                        {tool.desc}
+                                    </p>
+                                </div>
+                                <Link to="/app" className="text-xs font-bold text-emerald-400 hover:text-emerald-300 mt-4 inline-flex items-center gap-1">
+                                    Launch Tool <span className="material-symbols-outlined text-xs">chevron_right</span>
+                                </Link>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* Section 4: Performance Metrics (LIGHT BLOCK) */}
+            <section className="bg-white text-zinc-950 py-20 border-b border-zinc-300">
+                <div className="max-w-6xl mx-auto px-6">
+                    <div className="grid grid-cols-2 md:grid-cols-4 gap-6 reveal">
+                        <div className="p-6 rounded-lg bg-zinc-100 border border-zinc-300 shadow-sm">
+                            <div className="text-3xl font-extrabold font-mono text-zinc-950 mb-1">249+</div>
+                            <div className="text-xs text-zinc-700 font-bold">Automated Audit Rules</div>
+                        </div>
+                        <div className="p-6 rounded-lg bg-zinc-100 border border-zinc-300 shadow-sm">
+                            <div className="text-3xl font-extrabold font-mono text-emerald-700 mb-1">100%</div>
+                            <div className="text-xs text-zinc-700 font-bold">Open-Source Extensible</div>
+                        </div>
+                        <div className="p-6 rounded-lg bg-zinc-100 border border-zinc-300 shadow-sm">
+                            <div className="text-3xl font-extrabold font-mono text-cyan-700 mb-1">&lt; 15s</div>
+                            <div className="text-xs text-zinc-700 font-bold">Average Audit Runtime</div>
+                        </div>
+                        <div className="p-6 rounded-lg bg-zinc-100 border border-zinc-300 shadow-sm">
+                            <div className="text-3xl font-extrabold font-mono text-zinc-950 mb-1">3 Formats</div>
+                            <div className="text-xs text-zinc-700 font-bold">CSV, Excel & SQLite Export</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Section 5: CTA Section (DARK BLOCK) */}
+            <section className="bg-zinc-950 text-white py-20 pb-28">
+                <div className="max-w-6xl mx-auto px-6">
+                    <div className="rounded-2xl p-10 md:p-16 text-center bg-zinc-900 border-2 border-zinc-700 reveal relative overflow-hidden shadow-2xl">
+                        <div className="relative z-10 max-w-2xl mx-auto space-y-6">
+                            <h2 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+                                Start Auditing Your Website Architecture Today
+                            </h2>
+                            <p className="text-sm md:text-base text-zinc-300 leading-relaxed font-normal">
+                                Deploy our automated crawl framework to diagnose technical issues, audit metadata, and extract verified contact details.
+                            </p>
+                            <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                                <Link to="/app" className="bg-white text-black hover:bg-zinc-100 px-8 py-3.5 rounded-lg font-bold text-sm transition-all border border-white shadow-xl">
+                                    Launch Free Audit
+                                </Link>
+                                <Link to="/contact" className="bg-zinc-950 hover:bg-zinc-900 text-white px-8 py-3.5 rounded-lg font-semibold text-sm transition-all border border-zinc-700">
+                                    Contact Engineering
+                                </Link>
+                            </div>
                         </div>
                     </div>
                 </div>

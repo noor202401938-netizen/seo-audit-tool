@@ -31,6 +31,29 @@ def _resolve_seomator() -> str:
 _SEOMATOR = _resolve_seomator()
 
 
+def _sqlite_conn():
+    """Open the same SQLite DB the API uses. The worker can't easily share the
+    async Prisma client, so it talks raw SQL. ponytail: whole dual-access mess
+    goes away when the DB moves to Postgres (#5)."""
+    import sqlite3
+    db_url = os.getenv("DATABASE_URL", "file:data/seo_auditor.db")
+    db_path = db_url.split("file:")[1] if db_url.startswith("file:") else "data/seo_auditor.db"
+    if not os.path.isabs(db_path) and not os.path.exists(db_path):
+        db_path = "seo_auditor.db"
+    return sqlite3.connect(db_path)
+
+
+def _refund_credit(user_id: str):
+    """Give back the credit the API reserved when an audit job fails."""
+    try:
+        conn = _sqlite_conn()
+        conn.execute("UPDATE Subscription SET auditsRemaining = auditsRemaining + 1 WHERE userId = ?", (user_id,))
+        conn.commit()
+        conn.close()
+    except Exception as e:
+        print(f"Failed to refund audit credit for user {user_id}: {e}")
+
+
 def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_id: str = None, audit_record_id: str = None):
     try:
         import tempfile
@@ -56,9 +79,15 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
                     encoding="utf-8",
                     shell=(sys.platform == "win32"),
                 )
+                # seomator writes JSON results to the output file on success, but
+                # writes error JSON to stdout on failure (leaving the file empty).
+                # Only prefer the file when it actually has content, otherwise we'd
+                # clobber the real error message with an empty read.
                 if os.path.exists(temp_file):
                     with open(temp_file, "r", encoding="utf-8") as f:
-                        res.stdout = f.read()
+                        file_contents = f.read()
+                    if file_contents.strip():
+                        res.stdout = file_contents
                 return res
             finally:
                 if os.path.exists(temp_file):
@@ -142,11 +171,14 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
             audit_data["ai_tone"] = "neutral"
 
         audit_data["status"] = "success"
+        audit_data["record_id"] = audit_record_id
 
-        # Generate the PDF report
+        # Generate the PDF report, keyed by the unguessable audit record id so
+        # it can only be served to its owner (see /api/audit/pdf/{record_id}).
         try:
-            safe_name = os.path.basename(url.replace('https://', '').replace('http://', '').replace('/', '_'))
-            pdf_filename = f"data/output/{safe_name}_seo_report.pdf"
+            if not audit_record_id:
+                raise ValueError("no audit_record_id; skipping PDF (would be unreachable)")
+            pdf_filename = f"data/output/{audit_record_id}.pdf"
             os.makedirs(os.path.dirname(pdf_filename), exist_ok=True)
             ReportGenerator.generate_pdf(
                 filename=pdf_filename,
@@ -159,30 +191,21 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
         except Exception as e:
             print(f"Failed to generate PDF for {url}: {e}")
 
-        if user_id:
+        # Credit was already reserved at enqueue time (see api.py); here we only
+        # persist the result. On failure we refund in the except block below.
+        if audit_record_id:
             try:
-                import sqlite3
-                db_url = os.getenv("DATABASE_URL", "file:data/seo_auditor.db")
-                if db_url.startswith("file:"):
-                    db_path = db_url.split("file:")[1]
-                else:
-                    db_path = "data/seo_auditor.db"
-                
-                # Make sure path is relative to the cwd if not absolute
-                if not os.path.isabs(db_path) and not os.path.exists(db_path):
-                    db_path = "seo_auditor.db"
-                    
-                conn = sqlite3.connect(db_path)
-                conn.execute("UPDATE Subscription SET auditsRemaining = auditsRemaining - 1 WHERE userId = ? AND auditsRemaining > 0", (user_id,))
-                if audit_record_id:
-                    conn.execute("UPDATE AuditRecord SET resultJson = ?, overallScore = ? WHERE id = ?", (json.dumps(audit_data), overall_score, audit_record_id))
+                conn = _sqlite_conn()
+                conn.execute("UPDATE AuditRecord SET resultJson = ?, overallScore = ? WHERE id = ?", (json.dumps(audit_data), overall_score, audit_record_id))
                 conn.commit()
                 conn.close()
             except Exception as e:
-                print(f"Failed to deduct audit for user {user_id}: {e}")
+                print(f"Failed to save audit result for record {audit_record_id}: {e}")
 
         return audit_data
 
     except Exception as e:
         traceback.print_exc()
+        if user_id:
+            _refund_credit(user_id)
         raise

@@ -4,7 +4,7 @@ datasource db {
 }
 
 generator client {
-  provider             = "C:\\Users\\sm\\AppData\\Local\\Python\\pythoncore-3.14-64\\Scripts\\prisma-client-py.exe"
+  provider             = "prisma-client-py"
   recursive_type_depth = 5
 }
 

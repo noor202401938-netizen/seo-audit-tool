@@ -377,42 +377,6 @@ def run_mobile_friendly_test_tool(url: str) -> dict:
     except Exception as e:
         return {"error": str(e), "message": "Failed to test mobile friendliness."}
 
-from utils.ai_recommender import AIRecommendationGenerator
-
-def run_ai_seo_assistant(url: str) -> dict:
-    target = format_url(url)
-    try:
-        # Fetch simple onpage data to feed to Gemini
-        response = requests.get(target, timeout=15)
-        soup = BeautifulSoup(response.content, "html.parser")
-        
-        title = soup.title.string if soup.title else ""
-        text = soup.get_text(separator=' ', strip=True)
-        
-        # We will use the existing AIRecommendationGenerator
-        # We need to construct mock issues based on our quick fetch
-        issues = []
-        if not title:
-            issues.append({"issue": "Missing Title", "severity": "Error"})
-        if len(text) < 300:
-            issues.append({"issue": "Thin Content", "severity": "Warning"})
-            
-        recommendation, tone = AIRecommendationGenerator.generate(
-            website=target,
-            issues=issues,
-            onpage_score=75,
-            offpage_score=0,
-            offpage_data={}
-        )
-        
-        return {
-            "ai_analysis": recommendation,
-            "tone": tone,
-            "message": "AI Assistant analyzed the page."
-        }
-    except Exception as e:
-        return {"error": str(e), "message": "AI Assistant failed to analyze."}
-
 # ==========================================
 # PHASE 3: Performance & Technical Tools
 # ==========================================
@@ -758,7 +722,7 @@ def run_google_serp_checker(keyword: str, target: str) -> dict:
     try:
         from googlesearch import search
         
-        results = search(keyword, num_results=50)
+        results = search(keyword, num=10, stop=50, pause=2.0)
         rank = None
         found_url = None
         
@@ -856,23 +820,14 @@ def run_bing_serp_checker(keyword: str, target: str) -> dict:
         return {"error": "Scraping Error", "message": f"Failed to check Bing SERP: {str(e)}"}
 
 def run_ai_seo_assistant(query: str) -> dict:
-    import os
-    try:
-        import google.generativeai as genai
-    except ImportError:
-        return {"error": "Dependencies Missing", "message": "google-generativeai is not installed."}
-
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
+    import config  # loads .env; exposes GEMINI_API_KEY
+    if not config.GEMINI_API_KEY:
         return {"error": "Missing API Key", "message": "Please add GEMINI_API_KEY to your .env file."}
-        
     try:
-        genai.configure(api_key=api_key)
-        # Fallback to gemini-pro if gemini-1.5-pro isn't available
-        model = genai.GenerativeModel("gemini-pro")
+        from google import genai
+        client = genai.Client(api_key=config.GEMINI_API_KEY)
         prompt = f"Act as an expert SEO Consultant. Provide actionable SEO advice, keyword analysis, or a website strategy for the following query/URL: {query}. Keep it professional, highly structured, and use Markdown for formatting."
-        response = model.generate_content(prompt)
-        
+        response = client.models.generate_content(model="gemini-flash-latest", contents=prompt)
         return {
             "query": query,
             "ai_response": response.text,
@@ -880,6 +835,25 @@ def run_ai_seo_assistant(query: str) -> dict:
         }
     except Exception as e:
         return {"error": str(e), "message": "Failed to generate AI response."}
+
+def run_company_logo_api(url: str) -> dict:
+    """Return the company's logo via Clearbit's keyless logo API, plus favicon fallback."""
+    domain = urlparse(format_url(url)).netloc.replace("www.", "")
+    if not domain:
+        return {"error": "Invalid domain", "message": "Could not parse a domain from the input."}
+    logo_url = f"https://logo.clearbit.com/{domain}"
+    favicon_url = f"https://www.google.com/s2/favicons?domain={domain}&sz=128"
+    try:
+        exists = requests.head(logo_url, timeout=8).status_code == 200
+    except Exception:
+        exists = False
+    return {
+        "domain": domain,
+        "logo_url": logo_url if exists else favicon_url,
+        "favicon_url": favicon_url,
+        "high_res_available": exists,
+        "message": "Logo found." if exists else "No brand logo found; returning favicon fallback."
+    }
 
 def run_youtube_serp_checker(keyword: str, target: str) -> dict:
     import os

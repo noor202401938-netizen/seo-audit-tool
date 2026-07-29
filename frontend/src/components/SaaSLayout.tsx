@@ -45,7 +45,7 @@ export const SaaSLayout = () => {
   const generateSlug = (name: string) => name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
 
   return (
-    <div className="flex h-screen bg-black overflow-hidden font-sans">
+    <div className="flex h-screen bg-[#09090b] text-zinc-100 overflow-hidden font-sans">
       {/* Mobile Sidebar Overlay */}
       <AnimatePresence>
         {mobileMenuOpen && (
@@ -59,28 +59,27 @@ export const SaaSLayout = () => {
         )}
       </AnimatePresence>
 
-      {/* Sidebar (Dark Theme) */}
+      {/* Sidebar */}
       <motion.aside 
-        className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-slate-950 border-r border-white/10 flex flex-col transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:static inset-y-0 left-0 z-50 w-72 bg-zinc-950 border-r border-zinc-800 flex flex-col transition-transform duration-300 ease-in-out ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
         }`}
       >
-        <div className="h-16 flex items-center justify-between px-6 border-b border-white/10">
-          <Link to="/app" className="flex items-center gap-2" onClick={() => setMobileMenuOpen(false)}>
-            <div className="w-8 h-8 rounded bg-gradient-to-br from-electric-indigo to-cyan-flare flex items-center justify-center">
-              <Activity className="w-5 h-5 text-white" />
+        <div className="h-16 flex items-center justify-between px-6 border-b border-zinc-800">
+          <Link to="/app" className="flex items-center gap-2.5" onClick={() => setMobileMenuOpen(false)}>
+            <div className="w-7 h-7 rounded bg-zinc-900 border border-zinc-700 flex items-center justify-center relative">
+              <Activity className="w-4 h-4 text-zinc-100" />
+              <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500"></span>
             </div>
-            <span className="font-bold text-xl text-white tracking-tight">SeoIntelligence<span className="text-electric-indigo">.</span></span>
+            <span className="font-bold text-base text-zinc-100 tracking-tight">SeoIntelligence</span>
           </Link>
-          <button onClick={() => setMobileMenuOpen(false)} className="lg:hidden text-slate-400 hover:text-white">
-            <X className="w-6 h-6" />
+          <button onClick={() => setMobileMenuOpen(false)} className="lg:hidden text-zinc-400 hover:text-white">
+            <X className="w-5 h-5" />
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto py-6 px-4 custom-scrollbar">
-
-
-          <div className="space-y-6">
+        <div className="flex-1 overflow-y-auto py-5 px-3.5 custom-scrollbar">
+          <div className="space-y-4">
             {TOOL_CATEGORIES.map((category, idx) => {
               const isExpanded = expandedCategories.includes(category.title);
               
@@ -88,14 +87,14 @@ export const SaaSLayout = () => {
                 <div key={idx} className="space-y-1">
                   <button 
                     onClick={() => toggleCategory(category.title)}
-                    className={`flex items-center justify-between w-full px-3 py-2.5 mb-1 rounded-lg text-xs font-bold uppercase tracking-wider transition-all ${
+                    className={`flex items-center justify-between w-full px-3 py-2 mb-1 rounded-md text-[11px] font-mono font-semibold uppercase tracking-wider transition-all ${
                       isExpanded 
-                        ? 'bg-slate-900 text-electric-indigo border border-white/10 shadow-sm' 
-                        : 'bg-transparent text-slate-400 hover:bg-white/5 hover:text-slate-200 border border-transparent'
+                        ? 'bg-zinc-900 text-zinc-100 border border-zinc-800' 
+                        : 'bg-transparent text-zinc-400 hover:bg-zinc-900/50 hover:text-zinc-200 border border-transparent'
                     }`}
                   >
                     <span className="truncate text-left">{category.title}</span>
-                    {isExpanded ? <ChevronDown className="w-4 h-4 shrink-0" /> : <ChevronRight className="w-4 h-4 shrink-0" />}
+                    {isExpanded ? <ChevronDown className="w-3.5 h-3.5 shrink-0" /> : <ChevronRight className="w-3.5 h-3.5 shrink-0" />}
                   </button>
                   
                   <AnimatePresence>
@@ -116,15 +115,15 @@ export const SaaSLayout = () => {
                               key={tIdx} 
                               to={path}
                               onClick={() => setMobileMenuOpen(false)}
-                              className={`group flex items-center justify-between px-4 py-2.5 rounded-lg text-sm transition-all ${
+                              className={`group flex items-center justify-between px-3.5 py-2 rounded-md text-xs transition-all ${
                                 isActive 
-                                  ? 'bg-electric-indigo/20 text-white border border-electric-indigo/30' 
-                                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                                  ? 'bg-zinc-800 text-white font-medium border border-zinc-700' 
+                                  : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900/60'
                               }`}
                             >
                               <span className="truncate pr-2">{tool.name}</span>
                               {tool.upcoming && (
-                                <span className="text-[9px] uppercase tracking-wider bg-slate-800 text-slate-300 px-1.5 py-0.5 rounded">Soon</span>
+                                <span className="text-[9px] font-mono uppercase bg-zinc-900 text-zinc-400 px-1.5 py-0.5 rounded border border-zinc-800">Soon</span>
                               )}
                             </Link>
                           );
@@ -138,35 +137,35 @@ export const SaaSLayout = () => {
           </div>
         </div>
 
-        <div className="p-4 border-t border-white/10">
+        <div className="p-3.5 border-t border-zinc-800">
           <button 
             onClick={handleLogout}
-            className="flex items-center gap-3 w-full px-4 py-3 text-sm text-slate-400 hover:text-error hover:bg-error/10 rounded-xl transition-all"
+            className="flex items-center gap-2.5 w-full px-3.5 py-2.5 text-xs text-zinc-400 hover:text-rose-400 hover:bg-rose-950/20 rounded-lg transition-all"
           >
-            <LogOut className="w-5 h-5" />
+            <LogOut className="w-4 h-4" />
             <span className="font-medium">Sign Out</span>
           </button>
         </div>
       </motion.aside>
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col min-w-0 bg-[#0a0a0f] relative z-10">
+      <main className="flex-1 flex flex-col min-w-0 bg-[#09090b] relative z-10">
         {/* Top Header */}
-        <header className="h-16 flex items-center justify-between px-4 lg:px-8 bg-slate-950/50 backdrop-blur-md border-b border-white/5 sticky top-0 z-30">
+        <header className="h-16 flex items-center justify-between px-4 lg:px-8 bg-zinc-950/60 backdrop-blur-md border-b border-zinc-800 sticky top-0 z-30">
           <div className="flex items-center gap-4 relative flex-1 max-w-xl">
             <button 
               onClick={() => setMobileMenuOpen(true)}
-              className="lg:hidden p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg shrink-0"
+              className="lg:hidden p-2 text-zinc-400 hover:text-white hover:bg-zinc-900 rounded-lg shrink-0"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5" />
             </button>
             <div className="hidden md:flex flex-col relative w-full z-40">
-              <div className="flex items-center gap-2 px-4 py-2 bg-black/40 border border-white/10 rounded-full focus-within:border-electric-indigo/50 focus-within:ring-1 focus-within:ring-electric-indigo/50 transition-all">
-                <Search className="w-4 h-4 text-slate-500 shrink-0" />
+              <div className="flex items-center gap-2 px-3.5 py-1.5 bg-zinc-900/80 border border-zinc-800 rounded-lg focus-within:border-zinc-700 transition-all">
+                <Search className="w-4 h-4 text-zinc-500 shrink-0" />
                 <input 
                   type="text" 
-                  placeholder="Search tools, projects, or keywords..." 
-                  className="bg-transparent border-none outline-none text-sm text-white w-full placeholder:text-slate-600"
+                  placeholder="Search tools or audit rules..." 
+                  className="bg-transparent border-none outline-none text-xs text-zinc-100 w-full placeholder:text-zinc-500"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onFocus={() => setIsSearchFocused(true)}
@@ -177,27 +176,27 @@ export const SaaSLayout = () => {
               <AnimatePresence>
                 {isSearchFocused && searchQuery.trim() !== '' && (
                   <motion.div 
-                    initial={{ opacity: 0, y: 5 }}
+                    initial={{ opacity: 0, y: 4 }}
                     animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 5 }}
-                    className="absolute top-full mt-2 w-full bg-slate-900 border border-white/10 rounded-xl shadow-2xl overflow-hidden glass-card"
+                    exit={{ opacity: 0, y: 4 }}
+                    className="absolute top-full mt-2 w-full bg-zinc-900 border border-zinc-800 rounded-lg shadow-2xl overflow-hidden"
                   >
                     {matchingTools.length > 0 ? (
-                      <div className="py-2">
+                      <div className="py-1">
                         {matchingTools.map((tool, idx) => (
                           <Link
                             key={idx}
                             to={`/app/tools/${generateSlug(tool.name)}`}
-                            className="block px-4 py-3 hover:bg-white/5 transition-colors"
+                            className="block px-4 py-2.5 hover:bg-zinc-800/80 transition-colors"
                             onClick={() => setSearchQuery('')}
                           >
-                            <div className="text-sm font-semibold text-white">{tool.name}</div>
-                            <div className="text-xs text-slate-400 truncate mt-0.5">{tool.desc}</div>
+                            <div className="text-xs font-semibold text-zinc-100">{tool.name}</div>
+                            <div className="text-[11px] text-zinc-400 truncate mt-0.5">{tool.desc}</div>
                           </Link>
                         ))}
                       </div>
                     ) : (
-                      <div className="px-4 py-6 text-sm text-slate-500 text-center">No tools found for "{searchQuery}"</div>
+                      <div className="px-4 py-4 text-xs text-zinc-500 text-center">No tools found for "{searchQuery}"</div>
                     )}
                   </motion.div>
                 )}
@@ -205,13 +204,13 @@ export const SaaSLayout = () => {
             </div>
           </div>
           
-          <div className="flex items-center gap-4">
-            <Link to="/app/profile" className="hidden sm:flex items-center gap-3 hover:bg-white/5 p-2 rounded-xl transition-colors cursor-pointer">
+          <div className="flex items-center gap-3">
+            <Link to="/app/profile" className="hidden sm:flex items-center gap-2.5 hover:bg-zinc-900 p-1.5 rounded-lg transition-colors cursor-pointer">
               <div className="text-right">
-                <p className="text-sm font-medium text-white">{user?.email}</p>
-                <p className="text-xs text-electric-indigo">Pro Plan</p>
+                <p className="text-xs font-medium text-zinc-200">{user?.email}</p>
+                <p className="text-[10px] font-mono text-emerald-400">Pro Plan</p>
               </div>
-              <UserCircle className="w-8 h-8 text-slate-400 hover:text-white transition-colors" />
+              <UserCircle className="w-7 h-7 text-zinc-400" />
             </Link>
           </div>
         </header>

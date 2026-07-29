@@ -1,44 +1,37 @@
 export default function About() {
   return (
-    <div className="pt-24 pb-20 px-6 max-w-4xl mx-auto relative z-10">
-      <div className="glass-card rounded-[2.5rem] p-10 md:p-14 border border-white/10 shadow-[0_0_40px_rgba(99,102,241,0.05)]">
-        <h1 className="text-display-lg font-display-lg font-bold text-on-surface mb-8">About SEO Intelligence Command</h1>
+    <div className="bg-zinc-950 text-zinc-100 min-h-screen pt-28 pb-20 px-6 max-w-4xl mx-auto">
+      <div className="bg-zinc-900/40 rounded-xl p-8 md:p-12 border border-zinc-800 space-y-8">
+        <div className="border-b border-zinc-800 pb-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-400 mb-3">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            ABOUT SEO INTELLIGENCE
+          </div>
+          <h1 className="text-3xl md:text-4xl font-bold tracking-tight text-zinc-100">About SEO Intelligence</h1>
+        </div>
         
-        <div className="prose prose-slate prose-invert max-w-none space-y-8 text-slate-text">
+        <div className="space-y-8 text-zinc-400 text-sm leading-relaxed">
           <section>
-            <h2 className="text-2xl font-bold text-on-surface mb-4">Our Mission</h2>
-            <p className="leading-relaxed text-lg">
-              We built SEO Intelligence Command because the digital landscape demands more than fragmented metrics and superficial audits. Our mission is to democratize high-performance technical SEO by providing enterprise-grade, AI-driven auditing capabilities to everyone—from independent consultants to multinational agencies.
+            <h2 className="text-lg font-bold text-zinc-100 mb-2">Our Mission</h2>
+            <p>
+              SEO Intelligence was created to provide transparent, automated, enterprise-grade technical SEO auditing and contact extraction tools. We empower growth engineers, technical founders, and SEO teams to diagnose site health issues instantly.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-on-surface mb-4">The Next Evolution of Search Intelligence</h2>
-            <p className="leading-relaxed">
-              Traditional SEO tools rely on static rulesets that quickly become outdated in an era of algorithmic volatility. We take a different approach. Our proprietary 251-point analysis engine operates in real-time, executing deep programmatic crawls to uncover structural, performance, and content-related vulnerabilities that others miss.
-            </p>
-            <p className="leading-relaxed mt-4">
-              By combining robust technical extraction with Gemini-powered AI models, we don't just report issues—we provide contextual, prioritized roadmaps designed to directly impact organic visibility and revenue generation.
+            <h2 className="text-lg font-bold text-zinc-100 mb-2">249-Rule Diagnostic Engine</h2>
+            <p>
+              Traditional SEO checkers rely on simple surface checks that miss JavaScript rendering and canonical conflicts. Our engine runs 249 technical, metadata, schema, and Core Web Vitals checks using Playwright-powered headless rendering to mirror how search engine crawlers index web content.
             </p>
           </section>
 
           <section>
-            <h2 className="text-2xl font-bold text-on-surface mb-4">Engineering Excellence</h2>
-            <p className="leading-relaxed mb-4">
-              Our platform is engineered for scale, speed, and precision. We leverage distributed architecture and secure processing pipelines to handle massive data sets efficiently. Key pillars of our technology include:
-            </p>
-            <ul className="list-disc pl-6 space-y-2">
-              <li><strong>Real-time DOM Analysis:</strong> Executing JavaScript to evaluate pages exactly as modern search engines render them.</li>
-              <li><strong>Advanced NLP Integration:</strong> Utilizing large language models to assess content relevance, semantic density, and user intent alignment.</li>
-              <li><strong>Predictive Intelligence:</strong> Identifying emerging technical risks before they impact your indexation status.</li>
+            <h2 className="text-lg font-bold text-zinc-100 mb-2">Engineering & Architecture</h2>
+            <ul className="list-disc pl-5 space-y-2 text-zinc-300 font-mono text-xs">
+              <li><strong>Headless DOM Rendering:</strong> Native Playwright Chromium execution for JavaScript SPAs.</li>
+              <li><strong>249 Diagnostic Matrix:</strong> Automated evaluation of canonicals, OpenGraph, JSON-LD, and Core Web Vitals.</li>
+              <li><strong>Public Contact Extraction:</strong> Pattern validation for public email addresses, telephone numbers, and social links.</li>
             </ul>
-          </section>
-          
-          <section>
-            <h2 className="text-2xl font-bold text-on-surface mb-4">Our Commitment</h2>
-            <p className="leading-relaxed">
-              We are obsessed with data accuracy and actionable insights. Our engineering team continuously refines our auditing algorithms based on the latest search engine patents, documentation updates, and observed ranking volatility. When you use SEO Intelligence Command, you are equipped with the most sophisticated diagnostic tools available in the industry.
-            </p>
           </section>
         </div>
       </div>

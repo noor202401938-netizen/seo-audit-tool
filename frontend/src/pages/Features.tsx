@@ -4,154 +4,165 @@ import { TOOL_CATEGORIES } from '../data/tools';
 
 export default function Features() {
   return (
-    <div className="pt-24 pb-20 px-8 md:px-12 max-w-container-max mx-auto relative z-10 flex flex-col gap-stack-lg">
+    <div className="bg-zinc-950 text-zinc-100 min-h-screen">
       
-      {/* Hero Section */}
-      <section className="flex flex-col lg:flex-row items-center gap-12 mt-12">
-        <div className="flex-1 space-y-6">
-          <div className="inline-block bg-primary/10 border border-primary/20 px-4 py-1.5 rounded-full">
-            <span className="text-primary font-label-caps uppercase tracking-wider text-sm">Universal Intelligence Framework</span>
-          </div>
-          <h1 className="text-display-lg font-display-lg tracking-tighter text-on-surface leading-tight">
-            The Ultimate <span className="bg-gradient-to-r from-electric-indigo to-cyan-flare text-transparent bg-clip-text">Goal-Oriented AI Crawler</span>
-          </h1>
-          <p className="text-body-lg text-slate-text max-w-xl leading-relaxed">
-            A major architectural upgrade transforms static scraping into a fully autonomous, Reinforcement Learning-powered AI Agent capable of adapting to any data extraction need.
-          </p>
-        </div>
-        <div className="flex-1 w-full h-[400px] lg:h-[500px] relative rounded-[2rem] overflow-hidden glass-card border border-white/10 dark:border-white/10 p-2">
-            <div className="absolute inset-0 bg-gradient-to-br from-electric-indigo/20 to-cyan-flare/20 rounded-[1.8rem] z-0"></div>
-            <div className="relative z-10 w-full h-full rounded-[1.5rem] overflow-hidden">
-                <ThreeGraph />
+      {/* Hero Section (DARK BLOCK) */}
+      <section className="pt-28 pb-16 px-6 max-w-6xl mx-auto flex flex-col gap-12">
+        <div className="flex flex-col lg:flex-row items-center gap-12 mt-4">
+          <div className="flex-1 space-y-5">
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-900 border border-zinc-700 text-xs font-mono font-semibold text-zinc-200">
+              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+              SEO & CRAWL ENGINE CAPABILITIES
             </div>
-        </div>
-      </section>
-
-      {/* Bento Grid */}
-      <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        
-        <div className="glass-card p-8 rounded-3xl border border-white/10 dark:border-white/10 hover:border-electric-indigo/50 transition-colors group">
-          <div className="h-12 w-12 rounded-2xl bg-electric-indigo/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <span className="material-symbols-outlined text-electric-indigo text-3xl">psychology</span>
-          </div>
-          <h3 className="text-headline-md font-display-lg font-bold text-on-surface mb-3">Reinforcement Learning</h3>
-          <p className="text-slate-text text-body-md">
-            Powered by a Multi-Armed Bandit algorithm, the AI "learns" during the crawl, dynamically prioritizing high-value URL paths based on your specific extraction goals.
-          </p>
-        </div>
-
-        <div className="glass-card p-8 rounded-3xl border border-white/10 dark:border-white/10 hover:border-cyan-flare/50 transition-colors group">
-          <div className="h-12 w-12 rounded-2xl bg-cyan-flare/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <span className="material-symbols-outlined text-cyan-flare text-3xl">magic_button</span>
-          </div>
-          <h3 className="text-headline-md font-display-lg font-bold text-on-surface mb-3">Universal LLM Extraction</h3>
-          <p className="text-slate-text text-body-md">
-            Use natural language commands to extract completely custom targets. The Google Gemini API seamlessly parses webpage text to find exactly what you ask for.
-          </p>
-        </div>
-
-        <div className="glass-card p-8 rounded-3xl border border-white/10 dark:border-white/10 hover:border-vibrant-violet/50 transition-colors group lg:row-span-2">
-          <div className="h-12 w-12 rounded-2xl bg-vibrant-violet/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <span className="material-symbols-outlined text-vibrant-violet text-3xl">security</span>
-          </div>
-          <h3 className="text-headline-md font-display-lg font-bold text-on-surface mb-3">Smart-Fetch Anti-Bot Bypass</h3>
-          <p className="text-slate-text text-body-md mb-6">
-            Scraping modern high-value targets often results in 403 Forbidden errors. The framework integrates Playwright Stealth to intelligently evade these systems.
-          </p>
-          <ul className="space-y-3">
-             <li className="flex items-center gap-3 text-slate-text text-sm"><span className="material-symbols-outlined text-electric-indigo text-sm">check_circle</span> Defeats Cloudflare & DDoS-Guard</li>
-             <li className="flex items-center gap-3 text-slate-text text-sm"><span className="material-symbols-outlined text-electric-indigo text-sm">check_circle</span> Renders complex SPAs natively</li>
-             <li className="flex items-center gap-3 text-slate-text text-sm"><span className="material-symbols-outlined text-electric-indigo text-sm">check_circle</span> Dynamic fallback triggers on 401/403/503</li>
-          </ul>
-        </div>
-
-        <div className="glass-card p-8 rounded-3xl border border-white/10 dark:border-white/10 hover:border-electric-indigo/50 transition-colors group md:col-span-2 lg:col-span-2">
-          <div className="h-12 w-12 rounded-2xl bg-electric-indigo/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <span className="material-symbols-outlined text-electric-indigo text-3xl">database</span>
-          </div>
-          <h3 className="text-headline-md font-display-lg font-bold text-on-surface mb-3">Interactive CLI & Dynamic Targets</h3>
-          <p className="text-slate-text text-body-md">
-            Extraction targets are completely dynamic. Extract emails, phone numbers, images, articles, and products seamlessly. Our Schema.org JSON-LD parser intelligently targets nested e-commerce data before falling back to generic DOM traversal.
-          </p>
-        </div>
-
-        <div className="glass-card p-8 rounded-3xl border border-white/10 dark:border-white/10 hover:border-cyan-flare/50 transition-colors group">
-          <div className="h-12 w-12 rounded-2xl bg-cyan-flare/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <span className="material-symbols-outlined text-cyan-flare text-3xl">schema</span>
-          </div>
-          <h3 className="text-headline-md font-display-lg font-bold text-on-surface mb-3">Relational Data Exports</h3>
-          <p className="text-slate-text text-body-md">
-            Advanced Pandas processing automatically explodes arrays, ensuring every discovered contact gets a distinct, clean row for enterprise CRMs.
-          </p>
-        </div>
-
-        <div className="glass-card p-8 rounded-3xl border border-white/10 dark:border-white/10 hover:border-vibrant-violet/50 transition-colors group">
-          <div className="h-12 w-12 rounded-2xl bg-vibrant-violet/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-            <span className="material-symbols-outlined text-vibrant-violet text-3xl">save</span>
-          </div>
-          <h3 className="text-headline-md font-display-lg font-bold text-on-surface mb-3">Stateful Checkpointing</h3>
-          <p className="text-slate-text text-body-md">
-            Powered by SQLite and JSON state files. The crawler never loses progress—resume instantly exactly where you left off after any interruption.
-          </p>
-        </div>
-
-      </section>
-
-      {/* The Complete Tool Suite */}
-      <section className="mt-20 pt-20 border-t border-white/10">
-        <div className="text-center mb-16">
-            <h2 className="text-4xl font-display-lg font-bold text-on-surface mb-6">The Complete SEO Suite</h2>
-            <p className="text-slate-text text-body-lg max-w-2xl mx-auto">
-                Stop paying for 10 different subscriptions. SeoIntelligence includes every tool you need to research, audit, and outrank your competitors.
+            <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white leading-tight">
+              Automated Audit Rules & Headless Intelligence Engine
+            </h1>
+            <p className="text-base text-zinc-300 max-w-xl leading-relaxed">
+              Our framework executes 249+ rules across client-side rendering, metadata integrity, Core Web Vitals, and public contact extraction.
             </p>
+          </div>
+          <div className="flex-1 w-full h-[360px] lg:h-[420px] relative rounded-xl overflow-hidden bg-zinc-900 border border-zinc-700 p-2 shadow-2xl">
+              <div className="relative z-10 w-full h-full rounded-lg overflow-hidden bg-[#09090b]">
+                  <ThreeGraph />
+              </div>
+          </div>
         </div>
+      </section>
 
-        <div className="space-y-16">
-            {TOOL_CATEGORIES.map((category, idx) => (
-                <div key={idx} className="relative">
-                    <h4 className="text-2xl font-bold text-white border-b border-white/10 pb-4 mb-8 flex items-center gap-3">
-                        <span className="w-8 h-8 rounded-lg bg-electric-indigo/10 flex items-center justify-center text-electric-indigo">
-                            <span className="material-symbols-outlined text-sm">category</span>
-                        </span>
-                        {category.title}
-                    </h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                        {category.tools.map((tool, i) => (
-                            <div key={i} className="glass-card bg-slate-900/40 border border-white/5 rounded-2xl p-6 hover:border-electric-indigo/30 hover:bg-white/5 transition-all">
-                                <h5 className="text-lg font-bold text-white mb-3 flex items-center justify-between">
-                                    {tool.name}
-                                    {tool.upcoming && (
-                                        <span className="text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 border border-slate-700">
-                                            Upcoming
-                                        </span>
-                                    )}
-                                </h5>
-                                <p className="text-sm text-slate-text/80 leading-relaxed">
-                                    {tool.desc}
-                                </p>
-                            </div>
-                        ))}
-                    </div>
+      {/* Feature Bento Grid (LIGHT BLOCK) */}
+      <section className="bg-zinc-100 text-zinc-950 border-y border-zinc-300 py-20 px-6">
+        <div className="max-w-6xl mx-auto space-y-10">
+          <div>
+            <span className="text-xs font-mono uppercase tracking-widest text-emerald-700 font-bold">Architecture Matrix</span>
+            <h2 className="text-3xl font-extrabold text-zinc-950 mt-1">Engineered for Scalable Auditing</h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <div className="bg-white p-7 rounded-xl border border-zinc-300 shadow-md">
+              <div className="h-10 w-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center mb-5 text-emerald-700">
+                <span className="material-symbols-outlined text-xl">psychology</span>
+              </div>
+              <h3 className="text-lg font-bold text-zinc-950 mb-2">Goal-Oriented Crawling</h3>
+              <p className="text-zinc-700 text-sm leading-relaxed">
+                Prioritizes high-value URLs automatically based on selected audit categories, avoiding low-value duplicate paths.
+              </p>
+            </div>
+
+            <div className="bg-white p-7 rounded-xl border border-zinc-300 shadow-md">
+              <div className="h-10 w-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center mb-5 text-cyan-700">
+                <span className="material-symbols-outlined text-xl">javascript</span>
+              </div>
+              <h3 className="text-lg font-bold text-zinc-950 mb-2">Smart Playwright Fallback</h3>
+              <p className="text-zinc-700 text-sm leading-relaxed">
+                Detects client-side SPAs and Cloudflare edge challenges, automatically triggering headless browser rendering when needed.
+              </p>
+            </div>
+
+            <div className="bg-white p-7 rounded-xl border border-zinc-300 shadow-md lg:row-span-2 flex flex-col justify-between">
+              <div>
+                <div className="h-10 w-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center mb-5 text-zinc-900">
+                  <span className="material-symbols-outlined text-xl">security</span>
                 </div>
-            ))}
+                <h3 className="text-lg font-bold text-zinc-950 mb-2">249 Diagnostic Rules</h3>
+                <p className="text-zinc-700 text-sm leading-relaxed mb-6">
+                  Validates pages against technical SEO, canonical consistency, OpenGraph attributes, JSON-LD schemas, and security headers.
+                </p>
+              </div>
+              <ul className="space-y-3 font-mono text-xs border-t border-zinc-200 pt-5">
+                 <li className="flex items-center gap-2.5 text-zinc-900 font-bold"><span className="material-symbols-outlined text-emerald-700 text-sm">check_circle</span> Technical & Canonical Audit</li>
+                 <li className="flex items-center gap-2.5 text-zinc-900 font-bold"><span className="material-symbols-outlined text-emerald-700 text-sm">check_circle</span> OpenGraph & Twitter Cards</li>
+                 <li className="flex items-center gap-2.5 text-zinc-900 font-bold"><span className="material-symbols-outlined text-emerald-700 text-sm">check_circle</span> Core Web Vitals & Speed</li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-7 rounded-xl border border-zinc-300 shadow-md md:col-span-2 lg:col-span-2">
+              <div className="h-10 w-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center mb-5 text-emerald-700">
+                <span className="material-symbols-outlined text-xl">contacts</span>
+              </div>
+              <h3 className="text-lg font-bold text-zinc-950 mb-2">Public Contact Extraction</h3>
+              <p className="text-zinc-700 text-sm leading-relaxed">
+                Extracts verified public emails (`mailto:` and validated regex patterns), telephone numbers (`tel:`), contact forms, and official social media handles from internal site pages.
+              </p>
+            </div>
+
+            <div className="bg-white p-7 rounded-xl border border-zinc-300 shadow-md">
+              <div className="h-10 w-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center mb-5 text-cyan-700">
+                <span className="material-symbols-outlined text-xl">table_chart</span>
+              </div>
+              <h3 className="text-lg font-bold text-zinc-950 mb-2">Multi-Format Export</h3>
+              <p className="text-zinc-700 text-sm leading-relaxed">
+                Export audit data and discovered contact records directly to CSV, Excel (`.xlsx`), and structured SQLite databases.
+              </p>
+            </div>
+
+            <div className="bg-white p-7 rounded-xl border border-zinc-300 shadow-md">
+              <div className="h-10 w-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center mb-5 text-zinc-900">
+                <span className="material-symbols-outlined text-xl">restore</span>
+              </div>
+              <h3 className="text-lg font-bold text-zinc-950 mb-2">Stateful Checkpointing</h3>
+              <p className="text-zinc-700 text-sm leading-relaxed">
+                Resumes long-running domain crawls effortlessly from saved JSON checkpoints and SQLite queue tracking.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      {/* Complete Tool Directory (DARK BLOCK) */}
+      <section className="bg-zinc-950 text-white py-20 px-6">
+        <div className="max-w-6xl mx-auto space-y-12">
+          <div>
+              <span className="text-xs font-mono uppercase tracking-widest text-emerald-400 font-bold">Audit Suite Directory</span>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-white mt-1">All 25+ Specialized Tools</h2>
+          </div>
+
+          <div className="space-y-12">
+              {TOOL_CATEGORIES.map((category, idx) => (
+                  <div key={idx} className="space-y-4">
+                      <h4 className="text-lg font-bold text-white border-b border-zinc-800 pb-3 flex items-center gap-2">
+                          <span className="material-symbols-outlined text-emerald-400 text-base">category</span>
+                          {category.title}
+                      </h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                          {category.tools.map((tool, i) => (
+                              <div key={i} className="bg-zinc-900 border border-zinc-700 rounded-lg p-5 shadow-sm">
+                                  <h5 className="text-sm font-bold text-white mb-2 flex items-center justify-between">
+                                      {tool.name}
+                                      {tool.upcoming && (
+                                          <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+                                              Soon
+                                          </span>
+                                      )}
+                                  </h5>
+                                  <p className="text-xs text-zinc-300 leading-relaxed">
+                                      {tool.desc}
+                                  </p>
+                              </div>
+                          ))}
+                      </div>
+                  </div>
+              ))}
+          </div>
         </div>
       </section>
       
-      {/* CTA Section */}
-      <section className="my-12 text-center bg-slate-900/50 dark:bg-transparent glass-card rounded-[3rem] p-16 border border-white/10 dark:border-white/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-electric-indigo/10 to-transparent z-0"></div>
-        <div className="relative z-10 max-w-2xl mx-auto space-y-8">
-            <h2 className="text-4xl font-display-lg font-bold text-on-surface">Ready to extract intelligence?</h2>
-            <p className="text-slate-text text-body-lg">
-                Deploy the Universal AI Crawler today and generate flawless lead lists and contact datasets with zero manual configuration.
-            </p>
-            <div className="flex justify-center gap-4">
-                <Link to="/signup">
-                    <button className="bg-electric-indigo text-white font-bold py-4 px-8 rounded-full shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:bg-electric-indigo/90 transition-all btn-shimmer-hover">
-                        Initialize Profile
-                    </button>
-                </Link>
-            </div>
+      {/* CTA Section (LIGHT BLOCK) */}
+      <section className="bg-white text-zinc-950 py-16 px-6 border-t border-zinc-300">
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-zinc-100 rounded-2xl p-10 md:p-14 text-center border border-zinc-300 shadow-xl max-w-2xl mx-auto space-y-5">
+              <h2 className="text-3xl font-extrabold text-zinc-950">Ready to audit your web architecture?</h2>
+              <p className="text-zinc-700 text-sm leading-relaxed font-normal">
+                  Launch automated site audits and contact extractions in seconds with zero complex setup.
+              </p>
+              <div className="pt-2">
+                  <Link to="/signup" className="inline-flex items-center gap-2 bg-zinc-950 hover:bg-black text-white font-bold py-3.5 px-8 rounded-lg text-sm transition-all border border-zinc-900 shadow-xl">
+                      <span>Get Started Free</span>
+                      <span className="material-symbols-outlined text-base">arrow_forward</span>
+                  </Link>
+              </div>
+          </div>
         </div>
       </section>
 

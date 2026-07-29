@@ -38,28 +38,127 @@ export default function Signup() {
   };
 
   return (
-    <div className="max-w-md mx-auto mt-32 glass-card p-10 rounded-2xl shadow-2xl relative z-10 border border-white/10 dark:border-white/10">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-display-lg tracking-tight font-bold text-on-surface mb-2">Initialize Profile</h2>
-        <p className="text-slate-text">Join the future of SEO intelligence.</p>
+    <div className="bg-zinc-950 text-zinc-100 min-h-screen flex items-center justify-center p-4 md:p-8 pt-24">
+      <div className="w-full max-w-5xl bg-zinc-900/40 border border-zinc-800 rounded-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 shadow-2xl">
+        
+        {/* Left Hero Panel */}
+        <div className="lg:col-span-6 bg-zinc-950 p-8 lg:p-12 border-b lg:border-b-0 lg:border-r border-zinc-800/80 flex flex-col justify-between relative overflow-hidden">
+          <div className="absolute inset-0 bg-grid-pattern opacity-30 pointer-events-none"></div>
+          
+          <div className="relative z-10 space-y-6">
+            <div className="flex items-center gap-2.5">
+              <div className="w-7 h-7 rounded bg-zinc-900 border border-zinc-700 flex items-center justify-center relative">
+                <span className="material-symbols-outlined text-zinc-100 text-xs">tune</span>
+                <span className="absolute -top-0.5 -right-0.5 w-2 h-2 rounded-full bg-emerald-500"></span>
+              </div>
+              <span className="font-bold text-sm tracking-tight text-zinc-100">SEOINTELLIGENCE</span>
+            </div>
+
+            <div className="space-y-3 pt-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400">
+                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                FREE TIER &bull; 5 AUDITS INCLUDED
+              </div>
+              <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-100 leading-tight">
+                Start Auditing Your Sites in Under 60 Seconds
+              </h1>
+              <p className="text-xs md:text-sm text-zinc-400 leading-relaxed">
+                Join engineering teams and growth marketers analyzing site health, Core Web Vitals, and public contact channels.
+              </p>
+            </div>
+          </div>
+
+          {/* Feature Highlight Matrix */}
+          <div className="relative z-10 mt-8 space-y-2.5 font-mono text-xs text-zinc-300">
+            <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#09090b] border border-zinc-800/80">
+              <span className="material-symbols-outlined text-emerald-400 text-sm">check_circle</span>
+              <span>249 Automated Technical SEO Rules</span>
+            </div>
+            <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#09090b] border border-zinc-800/80">
+              <span className="material-symbols-outlined text-emerald-400 text-sm">check_circle</span>
+              <span>Playwright Headless SPA Rendering</span>
+            </div>
+            <div className="flex items-center gap-2.5 p-3 rounded-lg bg-[#09090b] border border-zinc-800/80">
+              <span className="material-symbols-outlined text-emerald-400 text-sm">check_circle</span>
+              <span>Public Contact Extraction (Emails/Phones)</span>
+            </div>
+          </div>
+
+          <div className="relative z-10 pt-6 border-t border-zinc-900/80 flex items-center justify-between text-[11px] text-zinc-500">
+            <span>No Credit Card Required</span>
+            <span>Instant Setup</span>
+          </div>
+        </div>
+
+        {/* Right Form Panel */}
+        <div className="lg:col-span-6 p-8 lg:p-12 flex flex-col justify-center bg-zinc-900/20">
+          <div className="max-w-sm mx-auto w-full space-y-6">
+            <div className="space-y-1">
+              <h2 className="text-2xl font-bold tracking-tight text-zinc-100">Create Free Account</h2>
+              <p className="text-xs text-zinc-400">Get started with 5 free site audits every month.</p>
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-zinc-300">Full Name</label>
+                <Input 
+                  className="bg-zinc-900/80 border-zinc-800 text-zinc-100 placeholder:text-zinc-500 h-11 text-sm rounded-lg focus:border-zinc-700" 
+                  type="text" 
+                  placeholder="John Doe" 
+                  value={name} 
+                  onChange={e => setName(e.target.value)} 
+                  required 
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-zinc-300">Work Email</label>
+                <Input 
+                  className="bg-zinc-900/80 border-zinc-800 text-zinc-100 placeholder:text-zinc-500 h-11 text-sm rounded-lg focus:border-zinc-700" 
+                  type="email" 
+                  placeholder="you@company.com" 
+                  value={email} 
+                  onChange={e => setEmail(e.target.value)} 
+                  required 
+                />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="text-xs font-medium text-zinc-300">Password</label>
+                <Input 
+                  className="bg-zinc-900/80 border-zinc-800 text-zinc-100 placeholder:text-zinc-500 h-11 text-sm rounded-lg focus:border-zinc-700" 
+                  type="password" 
+                  placeholder="••••••••" 
+                  value={password} 
+                  onChange={e => setPassword(e.target.value)} 
+                  required 
+                />
+              </div>
+
+              {error && (
+                <div className="text-rose-400 text-xs font-mono p-2.5 rounded bg-rose-950/40 border border-rose-900/60">
+                  {error}
+                </div>
+              )}
+
+              <Button 
+                className="w-full h-11 bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-sm transition-all rounded-lg border border-zinc-200 mt-2" 
+                type="submit"
+              >
+                Create Account & Start Audit
+              </Button>
+            </form>
+
+            <div className="pt-4 border-t border-zinc-800/80 text-center text-xs text-zinc-400">
+              Already have an account?{' '}
+              <Link to="/login" className="text-zinc-100 hover:text-white font-semibold underline underline-offset-4">
+                Sign In
+              </Link>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <form onSubmit={handleSubmit} className="space-y-5">
-        <div className="space-y-2">
-           <label className="text-sm font-medium text-slate-text">Full Name</label>
-           <Input className="bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 text-on-surface placeholder:text-slate-text/50 h-11" type="text" placeholder="John Doe" value={name} onChange={e => setName(e.target.value)} required />
-        </div>
-        <div className="space-y-2">
-           <label className="text-sm font-medium text-slate-text">Email</label>
-           <Input className="bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 text-on-surface placeholder:text-slate-text/50 h-11" type="email" placeholder="you@company.com" value={email} onChange={e => setEmail(e.target.value)} required />
-        </div>
-        <div className="space-y-2">
-           <label className="text-sm font-medium text-slate-text">Password</label>
-           <Input className="bg-slate-50 dark:bg-slate-900/50 border-slate-200 dark:border-white/10 text-on-surface placeholder:text-slate-text/50 h-11" type="password" placeholder="••••••••" value={password} onChange={e => setPassword(e.target.value)} required />
-        </div>
-        {error && <p className="text-error text-sm">{error}</p>}
-        <Button className="w-full h-12 bg-electric-indigo hover:bg-electric-indigo/90 text-white font-medium shadow-[0_0_20px_rgba(99,102,241,0.3)] transition-all duration-300 btn-shimmer-hover" type="submit">Create Account</Button>
-      </form>
-      <p className="text-center mt-8 text-slate-text text-sm">Already initialized? <Link to="/login" className="text-electric-indigo hover:text-cyan-flare transition-colors font-medium">Access Command Center</Link></p>
     </div>
   );
 }

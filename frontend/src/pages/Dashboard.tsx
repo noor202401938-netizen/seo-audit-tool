@@ -7,6 +7,8 @@ import { ResultsDashboard } from '../components/ResultsDashboard';
 import { useAuth } from '../contexts/AuthContext';
 import { TOOL_CATEGORIES } from '../data/tools';
 import { Link } from 'react-router-dom';
+import { openAuthedPdf } from '../lib/utils';
+
 export interface RuleResult {
   ruleId: string;
   status: 'pass' | 'warn' | 'fail';
@@ -26,6 +28,7 @@ export interface CategoryResult {
 
 export interface AuditResult {
   status: string;
+  record_id?: string;
   url: string;
   overallScore: number;
   crawledPages: number;
@@ -40,8 +43,8 @@ const POLLING_MESSAGES = [
   'Crawling website structure...',
   'Analyzing on-page SEO signals...',
   'Running off-page metrics check...',
-  'Calculating domain authority...',
-  'Generating AI recommendations...',
+  'Calculating domain health score...',
+  'Evaluating 249 audit rules...',
   'Compiling final report...',
 ];
 
@@ -127,10 +130,9 @@ export default function Dashboard() {
     }
   };
 
-  const handleDownload = (e: React.MouseEvent, targetUrl: string) => {
+  const handleDownload = (e: React.MouseEvent, recordId: string) => {
     e.stopPropagation();
-    const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-    window.open(`${apiUrl}/api/audit/pdf?url=${encodeURIComponent(targetUrl)}`, '_blank');
+    openAuthedPdf(recordId);
   };
 
   const executeAudit = async (targetUrl: string) => {
@@ -164,7 +166,7 @@ export default function Dashboard() {
       }
 
       const { job_id } = await response.json();
-      refreshUser(); // update audit quota
+      refreshUser(); 
       
       pollingIntervalRef.current = setInterval(async () => {
         try {
@@ -207,35 +209,36 @@ export default function Dashboard() {
     executeAudit(url);
   };
 
-
   return (
-    <div className="w-full min-h-full text-on-surface font-sans selection:bg-electric-indigo/30">
-      <header className="relative py-12 px-6 flex flex-col items-center justify-center border-b border-white/10 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-b from-electric-indigo/5 to-transparent pointer-events-none"></div>
+    <div className="w-full min-h-full text-zinc-100 font-sans selection:bg-zinc-800">
+      <header className="relative py-12 px-6 flex flex-col items-center justify-center border-b border-zinc-800/80 bg-zinc-950/60">
         <motion.div
-          initial={{ opacity: 0, y: -20 }}
+          initial={{ opacity: 0, y: -16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="max-w-3xl w-full text-center space-y-4 relative z-10"
+          transition={{ duration: 0.4 }}
+          className="max-w-3xl w-full text-center space-y-3 relative z-10"
         >
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl drop-shadow-sm">
-            Universal SEO Auditor
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-zinc-400 mb-1">
+            <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+            249-RULE AUDIT MATRIX
+          </div>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-100">
+            Automated Website & SEO Audit
           </h1>
-          <p className="text-lg text-slate-text">
-            Instantly analyze any website's technical SEO, discover contact details, and get AI-driven growth recommendations.
+          <p className="text-sm sm:text-base text-zinc-400">
+            Enter a domain to launch technical SEO verification, schema analysis, and public contact extraction.
           </p>
 
-          <form onSubmit={handleAudit} className="mt-8 flex flex-col items-center justify-center max-w-3xl mx-auto w-full space-y-4">
-            <div className="flex w-full flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
-              <div className="relative group flex-1">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-electric-indigo to-cyan-flare rounded-xl blur opacity-30 group-focus-within:opacity-100 transition duration-1000 group-hover:duration-200"></div>
-                <div className="relative flex items-center bg-slate-950/80 rounded-xl leading-none shadow-xl border border-white/10">
-                  <Search className="absolute left-4 h-5 w-5 text-slate-500" />
+          <form onSubmit={handleAudit} className="mt-6 flex flex-col items-center justify-center max-w-2xl mx-auto w-full space-y-4">
+            <div className="flex w-full flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
+              <div className="relative flex-1">
+                <div className="relative flex items-center bg-zinc-900 rounded-lg shadow-inner border border-zinc-800 focus-within:border-zinc-700 transition-all">
+                  <Search className="absolute left-4 h-4 w-4 text-zinc-400" />
                   <Input
                     ref={inputRef}
                     type="text"
-                    placeholder="https://example.com"
-                    className="pl-12 h-14 text-lg border-none bg-transparent text-white focus-visible:ring-0 focus-visible:ring-offset-0 rounded-xl placeholder:text-slate-600 w-full"
+                    placeholder="https://example-domain.com"
+                    className="pl-11 h-12 text-sm border-none bg-transparent text-zinc-100 focus-visible:ring-0 rounded-lg placeholder:text-zinc-500 w-full"
                     value={url}
                     onChange={(e) => setUrl(e.target.value)}
                     disabled={isLoading}
@@ -245,13 +248,13 @@ export default function Dashboard() {
               <Button
                 type="submit"
                 size="lg"
-                className="h-14 w-full sm:w-40 rounded-xl bg-gradient-to-r from-electric-indigo to-cyan-flare hover:brightness-110 text-white font-bold text-lg transition-all shadow-[0_0_20px_rgba(99,102,241,0.4)] hover:shadow-[0_0_30px_rgba(6,182,212,0.6)] shrink-0"
+                className="h-12 w-full sm:w-36 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 font-semibold text-sm transition-all border border-zinc-200 shrink-0"
                 disabled={isLoading || !url.trim()}
               >
                 {isLoading ? (
-                  <div className="flex items-center">
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Auditing
+                  <div className="flex items-center gap-2">
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    <span>Auditing</span>
                   </div>
                 ) : (
                   "Run Audit"
@@ -259,26 +262,26 @@ export default function Dashboard() {
               </Button>
             </div>
             
-            <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 rounded-xl border border-white/5 bg-white/[0.02] shadow-inner">
-              <label className="flex items-center space-x-3 text-sm font-medium text-slate-300 cursor-pointer">
+            <div className="w-full flex flex-col sm:flex-row items-start sm:items-center justify-between p-3.5 rounded-lg border border-zinc-800 bg-zinc-900/40 text-xs">
+              <label className="flex items-center space-x-2.5 font-medium text-zinc-300 cursor-pointer">
                 <input
                   type="checkbox"
-                  className="rounded border-white/20 bg-slate-950 text-electric-indigo focus:ring-0 h-5 w-5 cursor-pointer"
+                  className="rounded border-zinc-700 bg-zinc-950 text-emerald-500 focus:ring-0 h-4 w-4 cursor-pointer"
                   checked={crawl}
                   onChange={(e) => setCrawl(e.target.checked)}
                   disabled={isLoading}
                 />
-                <span>Enable deep crawling</span>
+                <span>Enable multi-page crawl</span>
               </label>
               
               {crawl && (
-                <div className="flex items-center space-x-4 w-full sm:w-64 mt-4 sm:mt-0 animate-in fade-in slide-in-from-left-4 duration-300">
-                  <span className="text-sm font-medium text-electric-indigo whitespace-nowrap min-w-[80px]">Max: {maxPages}</span>
+                <div className="flex items-center space-x-3 w-full sm:w-60 mt-3 sm:mt-0 font-mono">
+                  <span className="text-xs font-medium text-zinc-400 whitespace-nowrap min-w-[70px]">Max: {maxPages} pages</span>
                   <input
                     type="range"
                     min="1"
                     max="100"
-                    className="w-full h-2 bg-slate-900/50 rounded-lg appearance-none cursor-pointer accent-electric-indigo"
+                    className="w-full h-1.5 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500"
                     value={maxPages}
                     onChange={(e) => setMaxPages(parseInt(e.target.value))}
                     disabled={isLoading}
@@ -294,7 +297,7 @@ export default function Dashboard() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
-                className="mt-4 text-error text-sm font-medium"
+                className="mt-3 text-rose-400 text-xs font-mono font-medium p-2.5 rounded bg-rose-950/40 border border-rose-900/60"
               >
                 {error}
               </motion.div>
@@ -303,7 +306,7 @@ export default function Dashboard() {
         </motion.div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <AnimatePresence mode="wait">
           {isLoading && (
             <motion.div
@@ -311,20 +314,17 @@ export default function Dashboard() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              className="flex flex-col items-center justify-center py-24 space-y-6"
+              className="flex flex-col items-center justify-center py-20 space-y-4"
             >
-              <div className="relative">
-                <div className="absolute inset-0 bg-cyan-flare blur-xl opacity-20 rounded-full animate-pulse"></div>
-                <Loader2 className="h-16 w-16 animate-spin text-cyan-flare relative z-10" />
-              </div>
+              <div className="w-12 h-12 rounded-full border-2 border-zinc-800 border-t-emerald-500 animate-spin"></div>
               <AnimatePresence mode="wait">
                 <motion.p
                   key={pollingMessage}
-                  initial={{ opacity: 0, y: 8 }}
+                  initial={{ opacity: 0, y: 6 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -8 }}
-                  transition={{ duration: 0.35 }}
-                  className="text-slate-text text-lg"
+                  exit={{ opacity: 0, y: -6 }}
+                  transition={{ duration: 0.25 }}
+                  className="text-zinc-400 font-mono text-sm"
                 >
                   {pollingMessage}
                 </motion.p>
@@ -335,9 +335,9 @@ export default function Dashboard() {
           {!isLoading && result && (
             <motion.div
               key="results"
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.4 }}
             >
               <ResultsDashboard data={result} />
             </motion.div>
@@ -347,17 +347,17 @@ export default function Dashboard() {
             <motion.div 
               initial={{ opacity: 0 }} 
               animate={{ opacity: 1 }} 
-              className="text-center py-12 text-slate-text w-full max-w-5xl mx-auto"
+              className="text-center py-10 text-zinc-400 w-full max-w-4xl mx-auto"
             >
-              <div className="mb-12">
-                <Search className="h-12 w-12 mx-auto mb-4 opacity-20 text-cyan-flare" />
-                <p>Enter a URL above to generate a comprehensive SEO report.</p>
+              <div className="mb-10">
+                <Search className="h-10 w-10 mx-auto mb-3 text-zinc-600" />
+                <p className="text-sm">Enter a target URL above to generate a comprehensive SEO & contact report.</p>
               </div>
 
               {recentAudits.length > 0 && (
                 <div className="mt-8 text-left">
-                  <h3 className="text-xl font-bold text-on-surface mb-6 flex items-center">
-                    <Clock className="w-5 h-5 mr-2 text-cyan-flare" />
+                  <h3 className="text-sm font-mono uppercase tracking-wider text-zinc-400 mb-4 flex items-center">
+                    <Clock className="w-4 h-4 mr-2 text-zinc-400" />
                     Recent Audits
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -365,37 +365,37 @@ export default function Dashboard() {
                       <div 
                         key={audit.id} 
                         onClick={() => loadRecentAudit(audit.id)}
-                        className="glass-card p-5 rounded-xl cursor-pointer hover:border-electric-indigo/50 transition-all flex flex-col justify-between group"
+                        className="bg-zinc-900/50 border border-zinc-800 p-4 rounded-lg cursor-pointer hover:border-zinc-700 transition-all flex flex-col justify-between group"
                       >
-                        <div className="flex justify-between items-start mb-4">
-                          <div className="overflow-hidden flex-1 mr-4">
-                            <div className="font-medium text-on-surface truncate group-hover:text-electric-indigo transition-colors" title={audit.url}>{audit.url}</div>
-                            <div className="text-sm text-slate-text mt-1">
+                        <div className="flex justify-between items-start mb-3">
+                          <div className="overflow-hidden flex-1 mr-3">
+                            <div className="font-medium text-xs text-zinc-200 truncate group-hover:text-zinc-100 transition-colors" title={audit.url}>{audit.url}</div>
+                            <div className="text-[11px] font-mono text-zinc-500 mt-1">
                               {new Date(audit.createdAt).toLocaleDateString()} at {new Date(audit.createdAt).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
                             </div>
                           </div>
-                          <div className="flex-shrink-0 bg-slate-900 rounded-full h-12 w-12 flex items-center justify-center font-bold text-electric-indigo border border-white/10 group-hover:border-electric-indigo/30 transition-colors shadow-inner">
+                          <div className="flex-shrink-0 bg-zinc-950 rounded-md h-9 w-9 flex items-center justify-center font-mono font-bold text-xs text-emerald-400 border border-zinc-800">
                             {audit.overallScore}
                           </div>
                         </div>
-                        <div className="flex items-center gap-2 mt-2 pt-4 border-t border-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                        <div className="flex items-center gap-2 mt-2 pt-3 border-t border-zinc-800/60 opacity-80 group-hover:opacity-100 transition-opacity">
                           <Button 
                             variant="outline" 
                             size="sm" 
-                            className="bg-transparent hover:bg-white/5 text-slate-300 border-white/10 text-xs h-8"
+                            className="bg-zinc-950 hover:bg-zinc-900 text-zinc-300 border-zinc-800 text-[11px] h-7 px-2.5"
                             onClick={(e) => handleRerun(e, audit.url)}
                           >
-                            <RefreshCw className="w-3 h-3 mr-1.5" />
-                            Rerun Audit
+                            <RefreshCw className="w-3 h-3 mr-1" />
+                            Rerun
                           </Button>
                           <Button 
                             variant="outline" 
                             size="sm" 
-                            className="bg-transparent hover:bg-white/5 text-slate-300 border-white/10 text-xs h-8"
-                            onClick={(e) => handleDownload(e, audit.url)}
+                            className="bg-zinc-950 hover:bg-zinc-900 text-zinc-300 border-zinc-800 text-[11px] h-7 px-2.5"
+                            onClick={(e) => handleDownload(e, audit.id)}
                           >
-                            <Download className="w-3 h-3 mr-1.5" />
-                            Download PDF
+                            <Download className="w-3 h-3 mr-1" />
+                            PDF
                           </Button>
                         </div>
                       </div>
@@ -405,12 +405,12 @@ export default function Dashboard() {
               )}
 
               {recentTools.length > 0 && (
-                <div className="mt-16 text-left">
-                  <h3 className="text-xl font-bold text-on-surface mb-6 flex items-center">
-                    <Search className="w-5 h-5 mr-2 text-cyan-flare" />
+                <div className="mt-12 text-left">
+                  <h3 className="text-sm font-mono uppercase tracking-wider text-zinc-400 mb-4 flex items-center">
+                    <Search className="w-4 h-4 mr-2 text-zinc-400" />
                     Recently Used Tools
                   </h3>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
                     {recentTools.map((toolId) => {
                       const category = TOOL_CATEGORIES.find(c => 
                         c.tools.some(t => t.name.toLowerCase().replace(/[^a-z0-9]+/g, '-') === toolId)
@@ -422,14 +422,14 @@ export default function Dashboard() {
                       
                       return (
                         <Link to={`/app/tools/${toolId}`} key={toolId}>
-                          <div className="glass-card p-4 rounded-xl cursor-pointer hover:border-cyan-flare/50 transition-all flex flex-col h-full group">
-                            <div className="flex items-center space-x-3 mb-3">
-                              <div className="p-2 bg-slate-900 rounded-lg text-cyan-flare group-hover:scale-110 transition-transform">
-                                <Search className="w-5 h-5" />
+                          <div className="bg-zinc-900/40 border border-zinc-800 p-3.5 rounded-lg cursor-pointer hover:border-zinc-700 transition-all flex flex-col h-full group">
+                            <div className="flex items-center space-x-2.5 mb-2">
+                              <div className="p-1.5 bg-zinc-950 rounded text-zinc-300 border border-zinc-800">
+                                <Search className="w-3.5 h-3.5" />
                               </div>
-                              <h3 className="font-medium text-sm text-on-surface line-clamp-1">{tool.name}</h3>
+                              <h3 className="font-medium text-xs text-zinc-200 line-clamp-1">{tool.name}</h3>
                             </div>
-                            <div className="mt-auto flex items-center text-xs text-electric-indigo font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+                            <div className="mt-auto flex items-center text-[11px] text-emerald-400 font-medium opacity-0 group-hover:opacity-100 transition-opacity">
                               Open Tool <ArrowRight className="w-3 h-3 ml-1" />
                             </div>
                           </div>
@@ -442,7 +442,6 @@ export default function Dashboard() {
             </motion.div>
           )}
         </AnimatePresence>
-
       </main>
     </div>
   );

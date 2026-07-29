@@ -156,9 +156,17 @@ async def read_users_me(current_user = Depends(get_current_user)):
 @app.post("/api/audit")
 async def perform_audit(request: AuditRequest, current_user = Depends(get_current_user)):
     try:
-        # Check subscription limits
-        sub = current_user.subscription
-        if not sub or sub.auditsRemaining <= 0:
+        # Atomically reserve one audit credit. A single conditional UPDATE
+        # (auditsRemaining > 0) can't be won by two concurrent requests the way
+        # a read-then-check gate can, so users can't overspend by firing audits
+        # in parallel. Refunded in the worker if the job fails.
+        # ponytail: relies on SQLite's single-writer lock; move to Postgres
+        # SELECT ... FOR UPDATE (see #5) if you shard the DB.
+        reserved = await prisma.subscription.update_many(
+            where={"userId": current_user.id, "auditsRemaining": {"gt": 0}},
+            data={"auditsRemaining": {"decrement": 1}},
+        )
+        if not reserved:
             raise HTTPException(status_code=403, detail="Not enough audits remaining. Please upgrade your plan.")
 
         # Save history record
@@ -192,11 +200,12 @@ async def perform_audit(request: AuditRequest, current_user = Depends(get_curren
             loop = asyncio.get_event_loop()
             loop.run_in_executor(_executor, _run_and_store, job_id, request.url, request.crawl, request.max_pages, current_user.id, record.id)
 
+        sub = current_user.subscription
         return {
             "status": "queued",
             "job_id": job_id,
             "url": request.url,
-            "audits_remaining": sub.auditsRemaining
+            "audits_remaining": max((sub.auditsRemaining - 1) if sub else 0, 0)
         }
     except HTTPException:
         raise
@@ -256,17 +265,18 @@ async def get_audit_history(record_id: str, current_user = Depends(get_current_u
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.get("/api/audit/pdf")
-def get_pdf(url: str):
-    safe_name = os.path.basename(url.replace('https://', '').replace('http://', '').replace('/', '_'))
-    filename = f"data/output/{safe_name}_seo_report.pdf"
-    if os.path.exists(filename):
-        return FileResponse(filename, media_type="application/pdf", filename=os.path.basename(filename))
-    else:
+@app.get("/api/audit/pdf/{record_id}")
+async def get_pdf(record_id: str, current_user = Depends(get_current_user)):
+    record = await prisma.auditrecord.find_unique(where={"id": record_id})
+    if not record or record.userId != current_user.id:
+        raise HTTPException(status_code=404, detail="Audit not found")
+    filename = f"data/output/{record_id}.pdf"
+    if not os.path.exists(filename):
         raise HTTPException(status_code=404, detail="PDF Report not found. Run the audit first.")
+    return FileResponse(filename, media_type="application/pdf", filename=f"seo_report_{record_id}.pdf")
 
 @app.post("/api/feedback")
-async def submit_feedback(request: FeedbackRequest):
+async def submit_feedback(request: FeedbackRequest, current_user = Depends(get_current_user)):
     try:
         record = await prisma.aifeedback.find_unique(where={"tone": request.tone})
         if record:

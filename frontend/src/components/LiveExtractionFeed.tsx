@@ -1,55 +1,54 @@
 export function LiveExtractionFeed() {
     return (
-        <div className="w-full h-full bg-[#050505] font-mono text-xs md:text-sm flex flex-col relative overflow-hidden">
-            <div className="flex-1 p-5 flex flex-col gap-3">
+        <div className="w-full h-full bg-[#09090b] font-mono text-xs flex flex-col relative overflow-hidden text-zinc-300">
+            <div className="flex-1 p-5 flex flex-col gap-2.5">
                 <div className="animate-terminal-1 flex gap-3">
-                    <span className="text-cyan-flare shrink-0">[SYS_INIT]</span>
-                    <span className="text-slate-text">Booting Neural Crawling Framework v4.0.2...</span>
+                    <span className="text-emerald-400 font-medium shrink-0">[CRAWL_INIT]</span>
+                    <span className="text-zinc-400">Booting SEO Audit Engine v4.0...</span>
                 </div>
                 
                 <div className="animate-terminal-2 flex gap-3">
-                    <span className="text-vibrant-violet shrink-0">[AI_BRAIN]</span>
-                    <span className="text-slate-text">Loading Multi-Armed Bandit RL Model... <span className="text-electric-indigo">Online</span></span>
+                    <span className="text-cyan-400 font-medium shrink-0">[CONFIG]</span>
+                    <span className="text-zinc-400">Loaded 249 audit rules across 16 categories. <span className="text-emerald-400">Ready</span></span>
                 </div>
                 
                 <div className="animate-terminal-3 flex gap-3">
-                    <span className="text-cyan-flare shrink-0">[DISPATCH]</span>
-                    <span className="text-white">Target acquired: <span className="text-slate-400">enterprise-client.com</span></span>
+                    <span className="text-zinc-200 font-medium shrink-0">[DISPATCH]</span>
+                    <span className="text-zinc-100">Target URL: <span className="text-zinc-400 font-semibold">https://example-domain.com</span></span>
                 </div>
                 
                 <div className="animate-terminal-4 flex gap-3">
-                    <span className="text-error shrink-0">[WARN_WAF]</span>
-                    <span className="text-slate-text">Cloudflare IUAM challenge detected on edge network.</span>
+                    <span className="text-amber-400 font-medium shrink-0">[HEADLESS]</span>
+                    <span className="text-zinc-400">JS execution required. Launching Playwright Chromium...</span>
                 </div>
                 
                 <div className="animate-terminal-5 flex gap-3">
-                    <span className="text-electric-indigo shrink-0">[STEALTH]</span>
-                    <span className="text-slate-text">Deploying headless Playwright workers... <span className="text-primary">Bypassed (0.42s)</span></span>
+                    <span className="text-emerald-400 font-medium shrink-0">[PARSING]</span>
+                    <span className="text-zinc-400">Evaluating Canonical, OpenGraph, JSON-LD & Core Web Vitals... <span className="text-zinc-200">(0.38s)</span></span>
                 </div>
                 
                 <div className="animate-terminal-6 flex gap-3">
-                    <span className="text-primary shrink-0">[LLM_EXTR]</span>
-                    <span className="text-slate-text">Parsing DOM for unlinked PII and structural semantic assets...</span>
+                    <span className="text-cyan-400 font-medium shrink-0">[CONTACTS]</span>
+                    <span className="text-zinc-400">Scanning page tree for verified public contact metadata...</span>
                 </div>
                 
-                <div className="animate-terminal-7 flex flex-col gap-2 ml-7 mt-1 border-l border-white/10 pl-4 py-1">
-                    <div className="flex gap-2">
-                        <span className="text-success material-symbols-outlined text-sm">check_circle</span>
-                        <span className="text-slate-300">Extracted: ceo@enterprise-client.com (Confidence: 99.8%)</span>
+                <div className="animate-terminal-7 flex flex-col gap-1.5 ml-6 mt-1 border-l border-zinc-800 pl-4 py-1 text-[11px]">
+                    <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-emerald-400 text-xs">check_circle</span>
+                        <span className="text-zinc-300">Extracted: contact@example-domain.com (Mailto confirmed)</span>
                     </div>
-                    <div className="flex gap-2">
-                        <span className="text-success material-symbols-outlined text-sm">check_circle</span>
-                        <span className="text-slate-300">Extracted: /hidden-staging-api/v2/users (Leaked endpoint)</span>
+                    <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-emerald-400 text-xs">check_circle</span>
+                        <span className="text-zinc-300">Extracted: +1 (800) 555-0199 (Tel: link verified)</span>
                     </div>
-                    <div className="flex gap-2 text-cyan-flare animate-pulse">
-                        <span className="text-cyan-flare material-symbols-outlined text-sm">hourglass_empty</span>
-                        <span>Compiling forensic audit report...</span>
+                    <div className="flex items-center gap-2 text-cyan-400 animate-pulse">
+                        <span className="material-symbols-outlined text-xs">hourglass_top</span>
+                        <span>Compiling final diagnostic report...</span>
                     </div>
                 </div>
             </div>
             
-            {/* Fade out bottom overlay to keep it clean */}
-            <div className="absolute bottom-0 left-0 w-full h-1/3 bg-gradient-to-t from-[#050505] to-transparent pointer-events-none"></div>
+            <div className="absolute bottom-0 left-0 w-full h-12 bg-gradient-to-t from-[#09090b] to-transparent pointer-events-none"></div>
         </div>
     );
 }

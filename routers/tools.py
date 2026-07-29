@@ -35,11 +35,11 @@ class TrackToolRequest(BaseModel):
 from db_client import prisma
 
 @router.post("/track")
-async def track_tool_usage(req: TrackToolRequest, user: dict = Depends(get_current_user)):
+async def track_tool_usage(req: TrackToolRequest, user = Depends(get_current_user)):
     db = prisma
     # Check if we already have a record for this user and tool
     existing = await db.toolusage.find_first(where={
-        "userId": user["id"],
+        "userId": user.id,
         "toolId": req.tool_id
     })
     
@@ -51,17 +51,17 @@ async def track_tool_usage(req: TrackToolRequest, user: dict = Depends(get_curre
         )
     else:
         await db.toolusage.create(data={
-            "userId": user["id"],
+            "userId": user.id,
             "toolId": req.tool_id,
             "lastUsed": datetime.datetime.utcnow()
         })
     return {"status": "ok"}
 
 @router.get("/recent")
-async def get_recent_tools(user: dict = Depends(get_current_user)):
+async def get_recent_tools(user = Depends(get_current_user)):
     db = prisma
     records = await db.toolusage.find_many(
-        where={"userId": user["id"]},
+        where={"userId": user.id},
         order={"lastUsed": "desc"},
         take=4
     )
@@ -118,10 +118,6 @@ async def run_crawlability_test_tool(req: ToolRequest, current_user = Depends(ge
 @router.post("/mobile-friendly-test-tool")
 async def run_mobile_friendly_test_tool(req: ToolRequest, current_user = Depends(get_current_user)):
     return tool_runners.run_mobile_friendly_test_tool(req.url)
-
-@router.post("/ai-seo-assistant")
-async def run_ai_seo_assistant(req: ToolRequest, current_user = Depends(get_current_user)):
-    return tool_runners.run_ai_seo_assistant(req.url)
 
 # ==========================================
 # PHASE 3: Performance & Technical Tools
@@ -202,3 +198,7 @@ async def run_bing_serp_checker(req: SerpToolRequest, current_user = Depends(get
 @router.post("/ai-seo-assistant")
 async def run_ai_seo_assistant(req: AIQueryRequest, current_user = Depends(get_current_user)):
     return tool_runners.run_ai_seo_assistant(req.query)
+
+@router.post("/company-logo-api")
+async def run_company_logo_api(req: ToolRequest, current_user = Depends(get_current_user)):
+    return tool_runners.run_company_logo_api(req.url)

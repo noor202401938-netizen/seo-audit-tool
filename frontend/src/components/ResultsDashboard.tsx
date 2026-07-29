@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from './ui/card';
+import { Card, CardContent } from './ui/card';
 import { Progress } from './ui/progress';
-import { Badge } from './ui/badge';
 import { Button } from './ui/button';
 import { AlertCircle, CheckCircle2, Info, ThumbsUp, ThumbsDown } from 'lucide-react';
 import type { AuditResult } from '../pages/Dashboard';
+import { openAuthedPdf } from '../lib/utils';
 
 export function ResultsDashboard({ data }: { data: AuditResult }) {
   const [expandedCategory, setExpandedCategory] = useState<string | null>(null);
@@ -36,13 +36,10 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
   };
 
   const formatRuleId = (ruleId: string) => {
-    // Remove the category prefix (e.g., 'core-title-present' -> 'title-present')
-    // We do this by splitting by dash and removing the first part if it has 2+ parts
     const parts = ruleId.split('-');
     if (parts.length > 1) {
       parts.shift();
     }
-    // Capitalize and join
     return parts.map(p => p.charAt(0).toUpperCase() + p.slice(1)).join(' ');
   };
 
@@ -65,15 +62,15 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 90) return 'text-green-500';
-    if (score >= 50) return 'text-yellow-500';
-    return 'text-red-500';
+    if (score >= 90) return 'text-emerald-400';
+    if (score >= 50) return 'text-amber-400';
+    return 'text-rose-400';
   };
 
   const getScoreBg = (score: number) => {
-    if (score >= 90) return 'bg-green-500';
-    if (score >= 50) return 'bg-yellow-500';
-    return 'bg-red-500';
+    if (score >= 90) return 'bg-emerald-500';
+    if (score >= 50) return 'bg-amber-500';
+    return 'bg-rose-500';
   };
 
   const getGrade = (score: number) => {
@@ -86,14 +83,13 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
 
   const getStatusIcon = (status: string) => {
     switch (status) {
-      case 'fail': return <AlertCircle className="h-5 w-5 text-red-500 shrink-0" />;
-      case 'warn': return <AlertCircle className="h-5 w-5 text-yellow-500 shrink-0" />;
-      case 'pass': return <CheckCircle2 className="h-5 w-5 text-green-500 shrink-0" />;
-      default: return <Info className="h-5 w-5 text-blue-500 shrink-0" />;
+      case 'fail': return <AlertCircle className="h-4 w-4 text-rose-400 shrink-0" />;
+      case 'warn': return <AlertCircle className="h-4 w-4 text-amber-400 shrink-0" />;
+      case 'pass': return <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />;
+      default: return <Info className="h-4 w-4 text-cyan-400 shrink-0" />;
     }
   };
 
-  // Aggregate issues
   const allIssues = data.categoryResults.flatMap(cat => 
     cat.results
       .filter(r => r.status !== 'pass')
@@ -105,58 +101,55 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
   });
 
   return (
-    <div className="space-y-8 pb-12">
+    <div className="space-y-8 pb-12 bg-[#09090b] text-white">
       {/* Header Actions */}
-      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 border-b border-zinc-800 pb-6">
         <div>
-          <h2 className="text-2xl font-bold text-on-surface">Audit Results for <span className="text-electric-indigo">{new URL(data.url).hostname}</span></h2>
-          <p className="text-slate-text">Crawled {data.crawledPages || 1} pages.</p>
+          <h2 className="text-2xl font-extrabold text-white">
+            Audit Results: <span className="text-emerald-400 font-mono">{new URL(data.url).hostname}</span>
+          </h2>
+          <p className="text-xs text-zinc-400 mt-0.5">Crawled {data.crawledPages || 1} pages with 249-rule diagnostic matrix.</p>
         </div>
-        <Button 
-          onClick={() => {
-            const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
-            window.open(`${apiUrl}/api/audit/pdf?url=${encodeURIComponent(data.url)}`, '_blank');
-          }}
-          className="bg-electric-indigo hover:bg-electric-indigo/90 text-white"
+        <Button
+          onClick={() => data.record_id && openAuthedPdf(data.record_id)}
+          disabled={!data.record_id}
+          className="bg-white hover:bg-zinc-100 text-black font-bold text-xs px-5 py-2.5 rounded-lg border border-white shadow-md"
         >
-          Download PDF
+          Download PDF Report
         </Button>
       </div>
 
       {/* Tabs Navigation */}
-      <div className="flex flex-wrap gap-2 mt-8 mb-6 p-2 rounded-2xl bg-slate-950/60 border border-white/10 shadow-inner w-fit mx-auto md:mx-0">
+      <div className="flex flex-wrap gap-2 p-1.5 rounded-xl bg-zinc-900 border border-zinc-800 w-fit">
         <Button
-          variant={activeTab === 'overview' ? 'default' : 'ghost'}
+          variant="ghost"
           onClick={() => setActiveTab('overview')}
-          size="lg"
-          className={`rounded-xl text-base font-bold transition-all ${
+          className={`rounded-lg text-xs font-bold transition-all px-6 h-9 ${
             activeTab === 'overview' 
-              ? 'bg-gradient-to-r from-electric-indigo to-cyan-flare text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:brightness-110 px-8' 
-              : 'text-slate-text hover:text-white hover:bg-white/10 px-6'
+              ? 'bg-zinc-100 text-black shadow-md' 
+              : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
           }`}
         >
           Overview
         </Button>
         <Button
-          variant={activeTab === 'recommendations' ? 'default' : 'ghost'}
+          variant="ghost"
           onClick={() => setActiveTab('recommendations')}
-          size="lg"
-          className={`rounded-xl text-base font-bold transition-all ${
+          className={`rounded-lg text-xs font-bold transition-all px-6 h-9 ${
             activeTab === 'recommendations' 
-              ? 'bg-gradient-to-r from-electric-indigo to-cyan-flare text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:brightness-110 px-8' 
-              : 'text-slate-text hover:text-white hover:bg-white/10 px-6'
+              ? 'bg-zinc-100 text-black shadow-md' 
+              : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
           }`}
         >
           AI Recommendations
         </Button>
         <Button
-          variant={activeTab === 'problems' ? 'default' : 'ghost'}
+          variant="ghost"
           onClick={() => setActiveTab('problems')}
-          size="lg"
-          className={`rounded-xl text-base font-bold transition-all ${
+          className={`rounded-lg text-xs font-bold transition-all px-6 h-9 ${
             activeTab === 'problems' 
-              ? 'bg-gradient-to-r from-electric-indigo to-cyan-flare text-white shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:brightness-110 px-8' 
-              : 'text-slate-text hover:text-white hover:bg-white/10 px-6'
+              ? 'bg-zinc-100 text-black shadow-md' 
+              : 'text-zinc-400 hover:text-white hover:bg-zinc-800'
           }`}
         >
           Problems ({allIssues.length})
@@ -164,224 +157,138 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
       </div>
 
       {activeTab === 'overview' && (
-        <div className="space-y-8 mt-6">
-      {/* Hero Score */}
-      <Card className="premium-card bg-slate-950/30 text-on-surface border border-white/20 shadow-2xl relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-electric-indigo/20 rounded-full blur-3xl -z-10 translate-x-1/2 -translate-y-1/2" />
-        <CardContent className="pt-6 relative z-10">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-            <div className="flex items-center gap-6">
-              <div className="relative flex items-center justify-center h-32 w-32 rounded-full border-8 border-white/10 bg-slate-950/50">
-                <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
-                  <path
-                    className="text-white/10"
-                    strokeWidth="3"
-                    stroke="currentColor"
-                    fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                  <path
-                    className={getScoreColor(data.overallScore)}
-                    strokeWidth="3"
-                    strokeDasharray={`${data.overallScore}, 100`}
-                    strokeLinecap="round"
-                    stroke="currentColor"
-                    fill="none"
-                    d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                  />
-                </svg>
-                <div className="text-center z-10">
-                  <span className="text-4xl font-black text-on-surface">{data.overallScore}</span>
-                </div>
-              </div>
-              <div className="space-y-1">
-                <h3 className="text-3xl font-bold tracking-tight text-on-surface">Grade {getGrade(data.overallScore)}</h3>
-                <p className="text-slate-text font-medium">Overall SEO Health</p>
-              </div>
-            </div>
-            
-            <div className="flex gap-6 text-center">
-              <div className="bg-white/5 p-4 rounded-xl border border-white/10 glass-card">
-                <div className="text-3xl font-bold text-green-400">
-                  {data.categoryResults.reduce((acc, cat) => acc + cat.passCount, 0)}
-                </div>
-                <div className="text-sm font-bold text-slate-text uppercase tracking-wider mt-1">Passed</div>
-              </div>
-              <div className="bg-white/5 p-4 rounded-xl border border-white/10 glass-card">
-                <div className="text-3xl font-bold text-yellow-400">
-                  {data.categoryResults.reduce((acc, cat) => acc + cat.warnCount, 0)}
-                </div>
-                <div className="text-sm font-bold text-slate-text uppercase tracking-wider mt-1">Warnings</div>
-              </div>
-              <div className="bg-white/5 p-4 rounded-xl border border-white/10 glass-card">
-                <div className="text-3xl font-bold text-error">
-                  {data.categoryResults.reduce((acc, cat) => acc + cat.failCount, 0)}
-                </div>
-                <div className="text-sm font-bold text-slate-text uppercase tracking-wider mt-1">Failed</div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Category Grid */}
-      <div>
-        <h3 className="text-xl font-bold mb-4 text-on-surface">Categories</h3>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {data.categoryResults.map(cat => (
-            <Card key={cat.categoryId} className="premium-card bg-slate-950/30 border-white/10 hover:border-cyan-flare/40 transition-colors cursor-pointer" onClick={() => setExpandedCategory(cat.categoryId === expandedCategory ? null : cat.categoryId)}>
-              <CardContent className="p-4">
-                <div className="flex justify-between items-center mb-2">
-                  <h4 className="font-semibold capitalize truncate pr-2 text-on-surface" title={cat.categoryId}>{cat.categoryId.replace('-', ' ')}</h4>
-                  <span className={`font-bold ${getScoreColor(cat.score)}`}>{cat.score}</span>
-                </div>
-                <Progress value={cat.score} className="h-1.5 mb-3 bg-white/10" indicatorClassName={getScoreBg(cat.score)} />
-                <div className="flex justify-between text-xs font-medium mb-3">
-                  <span className="text-green-400">{cat.passCount} pass</span>
-                  <span className="text-yellow-400">{cat.warnCount} warn</span>
-                  <span className="text-error">{cat.failCount} fail</span>
-                </div>
-                <p className="text-xs text-slate-text/70 line-clamp-2" title={CATEGORY_DESCRIPTIONS[cat.categoryId]}>
-                  {CATEGORY_DESCRIPTIONS[cat.categoryId] || 'Checks and validations for this SEO category.'}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </div>
-
-      {/* Expanded Category Details */}
-      {expandedCategory && (
-        <Card className="premium-card bg-slate-950/50 border-cyan-flare/20 shadow-xl overflow-hidden relative">
-          <div className="absolute inset-0 bg-gradient-to-b from-cyan-flare/5 to-transparent pointer-events-none" />
-          <CardHeader className="border-b border-white/10 flex flex-row items-center justify-between relative z-10 glass-card">
-            <div>
-              <CardTitle className="capitalize text-on-surface font-black tracking-tight">{expandedCategory.replace('-', ' ')} Breakdown</CardTitle>
-              <CardDescription className="text-slate-text">
-                {CATEGORY_DESCRIPTIONS[expandedCategory] || 'Detailed rule results for this category'}
-              </CardDescription>
-            </div>
-            <Button variant="outline" size="sm" className="bg-white/10 border-white/20 text-on-surface hover:bg-white/20" onClick={() => setExpandedCategory(null)}>Close</Button>
-          </CardHeader>
-          <CardContent className="pt-6 relative z-10">
-            <div className="space-y-4">
-              {data.categoryResults.find(c => c.categoryId === expandedCategory)?.results.map((rule, idx) => (
-                <div key={idx} className="flex gap-4 items-start p-4 hover:bg-white/5 rounded-xl transition-colors border border-transparent hover:border-white/10">
-                  <div className="mt-0.5">{getStatusIcon(rule.status)}</div>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className="font-bold text-on-surface">{formatRuleId(rule.ruleId)}</span>
-                      <Badge variant="outline" className="text-[10px] font-bold uppercase tracking-wider border-white/20 text-slate-text">{rule.status}</Badge>
-                      <span className="text-sm font-bold text-slate-text ml-auto bg-white/10 px-2 py-0.5 rounded-md">{rule.score}/100</span>
+        <div className="space-y-8">
+          {/* Hero Score Card */}
+          <Card className="bg-zinc-900 border border-zinc-700 shadow-xl rounded-xl">
+            <CardContent className="p-6 md:p-8">
+              <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+                <div className="flex items-center gap-6">
+                  <div className="relative flex items-center justify-center h-28 w-28 rounded-full border-4 border-zinc-800 bg-zinc-950">
+                    <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 36 36">
+                      <path
+                        className="text-zinc-800"
+                        strokeWidth="3"
+                        stroke="currentColor"
+                        fill="none"
+                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                      />
+                      <path
+                        className={getScoreColor(data.overallScore)}
+                        strokeWidth="3"
+                        strokeDasharray={`${data.overallScore}, 100`}
+                        strokeLinecap="round"
+                        stroke="currentColor"
+                        fill="none"
+                        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                      />
+                    </svg>
+                    <div className="text-center z-10 font-mono">
+                      <span className="text-3xl font-extrabold text-white">{data.overallScore}</span>
                     </div>
-                    <p className="text-sm text-on-surface/80 font-medium">{rule.message}</p>
-                    {rule.details && rule.details.pageUrl && (
-                      <p className="text-xs text-slate-text mt-2 truncate max-w-2xl font-mono bg-white/5 inline-block px-2 py-1 rounded border border-white/10" title={rule.details.pageUrl}>
-                        {rule.details.pageUrl}
-                      </p>
-                    )}
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="text-2xl font-extrabold tracking-tight text-white">Grade {getGrade(data.overallScore)}</h3>
+                    <p className="text-xs text-zinc-400 font-mono">Overall Technical SEO Health</p>
                   </div>
                 </div>
+                
+                <div className="flex gap-4 text-center">
+                  <div className="bg-zinc-950 p-4 rounded-lg border border-zinc-800 min-w-[90px]">
+                    <div className="text-2xl font-bold font-mono text-emerald-400">
+                      {data.categoryResults.reduce((acc, cat) => acc + cat.passCount, 0)}
+                    </div>
+                    <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mt-1">Passed</div>
+                  </div>
+                  <div className="bg-zinc-950 p-4 rounded-lg border border-zinc-800 min-w-[90px]">
+                    <div className="text-2xl font-bold font-mono text-amber-400">
+                      {data.categoryResults.reduce((acc, cat) => acc + cat.warnCount, 0)}
+                    </div>
+                    <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mt-1">Warnings</div>
+                  </div>
+                  <div className="bg-zinc-950 p-4 rounded-lg border border-zinc-800 min-w-[90px]">
+                    <div className="text-2xl font-bold font-mono text-rose-400">
+                      {data.categoryResults.reduce((acc, cat) => acc + cat.failCount, 0)}
+                    </div>
+                    <div className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider mt-1">Failed</div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Category Grid */}
+          <div>
+            <h3 className="text-lg font-bold mb-4 text-white">Categories</h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+              {data.categoryResults.map(cat => (
+                <Card key={cat.categoryId} className="bg-zinc-900 border-zinc-700 hover:border-zinc-500 transition-colors cursor-pointer rounded-xl shadow-md" onClick={() => setExpandedCategory(cat.categoryId === expandedCategory ? null : cat.categoryId)}>
+                  <CardContent className="p-4 space-y-2">
+                    <div className="flex justify-between items-center">
+                      <h4 className="font-bold capitalize truncate pr-2 text-xs text-white" title={cat.categoryId}>{cat.categoryId.replace('-', ' ')}</h4>
+                      <span className={`font-mono text-xs font-bold ${getScoreColor(cat.score)}`}>{cat.score}</span>
+                    </div>
+                    <Progress value={cat.score} className="h-1.5 bg-zinc-950" indicatorClassName={getScoreBg(cat.score)} />
+                    <div className="flex justify-between text-[11px] font-mono font-medium">
+                      <span className="text-emerald-400">{cat.passCount} pass</span>
+                      <span className="text-amber-400">{cat.warnCount} warn</span>
+                      <span className="text-rose-400">{cat.failCount} fail</span>
+                    </div>
+                    <p className="text-[11px] text-zinc-400 line-clamp-2 pt-1 border-t border-zinc-800 font-normal">
+                      {CATEGORY_DESCRIPTIONS[cat.categoryId] || 'Diagnostic rules for this metric.'}
+                    </p>
+                  </CardContent>
+                </Card>
               ))}
             </div>
-          </CardContent>
-        </Card>
-      )}
+          </div>
         </div>
       )}
 
       {activeTab === 'recommendations' && (
-        <div className="mt-6">
-      {/* AI Recommendations */}
-      {data.ai_recommendation && (
-        <Card className="premium-card bg-slate-950/30 border-vibrant-violet/30 shadow-sm mt-8">
-          <CardHeader className="bg-vibrant-violet/10 border-b border-vibrant-violet/20">
-            <CardTitle className="text-vibrant-violet flex items-center">
-              AI-Driven Growth Recommendations
-            </CardTitle>
-            <CardDescription className="text-slate-text">Customized strategy based on your site's data.</CardDescription>
-          </CardHeader>
-          <CardContent className="pt-6">
-            <div className="prose prose-invert max-w-none prose-p:text-on-surface/80 prose-headings:text-on-surface prose-strong:text-vibrant-violet prose-a:text-electric-indigo">
-              <ReactMarkdown>{data.ai_recommendation}</ReactMarkdown>
-            </div>
-            
-            {data.ai_tone && data.ai_tone !== 'Offline' && data.ai_tone !== 'Error' && (
-              <div className="mt-6 pt-4 border-t border-vibrant-violet/20 flex flex-col sm:flex-row items-center justify-between gap-4">
-                <p className="text-sm text-slate-text">
-                  Was this generated strategy helpful? (Tone used: <span className="text-vibrant-violet font-semibold">{data.ai_tone}</span>)
-                </p>
-                <div className="flex gap-2">
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className={`border-vibrant-violet/30 hover:bg-vibrant-violet/20 text-on-surface ${feedbackGiven ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    onClick={() => handleFeedback(1)}
-                    disabled={feedbackGiven}
-                  >
-                    <ThumbsUp className="h-4 w-4 mr-2 text-green-400" /> Helpful
-                  </Button>
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className={`border-vibrant-violet/30 hover:bg-vibrant-violet/20 text-on-surface ${feedbackGiven ? 'opacity-50 cursor-not-allowed' : ''}`}
-                    onClick={() => handleFeedback(0)}
-                    disabled={feedbackGiven}
-                  >
-                    <ThumbsDown className="h-4 w-4 mr-2 text-red-400" /> Not Helpful
-                  </Button>
-                </div>
+        <Card className="bg-zinc-900 border-zinc-700 p-6 md:p-8 rounded-xl shadow-xl space-y-6">
+          <div className="border-b border-zinc-800 pb-4">
+            <h3 className="text-xl font-bold text-white">AI Remediation Plan</h3>
+            <p className="text-xs text-zinc-400 mt-0.5">Automated priority fixes generated for this domain audit.</p>
+          </div>
+          <div className="prose prose-invert max-w-none text-xs leading-relaxed text-zinc-300">
+            <ReactMarkdown>{data.ai_recommendation || "No specific AI recommendations generated for this crawl."}</ReactMarkdown>
+          </div>
+          
+          {data.ai_tone && (
+            <div className="pt-4 border-t border-zinc-800 flex items-center justify-between text-xs">
+              <span className="text-zinc-400">Was this AI analysis helpful?</span>
+              <div className="flex gap-2">
+                <Button variant="outline" size="sm" onClick={() => handleFeedback(1)} disabled={feedbackGiven} className="border-zinc-700 bg-zinc-950 text-emerald-400 hover:bg-emerald-950">
+                  <ThumbsUp className="h-3.5 w-3.5 mr-1" /> Yes
+                </Button>
+                <Button variant="outline" size="sm" onClick={() => handleFeedback(-1)} disabled={feedbackGiven} className="border-zinc-700 bg-zinc-950 text-rose-400 hover:bg-rose-950">
+                  <ThumbsDown className="h-3.5 w-3.5 mr-1" /> No
+                </Button>
               </div>
-            )}
-          </CardContent>
+            </div>
+          )}
         </Card>
-      )}
-        </div>
       )}
 
       {activeTab === 'problems' && (
-        <div className="mt-6">
-      {/* Issues List */}
-      <Card className="premium-card bg-slate-950/30 border-white/20">
-        <CardHeader>
-          <CardTitle className="text-on-surface">Actionable Issues ({allIssues.length})</CardTitle>
-          <CardDescription className="text-slate-text">Rules that produced warnings or failures across all categories.</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-6">
-            {allIssues.length === 0 ? (
-              <div className="text-center py-8">
-                <CheckCircle2 className="h-12 w-12 text-green-500 mx-auto mb-3 opacity-50" />
-                <p className="text-slate-text font-medium">No issues found. Your site is fully optimized!</p>
-              </div>
-            ) : (
-              allIssues.map((issue, idx) => (
-                <div key={idx} className="flex gap-4 p-4 rounded-lg bg-white/5 border border-white/5">
-                  <div className="mt-1">
-                    {getStatusIcon(issue.status)}
+        <div className="space-y-4">
+          <h3 className="text-lg font-bold text-white">Issues Requiring Attention ({allIssues.length})</h3>
+          <div className="space-y-3">
+            {allIssues.map((issue, idx) => (
+              <div key={idx} className="bg-zinc-900 border border-zinc-700 p-4 rounded-xl flex items-start gap-3.5 shadow-md">
+                {getStatusIcon(issue.status)}
+                <div className="space-y-1">
+                  <div className="flex items-center gap-2">
+                    <span className="font-bold text-xs text-white">{formatRuleId(issue.ruleId)}</span>
+                    <span className="text-[10px] font-mono uppercase bg-zinc-950 px-2 py-0.5 rounded border border-zinc-800 text-zinc-400">
+                      {issue.categoryId}
+                    </span>
                   </div>
-                  <div className="flex-1 space-y-1">
-                    <div className="flex items-center gap-2">
-                      <h4 className="font-semibold text-on-surface">{formatRuleId(issue.ruleId)}</h4>
-                      <Badge variant="outline" className="uppercase text-[10px] tracking-wider border-white/20 text-slate-text">
-                        {issue.categoryId.replace('-', ' ')}
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-on-surface/80 font-medium">
-                      {issue.message}
-                    </p>
-                    {issue.details && issue.details.pageUrl && (
-                      <p className="text-xs text-slate-text">
-                        Affected URL: <a href={issue.details.pageUrl} target="_blank" rel="noreferrer" className="text-cyan-flare hover:underline">{issue.details.pageUrl}</a>
-                      </p>
-                    )}
-                  </div>
+                  <p className="text-xs text-zinc-300 font-normal">{issue.message}</p>
                 </div>
-              ))
-            )}
+              </div>
+            ))}
           </div>
-        </CardContent>
-      </Card>
         </div>
       )}
     </div>

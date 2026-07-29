@@ -30,32 +30,26 @@ export const ThreeBackground: React.FC = () => {
                 vec2 p = uv * 2.0 - 1.0;
                 p.x *= u_resolution.x / u_resolution.y;
                 
-                // Smooth interaction
                 vec2 m = u_mouse / u_resolution * 2.0 - 1.0;
                 m.x *= u_resolution.x / u_resolution.y;
                 float d = length(p - m);
                 
-                // Liquid noise structure
-                float t = u_time * 0.3;
-                for(float i = 1.0; i < 4.0; i++) {
-                    p.x += sin(p.y * 1.5 + t + i) * 0.5;
-                    p.y += cos(p.x * 1.5 + t + i) * 0.5;
+                float t = u_time * 0.25;
+                for(float i = 1.0; i < 3.0; i++) {
+                    p.x += sin(p.y * 1.4 + t + i) * 0.25;
+                    p.y += cos(p.x * 1.4 + t + i) * 0.25;
                 }
                 
-                // Obsidian / Electric Indigo Palette
-                vec3 baseColor = vec3(0.008, 0.024, 0.09); // Deep Slate Navy
-                vec3 accent1 = vec3(0.388, 0.4, 0.945);    // Electric Indigo
-                vec3 accent2 = vec3(0.545, 0.22, 0.902);   // Vibrant Violet
+                // Pure High-Contrast Dark Slate Base (#09090b)
+                vec3 baseColor = vec3(0.035, 0.035, 0.043); 
+                vec3 accent1 = vec3(0.08, 0.08, 0.095);    
+                vec3 accent2 = vec3(0.12, 0.12, 0.14);    
                 
                 float intensity = sin(p.x * p.y * 0.5 + t) * 0.5 + 0.5;
-                intensity *= (1.0 - d * 0.25); // Fade slightly with distance from mouse
+                intensity *= (1.0 - d * 0.15);
                 
                 vec3 color = mix(baseColor, accent1, intensity * 0.25);
-                color = mix(color, accent2, pow(intensity, 3.0) * 0.15);
-                
-                // Add a slight "metallic" sheen
-                float sheen = pow(max(0.0, 1.0 - length(p * 0.5)), 3.0);
-                color += accent1 * sheen * 0.05;
+                color = mix(color, accent2, pow(intensity, 2.0) * 0.15);
                 
                 gl_FragColor = vec4(color, 1.0);
             }
@@ -107,7 +101,7 @@ export const ThreeBackground: React.FC = () => {
         let animationFrameId: number;
         function render(time: number) {
             if (!gl || !program) return;
-            gl.clearColor(0, 0, 0, 1);
+            gl.clearColor(0.035, 0.035, 0.043, 1);
             gl.clear(gl.COLOR_BUFFER_BIT);
             gl.useProgram(program);
             gl.enableVertexAttribArray(positionLocation);

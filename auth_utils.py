@@ -1,4 +1,5 @@
 import os
+import config  # noqa: F401 — side effect: loads .env into os.environ before we read JWT_SECRET
 import bcrypt
 from datetime import datetime, timedelta
 from typing import Optional
@@ -7,7 +8,9 @@ from fastapi import Depends, HTTPException, status
 from fastapi.security import OAuth2PasswordBearer
 from db_client import prisma
 
-SECRET_KEY = os.getenv('JWT_SECRET', 'super-secret-key-change-me')
+SECRET_KEY = os.getenv('JWT_SECRET')
+if not SECRET_KEY:
+    raise RuntimeError("JWT_SECRET is not set. Add it to .env (see .env.example).")
 ALGORITHM = 'HS256'
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
 

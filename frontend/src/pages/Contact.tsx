@@ -1,158 +1,159 @@
 import { Input } from '../components/ui/input';
 import { useForm, ValidationError } from '@formspree/react';
-import { Mail, MapPin, MessageSquare, Phone, Send } from 'lucide-react';
+import { Mail, MapPin, MessageSquare, Phone, Send, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
   const [state, handleSubmit] = useForm('mdarrwgd');
 
   return (
-    <div className="pt-24 pb-20 px-6 max-w-7xl mx-auto relative z-10">
+    <div className="bg-zinc-950 text-zinc-100 min-h-screen">
       
-      <div className="text-center space-y-6 mt-12 mb-16">
-        <div className="inline-flex items-center gap-2 bg-vibrant-violet/10 border border-vibrant-violet/20 px-4 py-1.5 rounded-full">
-            <MessageSquare className="w-4 h-4 text-vibrant-violet" />
-            <span className="text-vibrant-violet font-label-caps uppercase tracking-wider text-sm">Get in Touch</span>
+      {/* Header Section (DARK BLOCK) */}
+      <section className="pt-28 pb-12 px-6 max-w-6xl mx-auto text-center space-y-4">
+        <div className="inline-flex items-center gap-2 bg-zinc-900 border border-zinc-700 px-3 py-1.5 rounded-full text-xs font-mono font-bold text-zinc-200">
+            <MessageSquare className="w-3.5 h-3.5 text-emerald-400" />
+            <span>DIRECT SUPPORT & INQUIRIES</span>
         </div>
-        <h2 className="text-display-lg font-display-lg tracking-tighter text-on-surface leading-tight">
-          Initialize <span className="bg-gradient-to-r from-electric-indigo to-cyan-flare text-transparent bg-clip-text">Contact Protocol</span>
-        </h2>
-        <p className="text-body-lg text-slate-text max-w-2xl mx-auto leading-relaxed">
-          Need a custom extraction script or dedicated proxy pool? Transmit a secure message to our engineering team.
+        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-white">
+          Contact Our Engineering Team
+        </h1>
+        <p className="text-base text-zinc-300 max-w-2xl mx-auto leading-relaxed font-normal">
+          Need a custom audit setup, enterprise proxy pool, or API integration? Send us a message below.
         </p>
-      </div>
+      </section>
 
-      <div className="grid lg:grid-cols-5 gap-8 lg:gap-12 items-start">
-        {/* Contact Info Column */}
-        <div className="lg:col-span-2 space-y-6">
-            <div className="glass-card rounded-3xl p-8 border border-white/10 shadow-[0_0_40px_rgba(99,102,241,0.03)] h-full">
-                <h3 className="text-2xl font-bold text-on-surface mb-6">Direct Channels</h3>
-                <div className="space-y-8">
-                    <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-electric-indigo/10 flex items-center justify-center shrink-0 border border-electric-indigo/20 text-electric-indigo">
-                            <Mail className="w-6 h-6" />
-                        </div>
-                        <div>
-                            <p className="text-sm font-label-caps uppercase tracking-widest text-slate-text mb-1">Secure Comm</p>
-                            <a href="mailto:support@seoaudit.com" className="text-lg text-on-surface hover:text-electric-indigo transition-colors font-medium">
-                                support@seoaudit.com
-                            </a>
-                        </div>
-                    </div>
+      {/* Main Section (LIGHT CONTAINER BLOCK) */}
+      <section className="bg-zinc-100 text-zinc-950 border-t border-zinc-300 py-16 px-6">
+        <div className="max-w-6xl mx-auto grid lg:grid-cols-5 gap-8 items-start">
+          
+          {/* Contact Info Column */}
+          <div className="lg:col-span-2 space-y-4">
+              <div className="bg-white rounded-xl p-7 border border-zinc-300 shadow-md space-y-6">
+                  <h3 className="text-lg font-bold text-zinc-950 border-b border-zinc-200 pb-3">Direct Channels</h3>
+                  <div className="space-y-6 text-xs font-medium">
+                      <div className="flex items-start gap-3.5">
+                          <div className="w-10 h-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center shrink-0 text-emerald-700">
+                              <Mail className="w-4 h-4" />
+                          </div>
+                          <div>
+                              <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 font-bold mb-0.5">Email Us</p>
+                              <a href="mailto:support@seoaudit.com" className="text-sm text-zinc-900 hover:text-black transition-colors font-bold">
+                                  support@seoaudit.com
+                              </a>
+                          </div>
+                      </div>
 
-                    <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-cyan-flare/10 flex items-center justify-center shrink-0 border border-cyan-flare/20 text-cyan-flare">
-                            <Phone className="w-6 h-6" />
-                        </div>
-                        <div>
-                            <p className="text-sm font-label-caps uppercase tracking-widest text-slate-text mb-1">Encrypted Line</p>
-                            <a href="tel:+18005550199" className="text-lg text-on-surface hover:text-cyan-flare transition-colors font-medium">
-                                +1 (800) 555-0199
-                            </a>
-                        </div>
-                    </div>
+                      <div className="flex items-start gap-3.5">
+                          <div className="w-10 h-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center shrink-0 text-cyan-700">
+                              <Phone className="w-4 h-4" />
+                          </div>
+                          <div>
+                              <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 font-bold mb-0.5">Call Us</p>
+                              <a href="tel:+18005550199" className="text-sm text-zinc-900 hover:text-black transition-colors font-bold">
+                                  +1 (800) 555-0199
+                              </a>
+                          </div>
+                      </div>
 
-                    <div className="flex items-start gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-vibrant-violet/10 flex items-center justify-center shrink-0 border border-vibrant-violet/20 text-vibrant-violet">
-                            <MapPin className="w-6 h-6" />
-                        </div>
-                        <div>
-                            <p className="text-sm font-label-caps uppercase tracking-widest text-slate-text mb-1">HQ Coordinates</p>
-                            <p className="text-lg text-on-surface font-medium leading-relaxed">
-                                404 Cybernetics Blvd<br/>
-                                Sector 7, Neon City, 2049
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                      <div className="flex items-start gap-3.5">
+                          <div className="w-10 h-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center shrink-0 text-zinc-900">
+                              <MapPin className="w-4 h-4" />
+                          </div>
+                          <div>
+                              <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 font-bold mb-0.5">Location</p>
+                              <p className="text-sm text-zinc-900 font-bold leading-relaxed">
+                                  San Francisco, CA &bull; Remote
+                              </p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+          {/* Form Column */}
+          <div className="lg:col-span-3 bg-white rounded-xl p-8 border border-zinc-300 shadow-xl relative">
+              {state.succeeded ? (
+              <div className="text-center py-12">
+                  <div className="mx-auto w-16 h-16 bg-emerald-100 rounded-full flex items-center justify-center mb-4 border border-emerald-300 text-emerald-700">
+                      <CheckCircle2 className="w-8 h-8" />
+                  </div>
+                  <h3 className="text-xl font-bold text-zinc-950 mb-2">Message Delivered</h3>
+                  <p className="text-zinc-700 text-sm max-w-sm mx-auto font-normal">
+                      Thank you for reaching out. Our engineering team will review your inquiry and get back to you shortly.
+                  </p>
+              </div>
+              ) : (
+              <form onSubmit={handleSubmit} className="space-y-5">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                      <div className="space-y-2">
+                          <label htmlFor="name" className="text-xs font-bold text-zinc-800">Full Name</label>
+                          <Input 
+                              type="text" 
+                              id="name" 
+                              name="name" 
+                              required 
+                              placeholder="John Doe"
+                              className="bg-zinc-50 border-zinc-300 text-zinc-950 focus:border-zinc-900 h-11 rounded-lg px-3.5 text-sm font-medium" 
+                          />
+                          <ValidationError prefix="Name" field="name" errors={state.errors} className="text-rose-600 text-xs" />
+                      </div>
+                      <div className="space-y-2">
+                          <label htmlFor="email" className="text-xs font-bold text-zinc-800">Work Email</label>
+                          <Input 
+                              type="email" 
+                              id="email" 
+                              name="email" 
+                              required 
+                              placeholder="john@company.com"
+                              className="bg-zinc-50 border-zinc-300 text-zinc-950 focus:border-zinc-900 h-11 rounded-lg px-3.5 text-sm font-medium"
+                          />
+                          <ValidationError prefix="Email" field="email" errors={state.errors} className="text-rose-600 text-xs" />
+                      </div>
+                  </div>
+                  
+                  <div className="space-y-2">
+                      <label htmlFor="subject" className="text-xs font-bold text-zinc-800">Subject</label>
+                      <Input 
+                          type="text" 
+                          id="subject" 
+                          name="subject" 
+                          required 
+                          placeholder="How can we help?"
+                          className="bg-zinc-50 border-zinc-300 text-zinc-950 focus:border-zinc-900 h-11 rounded-lg px-3.5 text-sm font-medium"
+                      />
+                      <ValidationError prefix="Subject" field="subject" errors={state.errors} className="text-rose-600 text-xs" />
+                  </div>
+
+                  <div className="space-y-2">
+                      <label htmlFor="message" className="text-xs font-bold text-zinc-800">Message</label>
+                      <textarea 
+                          id="message" 
+                          name="message" 
+                          required 
+                          rows={4}
+                          placeholder="Describe your inquiry or extraction requirements..."
+                          className="w-full rounded-lg bg-zinc-50 border border-zinc-300 text-zinc-950 p-3.5 text-sm font-medium focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-zinc-900 resize-none"
+                      ></textarea>
+                      <ValidationError prefix="Message" field="message" errors={state.errors} className="text-rose-600 text-xs" />
+                  </div>
+
+                  <button 
+                      type="submit" 
+                      disabled={state.submitting} 
+                      className="w-full flex items-center justify-center gap-2 bg-zinc-950 hover:bg-black text-white font-bold py-3.5 rounded-lg border border-zinc-900 transition-all text-sm mt-4 shadow-xl"
+                  >
+                      {state.submitting ? 'Sending...' : (
+                          <>
+                              <span>Send Message</span> <Send className="w-4 h-4" />
+                          </>
+                      )}
+                  </button>
+              </form>
+              )}
+          </div>
         </div>
+      </section>
 
-        {/* Form Column */}
-        <div className="lg:col-span-3 glass-card rounded-[2.5rem] p-8 md:p-12 border border-white/10 shadow-[0_0_40px_rgba(99,102,241,0.05)] relative overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-br from-electric-indigo/5 to-cyan-flare/5 z-0 pointer-events-none"></div>
-            <div className="relative z-10">
-                {state.succeeded ? (
-                <div className="text-center py-16 animate-in fade-in zoom-in duration-500">
-                    <div className="mx-auto w-24 h-24 bg-electric-indigo/20 rounded-full flex items-center justify-center mb-8 border border-electric-indigo/30 relative">
-                        <div className="absolute inset-0 rounded-full animate-ping bg-electric-indigo/20 opacity-75"></div>
-                        <span className="material-symbols-outlined text-electric-indigo text-5xl">check_circle</span>
-                    </div>
-                    <h3 className="text-headline-md font-display-lg font-bold text-on-surface mb-4">Transmission Received</h3>
-                    <p className="text-slate-text text-body-lg max-w-md mx-auto">
-                    Your message has been securely routed. Our engineering team will decrypt and respond shortly.
-                    </p>
-                </div>
-                ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div className="space-y-2.5">
-                            <label htmlFor="name" className="text-xs font-label-caps uppercase tracking-widest text-slate-text ml-1">Operative Name</label>
-                            <Input 
-                                type="text" 
-                                id="name" 
-                                name="name" 
-                                required 
-                                placeholder="John Doe"
-                                className="bg-slate-900/40 border-white/10 text-on-surface focus:border-electric-indigo focus:ring-electric-indigo/50 h-14 rounded-2xl px-5 text-base" 
-                            />
-                            <ValidationError prefix="Name" field="name" errors={state.errors} className="text-red-400 text-sm" />
-                        </div>
-                        <div className="space-y-2.5">
-                            <label htmlFor="email" className="text-xs font-label-caps uppercase tracking-widest text-slate-text ml-1">Secure Email</label>
-                            <Input 
-                                type="email" 
-                                id="email" 
-                                name="email" 
-                                required 
-                                placeholder="john@example.com"
-                                className="bg-slate-900/40 border-white/10 text-on-surface focus:border-cyan-flare focus:ring-cyan-flare/50 h-14 rounded-2xl px-5 text-base"
-                            />
-                            <ValidationError prefix="Email" field="email" errors={state.errors} className="text-red-400 text-sm" />
-                        </div>
-                    </div>
-                    
-                    <div className="space-y-2.5">
-                        <label htmlFor="subject" className="text-xs font-label-caps uppercase tracking-widest text-slate-text ml-1">Subject Directive</label>
-                        <Input 
-                            type="text" 
-                            id="subject" 
-                            name="subject" 
-                            required 
-                            placeholder="How can we help you?"
-                            className="bg-slate-900/40 border-white/10 text-on-surface focus:border-vibrant-violet focus:ring-vibrant-violet/50 h-14 rounded-2xl px-5 text-base"
-                        />
-                        <ValidationError prefix="Subject" field="subject" errors={state.errors} className="text-red-400 text-sm" />
-                    </div>
-
-                    <div className="space-y-2.5">
-                        <label htmlFor="message" className="text-xs font-label-caps uppercase tracking-widest text-slate-text ml-1">Message Payload</label>
-                        <textarea 
-                            id="message" 
-                            name="message" 
-                            required 
-                            rows={5}
-                            placeholder="Type your message here..."
-                            className="w-full rounded-2xl bg-slate-900/40 border border-white/10 text-on-surface p-5 shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-electric-indigo/50 focus-visible:border-electric-indigo transition-all resize-none text-base"
-                        ></textarea>
-                        <ValidationError prefix="Message" field="message" errors={state.errors} className="text-red-400 text-sm" />
-                    </div>
-
-                    <button 
-                        type="submit" 
-                        disabled={state.submitting} 
-                        className="w-full flex items-center justify-center gap-2 bg-gradient-to-r from-electric-indigo to-cyan-flare text-white font-bold py-4 rounded-2xl shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:brightness-110 transition-all btn-shimmer-hover font-body-lg uppercase tracking-widest mt-6"
-                    >
-                        {state.submitting ? 'Transmitting...' : (
-                            <>
-                                Transmit Payload <Send className="w-5 h-5 ml-2" />
-                            </>
-                        )}
-                    </button>
-                </form>
-                )}
-            </div>
-        </div>
-      </div>
     </div>
   );
 }
