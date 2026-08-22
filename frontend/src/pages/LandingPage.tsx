@@ -56,18 +56,22 @@ export default function LandingPage() {
                         </p>
                         
                         <div className="flex flex-wrap items-center gap-4 pt-2">
+                            <Link 
+                                to="/app" 
+                                className="inline-flex items-center gap-2 bg-white hover:bg-zinc-100 text-black px-6 py-3.5 rounded-lg font-bold text-sm transition-all border border-white shadow-xl"
+                            >
+                                <span>Open Web App</span>
+                                <span className="material-symbols-outlined text-base">arrow_forward</span>
+                            </Link>
                             <a 
                                 href="https://github.com/noor202401938-netizen/seo-audit-tool" 
                                 target="_blank" 
                                 rel="noreferrer" 
-                                className="inline-flex items-center gap-2 bg-white hover:bg-zinc-100 text-black px-6 py-3.5 rounded-lg font-bold text-sm transition-all border border-white shadow-xl"
+                                className="inline-flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white px-6 py-3.5 rounded-lg font-semibold text-sm transition-all border border-zinc-700"
                             >
                                 <span>Star on GitHub</span>
-                                <span className="material-symbols-outlined text-base">arrow_outward</span>
+                                <span className="material-symbols-outlined text-sm">arrow_outward</span>
                             </a>
-                            <Link to="/features" className="inline-flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white px-6 py-3.5 rounded-lg font-semibold text-sm transition-all border border-zinc-700">
-                                <span>Explore 20+ Utilities</span>
-                            </Link>
                         </div>
 
                         {/* 1-Click Quickstart Command */}
@@ -260,10 +264,13 @@ export default function LandingPage() {
                                         {tool.desc}
                                     </p>
                                 </div>
-                                <div className="text-xs font-mono font-semibold text-emerald-400 mt-4 flex items-center gap-1">
-                                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-                                    <span>Core Engine Tool</span>
-                                </div>
+                                <Link 
+                                    to={`/app/tools/${tool.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`} 
+                                    className="text-xs font-bold text-emerald-400 hover:text-emerald-300 mt-4 inline-flex items-center gap-1"
+                                >
+                                    <span>Run Tool</span>
+                                    <span className="material-symbols-outlined text-xs">chevron_right</span>
+                                </Link>
                             </div>
                         ))}
                     </div>
@@ -309,18 +316,22 @@ export default function LandingPage() {
                                 SEO Intelligence is maintained by the open-source community. Deploy on your private infrastructure or contribute new audit rules and tools on GitHub.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
+                                <Link 
+                                    to="/app" 
+                                    className="bg-white text-black hover:bg-zinc-100 px-8 py-3.5 rounded-lg font-bold text-sm transition-all border border-white shadow-xl flex items-center justify-center gap-2"
+                                >
+                                    <span>Open Web App</span>
+                                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
+                                </Link>
                                 <a 
                                     href="https://github.com/noor202401938-netizen/seo-audit-tool" 
                                     target="_blank" 
                                     rel="noreferrer" 
-                                    className="bg-white text-black hover:bg-zinc-100 px-8 py-3.5 rounded-lg font-bold text-sm transition-all border border-white shadow-xl flex items-center justify-center gap-2"
+                                    className="bg-zinc-950 hover:bg-zinc-800 text-white px-8 py-3.5 rounded-lg font-semibold text-sm transition-all border border-zinc-700 flex items-center justify-center gap-2"
                                 >
                                     <span>GitHub Repository</span>
                                     <span className="material-symbols-outlined text-sm">arrow_outward</span>
                                 </a>
-                                <Link to="/features" className="bg-zinc-950 hover:bg-zinc-800 text-white px-8 py-3.5 rounded-lg font-semibold text-sm transition-all border border-zinc-700 flex items-center justify-center">
-                                    View Feature Matrix
-                                </Link>
                             </div>
                         </div>
                     </div>

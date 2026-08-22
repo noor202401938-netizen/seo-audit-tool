@@ -58,11 +58,18 @@ export function Navbar() {
                 href="https://github.com/noor202401938-netizen/seo-audit-tool" 
                 target="_blank" 
                 rel="noreferrer"
-                className="bg-white text-black hover:bg-zinc-100 px-4 py-1.5 rounded-full font-bold text-xs transition-all border border-white shadow-md flex items-center gap-1.5"
+                className="text-zinc-300 hover:text-white px-3 py-1.5 font-semibold text-xs transition-colors flex items-center gap-1"
               >
                 <span>GitHub</span>
                 <span className="material-symbols-outlined text-xs">arrow_outward</span>
               </a>
+              <Link 
+                to="/app" 
+                className="bg-white text-black hover:bg-zinc-100 px-4 py-1.5 rounded-full font-bold text-xs transition-all border border-white shadow-md flex items-center gap-1.5"
+              >
+                <span>Open App</span>
+                <span className="material-symbols-outlined text-xs">arrow_forward</span>
+              </Link>
             </div>
           )}
         </div>

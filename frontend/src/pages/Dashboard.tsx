@@ -160,8 +160,7 @@ export default function Dashboard() {
       });
 
       if (!response.ok) {
-        if (response.status === 403) throw new Error('Not enough audits remaining. Please upgrade your plan.');
-        if (response.status === 401) throw new Error('Unauthorized. Please login again.');
+        if (response.status === 401) throw new Error('Unauthorized. Please login or register an account.');
         throw new Error('Failed to start audit. Please ensure the backend is running.');
       }
 
