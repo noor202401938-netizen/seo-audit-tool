@@ -8,8 +8,11 @@ on:
 
 jobs:
   backend-test:
-    name: Backend Tests & Lint
+    name: Backend Tests & Database Migrations
     runs-on: ubuntu-latest
+    env:
+      JWT_SECRET: test_ci_jwt_secret_key_1234567890
+      DATABASE_URL: file:./data/test.db
 
     steps:
       - name: Check out repository
@@ -27,18 +30,16 @@ jobs:
           pip install -r requirements.txt
           playwright install --with-deps chromium
 
+      - name: Initialize SQLite Data Directory
+        run: mkdir -p data
+
       - name: Generate Prisma Client & Run SQLite Migrations
         run: |
-          prisma generate
-          prisma db push
+          python -m prisma generate
+          python -m prisma db push
 
       - name: Run Test Suite
-        env:
-          JWT_SECRET: test_ci_jwt_secret_key_1234567890
-          DATABASE_URL: file:data/test.db
-        run: |
-          mkdir -p data
-          python -m unittest discover tests
+        run: python -m unittest discover tests
 
   frontend-check:
     name: Frontend Build & Typecheck
