@@ -81,7 +81,7 @@ export default function LandingPage() {
                             <div className="flex items-center justify-between bg-zinc-900/90 border border-zinc-800 rounded-lg px-4 py-2.5 max-w-lg font-mono text-xs text-zinc-300">
                                 <div className="flex items-center gap-2 overflow-hidden text-ellipsis whitespace-nowrap">
                                     <span className="text-emerald-400 font-bold">$</span>
-                                    <span className="text-zinc-300 truncate">docker compose up --build</span>
+                                    <span className="text-zinc-300 truncate">git clone https://github.com/noor202401938-netizen/seo-audit-tool.git</span>
                                 </div>
                                 <button 
                                     onClick={handleCopy}
@@ -91,6 +91,9 @@ export default function LandingPage() {
                                     <span>{copied ? 'Copied' : 'Copy'}</span>
                                 </button>
                             </div>
+                            <p className="text-[11px] text-zinc-400 mt-2 font-mono">
+                                1-Click Run: Double-click <code className="text-zinc-200 bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800">run-windows.bat</code> on Windows or <code className="text-zinc-200 bg-zinc-900 px-1.5 py-0.5 rounded border border-zinc-800">./run.sh</code> on Linux/Mac.
+                            </p>
                         </div>
                         
                         <div className="flex flex-wrap items-center gap-6 pt-6 border-t border-zinc-800 text-xs text-zinc-300">

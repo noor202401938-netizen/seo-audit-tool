@@ -20,9 +20,27 @@ Optional third-party services (such as Google Gemini, OpenPageRank, and Keywords
 
 ---
 
-## Quick Start (Docker)
+## 1-Click Quick Launch (Self-Hosters)
 
-The fastest way to run the entire stack (Backend, Frontend, Redis, Worker) locally:
+You can download the repository as a ZIP or clone it, then run with a single click:
+
+### Windows (1-Click)
+- Simply double-click **[`run-windows.bat`](run-windows.bat)**.
+- Or if you use Docker, double-click **[`docker-run.bat`](docker-run.bat)**.
+
+### macOS & Linux (1-Click)
+```bash
+chmod +x run.sh
+./run.sh
+```
+
+The script automatically sets up the Python virtual environment, installs dependencies, pushes the database schema, starts both the backend and frontend, and opens the app in your default browser.
+
+---
+
+## Docker Compose Setup
+
+The standard containerized setup for servers and local Docker environments:
 
 ### 1. Clone the Repository
 ```bash
