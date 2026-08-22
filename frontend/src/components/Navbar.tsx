@@ -55,21 +55,14 @@ export function Navbar() {
           ) : (
             <div className="flex items-center gap-2">
               <a 
-                href="https://github.com/noor202401938-netizen/seo-audit-tool" 
+                href="https://github.com/noor202401938-netizen/seo-audit-tool#readme" 
                 target="_blank" 
                 rel="noreferrer"
-                className="text-zinc-300 hover:text-white px-3 py-1.5 font-semibold text-xs transition-colors flex items-center gap-1"
-              >
-                <span>GitHub</span>
-                <span className="material-symbols-outlined text-xs">arrow_outward</span>
-              </a>
-              <Link 
-                to="/app" 
                 className="bg-white text-black hover:bg-zinc-100 px-4 py-1.5 rounded-full font-bold text-xs transition-all border border-white shadow-md flex items-center gap-1.5"
               >
-                <span>Open App</span>
-                <span className="material-symbols-outlined text-xs">arrow_forward</span>
-              </Link>
+                <span>GitHub README</span>
+                <span className="material-symbols-outlined text-xs">arrow_outward</span>
+              </a>
             </div>
           )}
         </div>

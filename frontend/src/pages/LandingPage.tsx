@@ -56,13 +56,15 @@ export default function LandingPage() {
                         </p>
                         
                         <div className="flex flex-wrap items-center gap-4 pt-2">
-                            <Link 
-                                to="/app" 
+                            <a 
+                                href="https://github.com/noor202401938-netizen/seo-audit-tool#readme" 
+                                target="_blank" 
+                                rel="noreferrer"
                                 className="inline-flex items-center gap-2 bg-white hover:bg-zinc-100 text-black px-6 py-3.5 rounded-lg font-bold text-sm transition-all border border-white shadow-xl"
                             >
-                                <span>Launch Local Dashboard</span>
-                                <span className="material-symbols-outlined text-base">arrow_forward</span>
-                            </Link>
+                                <span>View Local Setup Guide</span>
+                                <span className="material-symbols-outlined text-base">arrow_outward</span>
+                            </a>
                             <a 
                                 href="https://github.com/noor202401938-netizen/seo-audit-tool" 
                                 target="_blank" 
@@ -70,7 +72,7 @@ export default function LandingPage() {
                                 className="inline-flex items-center gap-2 bg-zinc-900 hover:bg-zinc-800 text-white px-6 py-3.5 rounded-lg font-semibold text-sm transition-all border border-zinc-700"
                             >
                                 <span>Star on GitHub</span>
-                                <span className="material-symbols-outlined text-sm">arrow_outward</span>
+                                <span className="material-symbols-outlined text-sm">star</span>
                             </a>
                         </div>
 
@@ -316,21 +318,23 @@ export default function LandingPage() {
                                 SEO Intelligence is maintained by the open-source community. Deploy on your private infrastructure or contribute new audit rules and tools on GitHub.
                             </p>
                             <div className="flex flex-col sm:flex-row gap-3 justify-center pt-2">
-                                <Link 
-                                    to="/app" 
+                                <a 
+                                    href="https://github.com/noor202401938-netizen/seo-audit-tool#readme" 
+                                    target="_blank" 
+                                    rel="noreferrer" 
                                     className="bg-white text-black hover:bg-zinc-100 px-8 py-3.5 rounded-lg font-bold text-sm transition-all border border-white shadow-xl flex items-center justify-center gap-2"
                                 >
-                                    <span>Open Web App</span>
-                                    <span className="material-symbols-outlined text-sm">arrow_forward</span>
-                                </Link>
+                                    <span>Read Local Setup Guide</span>
+                                    <span className="material-symbols-outlined text-sm">arrow_outward</span>
+                                </a>
                                 <a 
                                     href="https://github.com/noor202401938-netizen/seo-audit-tool" 
                                     target="_blank" 
                                     rel="noreferrer" 
                                     className="bg-zinc-950 hover:bg-zinc-800 text-white px-8 py-3.5 rounded-lg font-semibold text-sm transition-all border border-zinc-700 flex items-center justify-center gap-2"
                                 >
-                                    <span>GitHub Repository</span>
-                                    <span className="material-symbols-outlined text-sm">arrow_outward</span>
+                                    <span>Star on GitHub</span>
+                                    <span className="material-symbols-outlined text-sm">star</span>
                                 </a>
                             </div>
                         </div>
