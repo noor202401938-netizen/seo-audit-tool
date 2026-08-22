@@ -66,7 +66,7 @@ class AIRecommendationGenerator:
             return (
                 "### 🤖 AI Strategy Offline\n\n"
                 "To activate custom step-by-step AI recommendations, please add your `GEMINI_API_KEY` in the backend `.env` file.\n\n"
-                "Once configured, our AI will automatically analyze your site's specific audit telemetry to output a customized optimization roadmap.",
+                "Once configured, our AI will automatically analyze your site's specific audit metrics to output a customized optimization roadmap.",
                 "Offline"
             )
 

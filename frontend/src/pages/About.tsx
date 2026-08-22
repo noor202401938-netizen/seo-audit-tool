@@ -33,6 +33,21 @@ export default function About() {
               <li><strong>Public Contact Extraction:</strong> Pattern validation for public email addresses, telephone numbers, and social links.</li>
             </ul>
           </section>
+
+          <section className="pt-4 border-t border-zinc-800">
+            <h2 className="text-lg font-bold text-zinc-100 mb-2">Acknowledgements & Credits</h2>
+            <p>
+              SEO Intelligence uses the SEOmator engine as its foundation, built upon the open-source rule framework from{' '}
+              <a 
+                href="https://github.com/seo-skills/seo-audit-skill" 
+                target="_blank" 
+                rel="noreferrer" 
+                className="text-emerald-400 hover:underline font-mono"
+              >
+                seo-skills/seo-audit-skill
+              </a>.
+            </p>
+          </section>
         </div>
       </div>
     </div>

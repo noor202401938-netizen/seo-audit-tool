@@ -194,6 +194,12 @@ See [SECURITY.md](SECURITY.md) for vulnerability reporting and deployment securi
 
 ---
 
+## Acknowledgements
+
+- Built upon the foundational SEOmator engine and rules from [seo-skills/seo-audit-skill](https://github.com/seo-skills/seo-audit-skill).
+
+---
+
 ## License
 
 Distributed under the MIT License. See [LICENSE](LICENSE) for details.
