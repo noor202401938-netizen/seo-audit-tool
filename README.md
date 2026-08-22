@@ -8,15 +8,145 @@ A self-hosted, open-source technical SEO audit platform, multi-page crawler, and
 [![React](https://img.shields.io/badge/frontend-React%2018-61DAFB.svg)](https://react.dev)
 [![Docker](https://img.shields.io/badge/deploy-Docker%20Compose-2496ED.svg)](https://www.docker.com/)
 
-[Features](#features) • [Quick Start](#quick-start) • [Architecture](#architecture) • [API Credentials](#api-credentials) • [Configuration](#configuration) • [Contributing](#contributing) • [License](#license)
+[Overview](#overview) • [Quick Start](#quick-start) • [Local Setup](#local-manual-setup) • [Features](#features) • [API Credentials](#api-credentials) • [Architecture](#architecture) • [License](#license)
 
 ---
 
 ## Overview
 
-SEO Intelligence is a self-hosted platform for technical SEO analysis, on-page diagnostics, Core Web Vitals checks, and search engine visibility tracking. It runs locally or on your own servers without usage quotas or subscriptions.
+SEO Intelligence is a self-hosted platform for technical SEO analysis, on-page diagnostics, Core Web Vitals checks, and search engine visibility tracking. It runs completely on your own machine or private server without third-party tracking, subscriptions, or paywalls.
 
 Optional third-party services (such as Google Gemini, OpenPageRank, and Keywords Everywhere) can be connected by adding your own API keys.
+
+---
+
+## Quick Start (Docker)
+
+The fastest way to run the entire stack (Backend, Frontend, Redis, Worker) locally:
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/noor202401938-netizen/seo-audit-tool.git
+cd seo-audit-tool
+```
+
+### 2. Configure Environment
+```bash
+cp .env.example .env
+```
+
+### 3. Launch with Docker Compose
+```bash
+docker compose up --build
+```
+
+- **Web Interface**: [http://localhost](http://localhost)
+- **API Documentation**: [http://localhost:8000/docs](http://localhost:8000/docs)
+
+To run in the background (detached mode):
+```bash
+docker compose up -d --build
+```
+To stop the services:
+```bash
+docker compose down
+```
+
+---
+
+## Local Manual Setup
+
+If you prefer running without Docker, follow these steps:
+
+### Prerequisites
+- **Python 3.10+**
+- **Node.js 18+** & `npm`
+
+---
+
+### Step 1: Backend Setup
+
+#### On Linux / macOS:
+```bash
+# 1. Clone and enter directory
+git clone https://github.com/noor202401938-netizen/seo-audit-tool.git
+cd seo-audit-tool
+
+# 2. Create and activate virtual environment
+python3 -m venv venv
+source venv/bin/activate
+
+# 3. Install Python dependencies
+pip install -r requirements.txt
+playwright install chromium
+
+# 4. Copy configuration template
+cp .env.example .env
+
+# 5. Generate Prisma client & initialize SQLite database
+prisma generate
+prisma db push
+
+# 6. Start the API server
+uvicorn api:app --reload --port 8000
+```
+
+#### On Windows (PowerShell):
+```powershell
+# 1. Clone and enter directory
+git clone https://github.com/noor202401938-netizen/seo-audit-tool.git
+cd seo-audit-tool
+
+# 2. Create and activate virtual environment
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+
+# 3. Install Python dependencies
+pip install -r requirements.txt
+playwright install chromium
+
+# 4. Copy configuration template
+Copy-Item .env.example .env
+
+# 5. Generate Prisma client & initialize SQLite database
+prisma generate
+prisma db push
+
+# 6. Start the API server
+uvicorn api:app --reload --port 8000
+```
+
+The backend will be running at [http://localhost:8000](http://localhost:8000).
+
+---
+
+### Step 2: Frontend Setup
+
+Open a new terminal window and run:
+
+```bash
+cd seo-audit-tool/frontend
+
+# Install dependencies
+npm install
+
+# Start the Vite development server
+npm run dev
+```
+
+Open [http://localhost:5173](http://localhost:5173) in your browser.
+
+---
+
+### Step 3: Background Worker (Optional)
+
+If you have Redis installed locally (`redis://localhost:6379/0`), you can run background workers in a separate terminal:
+
+```bash
+python worker.py
+```
+
+*(Note: If Redis is not detected, the backend automatically processes audit jobs synchronously in an in-memory thread pool).*
 
 ---
 
@@ -67,67 +197,9 @@ graph TD
 
 ---
 
-## Quick Start
-
-### Docker Compose (Recommended)
-
-```bash
-git clone https://github.com/your-username/seo-audit-tool.git
-cd seo-audit-tool
-cp .env.example .env
-docker compose up --build
-```
-
-- Web UI: http://localhost
-- API Docs: http://localhost:8000/docs
-
----
-
-### Local Development
-
-#### Backend
-
-```bash
-# Set up virtual environment
-python -m venv venv
-source venv/bin/activate  # On Windows: .\venv\Scripts\Activate.ps1
-
-# Install requirements
-pip install -r requirements.txt
-playwright install chromium
-
-# Setup environment and database
-cp .env.example .env
-prisma generate
-prisma db push
-
-# Run server
-uvicorn api:app --reload --port 8000
-```
-
-#### Worker (Optional)
-
-If running Redis locally:
-```bash
-python worker.py
-```
-*(If Redis is not detected, the API automatically processes audit jobs synchronously in a background thread).*
-
-#### Frontend
-
-```bash
-cd frontend
-npm install
-npm run dev
-```
-
-The web interface will be available at http://localhost:5173.
-
----
-
 ## API Credentials
 
-Core auditing runs locally with zero external API dependencies. To enable extended data feeds, add your personal keys in `.env` or via the **Settings** view in the web UI:
+Core auditing runs locally with zero external API dependencies. To enable extended live data feeds, add your personal keys in `.env` or via the **Settings** view in the web UI:
 
 | Variable | Service | Use Case | Link |
 |---|---|---|---|
@@ -138,12 +210,12 @@ Core auditing runs locally with zero external API dependencies. To enable extend
 
 ---
 
-## Configuration
+## Configuration Reference
 
 | Variable | Default | Description |
 |---|---|---|
 | `JWT_SECRET` | *(Required)* | Secret key for JWT session tokens |
-| `DATABASE_URL` | `file:data/seo_auditor.db` | SQLite or PostgreSQL connection string |
+| `DATABASE_URL` | `file:data/seo_auditor.db` | SQLite database file path |
 | `REDIS_URL` | `redis://localhost:6379/0` | Redis queue connection URI |
 | `FRONTEND_URL` | `http://localhost:5173` | Allowed CORS origin |
 | `LOG_LEVEL` | `INFO` | Logging level (DEBUG, INFO, WARNING, ERROR) |

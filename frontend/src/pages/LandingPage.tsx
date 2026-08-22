@@ -60,7 +60,7 @@ export default function LandingPage() {
                                 to="/app" 
                                 className="inline-flex items-center gap-2 bg-white hover:bg-zinc-100 text-black px-6 py-3.5 rounded-lg font-bold text-sm transition-all border border-white shadow-xl"
                             >
-                                <span>Open Web App</span>
+                                <span>Launch Local Dashboard</span>
                                 <span className="material-symbols-outlined text-base">arrow_forward</span>
                             </Link>
                             <a 
