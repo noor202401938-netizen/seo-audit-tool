@@ -38,6 +38,7 @@ export function Navbar() {
         <nav className="hidden md:flex items-center bg-zinc-900 border border-zinc-700 rounded-full px-1.5 py-1 gap-1">
           <Link to="/" className={getLinkClass('/')}>Home</Link>
           <Link to="/features" className={getLinkClass('/features')}>Features</Link>
+          <Link to="/about" className={getLinkClass('/about')}>About</Link>
           <Link to="/contact" className={getLinkClass('/contact')}>Contact</Link>
         </nav>
 
