@@ -1,6 +1,6 @@
 import { Input } from '../components/ui/input';
 import { useForm, ValidationError } from '@formspree/react';
-import { Mail, MapPin, MessageSquare, Phone, Send, CheckCircle2 } from 'lucide-react';
+import { Mail, MapPin, MessageSquare, Globe, ExternalLink, Send, CheckCircle2 } from 'lucide-react';
 
 export default function Contact() {
   const [state, handleSubmit] = useForm('xvkpyydv');
@@ -37,20 +37,26 @@ export default function Contact() {
                           </div>
                           <div>
                               <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 font-bold mb-0.5">Email Us</p>
-                              <a href="mailto:support@seoaudit.com" className="text-sm text-zinc-900 hover:text-black transition-colors font-bold">
-                                  support@seoaudit.com
+                              <a href="mailto:sixtyhours14@gmail.com" className="text-sm text-zinc-900 hover:text-black transition-colors font-bold">
+                                  sixtyhours14@gmail.com
                               </a>
                           </div>
                       </div>
 
                       <div className="flex items-start gap-3.5">
                           <div className="w-10 h-10 rounded-lg bg-zinc-100 border border-zinc-300 flex items-center justify-center shrink-0 text-cyan-700">
-                              <Phone className="w-4 h-4" />
+                              <Globe className="w-4 h-4" />
                           </div>
                           <div>
-                              <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 font-bold mb-0.5">Call Us</p>
-                              <a href="tel:+18005550199" className="text-sm text-zinc-900 hover:text-black transition-colors font-bold">
-                                  +1 (800) 555-0199
+                              <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 font-bold mb-0.5">Portfolio &amp; Agency</p>
+                              <a 
+                                  href="https://www.sixtyhours.tech/" 
+                                  target="_blank" 
+                                  rel="noreferrer" 
+                                  className="text-sm text-zinc-900 hover:text-emerald-700 transition-colors font-bold flex items-center gap-1"
+                              >
+                                  <span>See more of our work</span>
+                                  <ExternalLink className="w-3.5 h-3.5" />
                               </a>
                           </div>
                       </div>
@@ -62,7 +68,7 @@ export default function Contact() {
                           <div>
                               <p className="font-mono text-[11px] uppercase tracking-wider text-zinc-500 font-bold mb-0.5">Location</p>
                               <p className="text-sm text-zinc-900 font-bold leading-relaxed">
-                                  San Francisco, CA &bull; Remote
+                                  Faisalabad, Pakistan
                               </p>
                           </div>
                       </div>
