@@ -57,7 +57,7 @@ export default function Signup() {
             <div className="space-y-3 pt-4">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400">
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                FREE TIER &bull; 5 AUDITS INCLUDED
+                COMMUNITY EDITION &bull; UNLIMITED AUDITS
               </div>
               <h1 className="text-2xl md:text-3xl font-bold tracking-tight text-zinc-100 leading-tight">
                 Start Auditing Your Sites in Under 60 Seconds

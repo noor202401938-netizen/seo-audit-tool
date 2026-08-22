@@ -56,6 +56,7 @@ export default function App() {
           <Route path="/terms" element={<Terms />} />
           <Route path="/cookies" element={<Cookies />} />
           <Route path="/features" element={<Features />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
       <div className="relative z-10">

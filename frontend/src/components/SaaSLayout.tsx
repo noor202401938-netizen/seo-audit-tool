@@ -208,7 +208,7 @@ export const SaaSLayout = () => {
             <Link to="/app/profile" className="hidden sm:flex items-center gap-2.5 hover:bg-zinc-900 p-1.5 rounded-lg transition-colors cursor-pointer">
               <div className="text-right">
                 <p className="text-xs font-medium text-zinc-200">{user?.email}</p>
-                <p className="text-[10px] font-mono text-emerald-400">Pro Plan</p>
+                <p className="text-[10px] font-mono text-emerald-400 font-bold">Community Edition</p>
               </div>
               <UserCircle className="w-7 h-7 text-zinc-400" />
             </Link>

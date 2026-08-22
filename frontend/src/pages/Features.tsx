@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import { ThreeGraph } from '../components/ThreeGraph';
 import { TOOL_CATEGORIES } from '../data/tools';
 
@@ -157,10 +156,15 @@ export default function Features() {
                   Launch automated site audits and contact extractions in seconds with zero complex setup.
               </p>
               <div className="pt-2">
-                  <Link to="/signup" className="inline-flex items-center gap-2 bg-zinc-950 hover:bg-black text-white font-bold py-3.5 px-8 rounded-lg text-sm transition-all border border-zinc-900 shadow-xl">
-                      <span>Get Started Free</span>
-                      <span className="material-symbols-outlined text-base">arrow_forward</span>
-                  </Link>
+                  <a 
+                      href="https://github.com/noor202401938-netizen/seo-audit-tool#readme" 
+                      target="_blank" 
+                      rel="noreferrer" 
+                      className="inline-flex items-center gap-2 bg-zinc-950 hover:bg-black text-white font-bold py-3.5 px-8 rounded-lg text-sm transition-all border border-zinc-900 shadow-xl"
+                  >
+                      <span>Read Local Setup Guide</span>
+                      <span className="material-symbols-outlined text-base">arrow_outward</span>
+                  </a>
               </div>
           </div>
         </div>
