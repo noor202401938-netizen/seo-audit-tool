@@ -1,131 +1,199 @@
-# Universal Website Discovery & Public Contact Extraction Framework
+# SEO Intelligence
 
-A modular, config-driven Python crawler. Point it at a list of seed URLs
-(directory/listing sites) and it will:
+A self-hosted, open-source technical SEO audit platform, multi-page crawler, and diagnostic suite.
 
-1. **Crawl each seed** (following pagination) to discover profile/detail pages.
-2. **Visit each profile page** and pull generic metadata (name, category, address)
-   using JSON-LD/schema.org + layout-agnostic heuristics — no site-specific selectors.
-3. **Find the official external website** linked from each profile, normalize it
-   (`http://abc.com`, `https://www.abc.com` → one canonical URL) and queue it.
-4. **Crawl every discovered website**, prioritizing `/contact`, `/about`, `/team`,
-   `/sitemap.xml`, etc., then breadth-first exploring further internal pages.
-5. **Extract public contact info** — emails (incl. `mailto:`), phones (incl. `tel:`),
-   contact page URL, contact form presence, social media links.
-6. **Clean & dedupe** everything (URLs, emails, phones) and validate formats.
-7. **Export** to CSV, Excel (`.xlsx`), and a SQLite database.
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Python 3.10+](https://img.shields.io/badge/python-3.10+-blue.svg)](https://www.python.org/downloads/)
+[![FastAPI](https://img.shields.io/badge/backend-FastAPI-009688.svg)](https://fastapi.tiangolo.com)
+[![React](https://img.shields.io/badge/frontend-React%2018-61DAFB.svg)](https://react.dev)
+[![Docker](https://img.shields.io/badge/deploy-Docker%20Compose-2496ED.svg)](https://www.docker.com/)
 
-The only thing that changes between projects is the contents of your seed
-file — no code changes needed.
+[Features](#features) • [Quick Start](#quick-start) • [Architecture](#architecture) • [API Credentials](#api-credentials) • [Configuration](#configuration) • [Contributing](#contributing) • [License](#license)
 
-## Quick start
+---
 
-```bash
-pip install -r requirements.txt
-playwright install chromium
+## Overview
 
-# Copy `.env.example` to `.env` if you want to customize the input file path.
-# The default `.env` in this repo points at `links.sample.txt`.
+SEO Intelligence is a self-hosted platform for technical SEO analysis, on-page diagnostics, Core Web Vitals checks, and search engine visibility tracking. It runs locally or on your own servers without usage quotas or subscriptions.
 
-# Windows: put your seed URLs in D:\links.txt (one per line), then:
-python main.py
+Optional third-party services (such as Google Gemini, OpenPageRank, and Keywords Everywhere) can be connected by adding your own API keys.
 
-# macOS/Linux, or a different path:
-SEED_FILE=/path/to/links.txt python main.py
-```
+---
 
-See `links.sample.txt` for the expected format.
+## Features
 
-If you want the crawler to read configuration from a file instead of shell
-variables, put key/value pairs in `.env`. The app loads `.env` automatically
-at startup, and values already present in the shell still take precedence.
+### Technical & On-Page Audits
+- **On-Page Diagnostics**: Evaluates title tags, meta descriptions, canonical URLs, heading hierarchy (H1-H6), content length, readability indices, and image alt attributes.
+- **Technical Infrastructure**: Analyzes `robots.txt` directives, XML sitemaps, HTTP status codes, redirect chains (301/302), and security headers.
+- **Performance**: Measures Core Web Vitals, page weight, compression efficiency, and DOM complexity.
+- **Multi-Page Crawler**: Configurable depth and page limits with Playwright rendering for JavaScript-heavy single-page applications.
 
-## Configuration
+### AI Remediation
+- **Contextual Fixes**: Uses Google Gemini to turn audit findings into prioritized remediation plans with code snippets.
+- **LLM Readiness**: Generates standard `llms.txt` files for AI search indexation.
 
-Everything tunable lives in `config.py`, and every setting can also be
-overridden via environment variable at run time or via `.env`:
+### Standalone SEO Tools
+- **SERP Position Tracking**: Rank checks for Google, YouTube, and Bing.
+- **Authority & PageRank**: Domain metrics via OpenPageRank.
+- **Keyword Intelligence**: Search volume and CPC analytics.
+- **Schema Validation**: Extraction and validation of JSON-LD, Microdata, and OpenGraph metadata.
+- **Broken Link Discovery**: Identifies dead internal and external hyperlinks.
+- **Archive History**: Snapshot timeline from the Wayback Machine.
+- **Technology Profiler**: Detects web servers, frameworks, and CMS platforms.
+- **Security Scanner**: Inspects SSL certificates and common header vulnerabilities.
 
-| Setting | Env var | Default | Purpose |
-|---|---|---|---|
-| Seed file path | `SEED_FILE` | `links.sample.txt` | Input list of seed URLs |
-| Max crawl depth per website | `MAX_CRAWL_DEPTH` | 3 | How deep to follow internal links on a discovered site |
-| Max pages per domain | `MAX_PAGES_PER_DOMAIN` | 40 | Hard ceiling to avoid runaway crawls |
-| Max pagination pages | `MAX_PAGINATION_PAGES` | 50 | Per listing/directory site |
-| Concurrency | `CONCURRENCY` | 5 | Parallel worker threads for different sites |
-| Internal Concurrency | `INTERNAL_CONCURRENCY` | 3 | Parallel worker threads for pages within the same site |
-| Smart JS Fallback | `USE_SMART_JS_FALLBACK` | true | Intelligently use Playwright to render SPAs and Anti-bot pages |
-| Min delay per domain | `MIN_DELAY_PER_DOMAIN` | 1.5s | Politeness floor between requests to the same host |
-| Respect robots.txt | `RESPECT_ROBOTS_TXT` | true | Skips disallowed paths |
-| Retry attempts | `RETRY_ATTEMPTS` | 3 | Per-request retry count |
+### PDF Export
+- Generates downloadable, structured summary reports with score cards and prioritized action lists.
 
-## Resume after interruption
-
-Progress is checkpointed to `output/checkpoint.json` (completed seeds/websites)
-and mirrored in the SQLite `crawl_queue` table. Re-running `python main.py`
-after a crash or Ctrl-C skips everything already finished.
-
-## Environment file
-
-- `.env` is loaded automatically by `config.py` before settings are read.
-- `SEED_FILE` is now stored in `.env` by default.
-- Use `.env.example` as the template if you want to change the input path or
-  add more overrides locally.
+---
 
 ## Architecture
 
-```
-main.py                      orchestrates all phases, manages concurrency
-config.py                    all tunables — nothing site-specific
-
-crawler/
-    seed_loader.py           Phase 0/1: load + normalize seed URLs
-    directory_crawler.py     Phase 1-3: listing crawl, profile pages, website discovery
-    website_crawler.py       Phase 4-5: crawl discovered sites, extract contacts
-
-extractors/
-    metadata_extractor.py    name/org/category/address via JSON-LD + heuristics
-    email_extractor.py       mailto: + regex, validated
-    phone_extractor.py       tel: + regex, validated
-    social_extractor.py      facebook/twitter/instagram/linkedin/etc links
-
-database/
-    sqlite_manager.py        schema, queue, upserts, resume support
-
-utils/
-    http_client.py           retries, per-domain rate limiting, robots.txt
-    normalizer.py             URL/email/phone canonicalization
-    validator.py              format validation + false-positive filtering
-    deduplicator.py           thread-safe seen-sets + record-level dedup
-    checkpoint.py             JSON-based resume tracking
-    exporter.py               CSV / Excel / SQLite export
-    logger.py                 shared logging setup
-
-output/                      discovered_urls.csv, websites.csv, contacts.csv,
-                              master_database.xlsx, master_database.sqlite3,
-                              checkpoint.json
-logs/                        crawler.log
+```mermaid
+graph TD
+    Client[React + Vite Frontend] -->|REST API| API[FastAPI Backend]
+    API --> DB[(Prisma ORM / SQLite)]
+    API --> Queue[Redis Task Queue]
+    Queue --> Worker[Background Worker]
+    Worker --> Crawler[Playwright + BeautifulSoup]
+    Worker --> AI[Google Gemini API]
+    Worker --> DB
 ```
 
-## A note on responsible use
+- **Frontend**: React 18, TypeScript, Tailwind CSS, Framer Motion, Vite
+- **Backend**: FastAPI, Pydantic, Prisma Client Python, JWT Auth
+- **Worker**: Redis with RQ (includes automatic in-memory fallback if Redis is not configured)
+- **Crawler**: Playwright Chromium, BeautifulSoup4, Lxml, Textstat, ReportLab
 
-This only collects information website owners have published publicly
-(emails/phones on their own contact/about pages). A few things worth building
-into whatever you do with the output:
+---
 
-- **Respect robots.txt** — on by default (`RESPECT_ROBOTS_TXT`), don't turn it off casually.
-- **Rate limit** — the per-domain delay is a floor to avoid hammering small sites.
-- If the collected emails/phones will be used for **outreach**, check the
-  applicable rules for your situation (CAN-SPAM in the US, CASL in Canada,
-  GDPR/PECR in the UK/EU, etc.) — these generally require an easy opt-out and
-  accurate sender identification, and vary by whether contacts are individuals
-  or organizations. This tool doesn't send anything itself; that compliance
-  layer lives wherever you use the exported list next.
+## Quick Start
 
-## Extending
+### Docker Compose (Recommended)
 
-- Add a new extractor by dropping a module in `extractors/` and calling it
-  from `website_crawler.py` (Phase 5) or `directory_crawler.py` (Phase 2).
-- Swap the fetcher for `Scrapy` if you need much higher throughput — `utils/http_client.py` is the single seam to replace. JS rendering is already handled intelligently via Playwright!
-- All heuristics (profile-link detection, pagination detection, "official
-  website" link scoring) live in `directory_crawler.py` and are pure functions
-  you can unit test independently of network calls.
+```bash
+git clone https://github.com/your-username/seo-audit-tool.git
+cd seo-audit-tool
+cp .env.example .env
+docker compose up --build
+```
+
+- Web UI: http://localhost
+- API Docs: http://localhost:8000/docs
+
+---
+
+### Local Development
+
+#### Backend
+
+```bash
+# Set up virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: .\venv\Scripts\Activate.ps1
+
+# Install requirements
+pip install -r requirements.txt
+playwright install chromium
+
+# Setup environment and database
+cp .env.example .env
+prisma generate
+prisma db push
+
+# Run server
+uvicorn api:app --reload --port 8000
+```
+
+#### Worker (Optional)
+
+If running Redis locally:
+```bash
+python worker.py
+```
+*(If Redis is not detected, the API automatically processes audit jobs synchronously in a background thread).*
+
+#### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+The web interface will be available at http://localhost:5173.
+
+---
+
+## API Credentials
+
+Core auditing runs locally with zero external API dependencies. To enable extended data feeds, add your personal keys in `.env` or via the **Settings** view in the web UI:
+
+| Variable | Service | Use Case | Link |
+|---|---|---|---|
+| `GEMINI_API_KEY` | Google AI Studio | AI Action Plans & Recommendations | [aistudio.google.com](https://aistudio.google.com/app/apikey) |
+| `OPEN_PAGERANK_API_KEY` | OpenPageRank | Domain Authority & PageRank | [domcop.com/openpagerank](https://www.domcop.com/openpagerank/auth/signup) |
+| `KEYWORD_EVERYWHERE_API_KEY` | Keywords Everywhere | Search Volume & CPC Metrics | [keywordseverywhere.com](https://keywordseverywhere.com/api.html) |
+| `YOUTUBE_API_KEY` | Google Cloud | YouTube Video SERP Tracking | [console.cloud.google.com](https://console.cloud.google.com/) |
+
+---
+
+## Configuration
+
+| Variable | Default | Description |
+|---|---|---|
+| `JWT_SECRET` | *(Required)* | Secret key for JWT session tokens |
+| `DATABASE_URL` | `file:data/seo_auditor.db` | SQLite or PostgreSQL connection string |
+| `REDIS_URL` | `redis://localhost:6379/0` | Redis queue connection URI |
+| `FRONTEND_URL` | `http://localhost:5173` | Allowed CORS origin |
+| `LOG_LEVEL` | `INFO` | Logging level (DEBUG, INFO, WARNING, ERROR) |
+
+---
+
+## Testing
+
+```bash
+# Run backend tests
+python -m unittest discover tests
+
+# Validate frontend build
+cd frontend
+npm run build
+```
+
+---
+
+## Adding Custom Tools
+
+To add a new audit tool:
+
+1. Implement the logic in `tool_runners.py`:
+   ```python
+   def run_custom_check(url: str) -> dict:
+       return {"status": "ok", "url": url, "result": "passed"}
+   ```
+2. Add a route in `routers/tools.py`:
+   ```python
+   @router.post("/custom-check")
+   async def custom_check(req: ToolRequest, user = Depends(get_current_user)):
+       return tool_runners.run_custom_check(req.url)
+   ```
+3. Register the UI card in `frontend/src/pages/ToolRunner.tsx`.
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines, branch strategies, and coding standards.
+
+---
+
+## Security
+
+See [SECURITY.md](SECURITY.md) for vulnerability reporting and deployment security notes.
+
+---
+
+## License
+
+Distributed under the MIT License. See [LICENSE](LICENSE) for details.

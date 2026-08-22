@@ -24,7 +24,6 @@ export function Footer() {
                 <div className="flex flex-col gap-3">
                     <span className="font-mono text-[11px] uppercase tracking-wider text-zinc-400 font-semibold">Product</span>
                     <Link className="text-zinc-400 hover:text-zinc-100 transition-colors" to="/features">Features</Link>
-                    <Link className="text-zinc-400 hover:text-zinc-100 transition-colors" to="/pricing">Pricing</Link>
                     <Link className="text-zinc-400 hover:text-zinc-100 transition-colors" to="/app">Dashboard</Link>
                 </div>
                 <div className="flex flex-col gap-3">

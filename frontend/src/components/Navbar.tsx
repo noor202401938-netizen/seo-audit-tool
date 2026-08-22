@@ -38,7 +38,6 @@ export function Navbar() {
         <nav className="hidden md:flex items-center bg-zinc-900 border border-zinc-700 rounded-full px-1.5 py-1 gap-1">
           <Link to="/" className={getLinkClass('/')}>Home</Link>
           <Link to="/features" className={getLinkClass('/features')}>Features</Link>
-          <Link to="/pricing" className={getLinkClass('/pricing')}>Pricing</Link>
           <Link to="/contact" className={getLinkClass('/contact')}>Contact</Link>
         </nav>
 
@@ -47,7 +46,7 @@ export function Navbar() {
             <div className="flex items-center gap-3">
               <Link to="/app" className="text-xs text-white hover:text-emerald-400 font-semibold transition-colors">Dashboard</Link>
               <span className="text-[11px] font-mono bg-zinc-900 text-emerald-400 px-2.5 py-1 rounded-full font-bold border border-zinc-700">
-                {user.subscription.auditsRemaining} Audits
+                Community Edition
               </span>
               <button onClick={logout} className="text-zinc-300 hover:text-white px-3 py-1.5 rounded-full font-semibold text-xs transition-colors">
                 Logout

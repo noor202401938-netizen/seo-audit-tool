@@ -5,7 +5,6 @@ import Dashboard from './pages/Dashboard';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
 import Signup from './pages/Signup';
-import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
 import About from './pages/About';
 import Privacy from './pages/Privacy';
@@ -51,7 +50,6 @@ export default function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/signup" element={<Signup />} />
-          <Route path="/pricing" element={<Pricing />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/privacy" element={<Privacy />} />

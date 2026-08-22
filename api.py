@@ -109,10 +109,10 @@ async def register(user: UserRegister):
             "name": user.name,
             "subscription": {
                 "create": {
-                    "plan": "free",
-                    "auditsRemaining": 5,
-                    "monthlyLimit": 5,
-                    "nextRenewalDate": datetime(2029, 1, 1, tzinfo=timezone.utc)
+                    "plan": "community",
+                    "auditsRemaining": 999999,
+                    "monthlyLimit": 999999,
+                    "nextRenewalDate": datetime(2099, 1, 1, tzinfo=timezone.utc)
                 }
             }
         },
@@ -156,19 +156,6 @@ async def read_users_me(current_user = Depends(get_current_user)):
 @app.post("/api/audit")
 async def perform_audit(request: AuditRequest, current_user = Depends(get_current_user)):
     try:
-        # Atomically reserve one audit credit. A single conditional UPDATE
-        # (auditsRemaining > 0) can't be won by two concurrent requests the way
-        # a read-then-check gate can, so users can't overspend by firing audits
-        # in parallel. Refunded in the worker if the job fails.
-        # ponytail: relies on SQLite's single-writer lock; move to Postgres
-        # SELECT ... FOR UPDATE (see #5) if you shard the DB.
-        reserved = await prisma.subscription.update_many(
-            where={"userId": current_user.id, "auditsRemaining": {"gt": 0}},
-            data={"auditsRemaining": {"decrement": 1}},
-        )
-        if not reserved:
-            raise HTTPException(status_code=403, detail="Not enough audits remaining. Please upgrade your plan.")
-
         # Save history record
         record = await prisma.auditrecord.create(
             data={
@@ -200,12 +187,11 @@ async def perform_audit(request: AuditRequest, current_user = Depends(get_curren
             loop = asyncio.get_event_loop()
             loop.run_in_executor(_executor, _run_and_store, job_id, request.url, request.crawl, request.max_pages, current_user.id, record.id)
 
-        sub = current_user.subscription
         return {
             "status": "queued",
             "job_id": job_id,
             "url": request.url,
-            "audits_remaining": max((sub.auditsRemaining - 1) if sub else 0, 0)
+            "audits_remaining": 999999
         }
     except HTTPException:
         raise
