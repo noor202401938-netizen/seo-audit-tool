@@ -24,7 +24,7 @@ Optional third-party services (such as Google Gemini, OpenPageRank, and Keywords
 
 Ensure you have the following installed on your machine:
 - **Python 3.10+**: Download from [python.org](https://www.python.org/downloads/) *(Make sure to check "Add Python to PATH" during installation on Windows)*.
-- **Node.js 18+ & npm**: Download LTS from [nodejs.org](https://nodejs.org/).
+- **Node.js 20+ & npm**: Download LTS from [nodejs.org](https://nodejs.org/).
 - *(Optional for Docker users)*: **Docker Desktop** from [docker.com](https://www.docker.com/).
 
 ---
