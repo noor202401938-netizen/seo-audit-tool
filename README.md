@@ -8,7 +8,7 @@ A self-hosted, open-source technical SEO audit platform, multi-page crawler, and
 [![React](https://img.shields.io/badge/frontend-React%2018-61DAFB.svg)](https://react.dev)
 [![Docker](https://img.shields.io/badge/deploy-Docker%20Compose-2496ED.svg)](https://www.docker.com/)
 
-[Overview](#overview) • [Quick Start](#quick-start) • [Local Setup](#local-manual-setup) • [Features](#features) • [API Credentials](#api-credentials) • [Architecture](#architecture) • [License](#license)
+[Overview](#overview) • [1-Click Launchers](#method-1-1-click-launchers-easiest) • [Local Terminal Setup](#method-2-local-terminal-setup-developers) • [Docker Setup](#method-3-docker-desktop-containers) • [First-Time App Usage](#first-time-app-usage-guide) • [API Credentials](#api-credentials-byok) • [Architecture](#architecture) • [License](#license)
 
 ---
 
@@ -16,212 +16,215 @@ A self-hosted, open-source technical SEO audit platform, multi-page crawler, and
 
 SEO Intelligence is a self-hosted platform for technical SEO analysis, on-page diagnostics, Core Web Vitals checks, and search engine visibility tracking. It runs completely on your own machine or private server without third-party tracking, subscriptions, or paywalls.
 
-Optional third-party services (such as Google Gemini, OpenPageRank, and Keywords Everywhere) can be connected by adding your own API keys.
+Optional third-party services (such as Google Gemini, OpenPageRank, and Keywords Everywhere) can be connected by adding your own API keys in your local settings.
 
 ---
 
-## 1-Click Quick Launch (Self-Hosters)
+## Prerequisites (Check Once Before Starting)
 
-You can download the repository as a ZIP or clone it, then run with a single click:
-
-### Windows (1-Click)
-- Simply double-click **[`run-windows.bat`](run-windows.bat)**.
-- Or if you use Docker, double-click **[`docker-run.bat`](docker-run.bat)**.
-
-### macOS & Linux (1-Click)
-```bash
-chmod +x run.sh
-./run.sh
-```
-
-The script automatically sets up the Python virtual environment, installs dependencies, pushes the database schema, starts both the backend and frontend, and opens the app in your default browser.
+Ensure you have the following installed on your machine:
+- **Python 3.10+**: Download from [python.org](https://www.python.org/downloads/) *(Make sure to check "Add Python to PATH" during installation on Windows)*.
+- **Node.js 18+ & npm**: Download LTS from [nodejs.org](https://nodejs.org/).
+- *(Optional for Docker users)*: **Docker Desktop** from [docker.com](https://www.docker.com/).
 
 ---
 
-## Docker Compose Setup
+## Method 1: 1-Click Launchers (Easiest)
 
-The standard containerized setup for servers and local Docker environments:
+Ideal for running on your personal computer without typing manual terminal commands.
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/noor202401938-netizen/seo-audit-tool.git
-cd seo-audit-tool
-```
-
-### 2. Configure Environment
-```bash
-cp .env.example .env
-```
-
-### 3. Launch with Docker Compose
-```bash
-docker compose up --build
-```
-
-- **Web Interface**: [http://localhost](http://localhost)
-- **API Documentation**: [http://localhost:8000/docs](http://localhost:8000/docs)
-
-To run in the background (detached mode):
-```bash
-docker compose up -d --build
-```
-To stop the services:
-```bash
-docker compose down
-```
+### Step 1: Download the Project
+- **Option A (Git)**:
+  ```bash
+  git clone https://github.com/noor202401938-netizen/seo-audit-tool.git
+  cd seo-audit-tool
+  ```
+- **Option B (ZIP)**: Click the green **Code** button on GitHub $\rightarrow$ **Download ZIP**, and extract it anywhere on your computer.
 
 ---
 
-## Local Manual Setup
+### Step 2: Launch the App
 
-If you prefer running without Docker, follow these steps:
+#### On Windows:
+- **First-Time Setup**: Simply double-click **[`run-windows.bat`](run-windows.bat)**.
+  - The script automatically creates the Python virtual environment (`venv`), installs dependencies, downloads Playwright Chromium, pushes the SQLite database schema, installs frontend packages, boots both servers, and **automatically opens http://localhost:5173 in your default browser**.
+- **Subsequent Daily Use**: Just double-click **`run-windows.bat`**. Since all packages are already installed, it boots and opens in ~2 seconds.
+- **To Stop**: Press any key in the launcher window or close it.
 
-### Prerequisites
-- **Python 3.10+**
-- **Node.js 18+** & `npm`
+#### On macOS / Linux:
+- **First-Time Setup**:
+  ```bash
+  chmod +x run.sh
+  ./run.sh
+  ```
+  - The script automatically configures the environment, starts the background services, and opens `http://localhost:5173` in your default browser.
+- **Subsequent Daily Use**: Run `./run.sh`.
+- **To Stop**: Press `Ctrl + C` in the terminal.
 
 ---
 
-### Step 1: Backend Setup
+## Method 2: Local Terminal Setup (Developers)
 
-#### On Linux / macOS:
+If you prefer running services in separate terminal windows for development or customization:
+
+### First-Time Setup
+
+#### 1. Backend Setup
+
+**Linux / macOS:**
 ```bash
-# 1. Clone and enter directory
+# Clone & navigate
 git clone https://github.com/noor202401938-netizen/seo-audit-tool.git
 cd seo-audit-tool
 
-# 2. Create and activate virtual environment
+# Create and activate virtual environment
 python3 -m venv venv
 source venv/bin/activate
 
-# 3. Install Python dependencies
+# Install dependencies & Playwright Chromium
 pip install -r requirements.txt
 playwright install chromium
 
-# 4. Copy configuration template
+# Copy config template
 cp .env.example .env
 
-# 5. Generate Prisma client & initialize SQLite database
+# Initialize database schema
 prisma generate
 prisma db push
 
-# 6. Start the API server
+# Start API server
 uvicorn api:app --reload --port 8000
 ```
 
-#### On Windows (PowerShell):
+**Windows (PowerShell):**
 ```powershell
-# 1. Clone and enter directory
+# Clone & navigate
 git clone https://github.com/noor202401938-netizen/seo-audit-tool.git
 cd seo-audit-tool
 
-# 2. Create and activate virtual environment
+# Create and activate virtual environment
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 
-# 3. Install Python dependencies
+# Install dependencies & Playwright Chromium
 pip install -r requirements.txt
 playwright install chromium
 
-# 4. Copy configuration template
+# Copy config template
 Copy-Item .env.example .env
 
-# 5. Generate Prisma client & initialize SQLite database
+# Initialize database schema
 prisma generate
 prisma db push
 
-# 6. Start the API server
+# Start API server
 uvicorn api:app --reload --port 8000
 ```
 
-The backend will be running at [http://localhost:8000](http://localhost:8000).
-
----
-
-### Step 2: Frontend Setup
-
-Open a new terminal window and run:
-
+#### 2. Frontend Setup (Open a second terminal)
 ```bash
 cd seo-audit-tool/frontend
-
-# Install dependencies
 npm install
-
-# Start the Vite development server
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+---
+
+### Subsequent Daily Use (Terminal)
+
+Whenever you want to use the app later:
+
+1. **Terminal 1 (Backend)**:
+   ```bash
+   # Windows: .\venv\Scripts\Activate.ps1
+   # Linux/Mac: source venv/bin/activate
+   uvicorn api:app --port 8000
+   ```
+2. **Terminal 2 (Frontend)**:
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+3. Open [http://localhost:5173](http://localhost:5173).
 
 ---
 
-### Step 3: Background Worker (Optional)
+## Method 3: Docker Desktop / Containers
 
-If you have Redis installed locally (`redis://localhost:6379/0`), you can run background workers in a separate terminal:
+For servers or containerized local hosting:
 
+### First-Time Setup
 ```bash
-python worker.py
+git clone https://github.com/noor202401938-netizen/seo-audit-tool.git
+cd seo-audit-tool
+cp .env.example .env
+docker compose up --build
 ```
+- **Web UI**: [http://localhost](http://localhost)
+- **API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 
-*(Note: If Redis is not detected, the backend automatically processes audit jobs synchronously in an in-memory thread pool).*
-
----
-
-## Features
-
-### Technical & On-Page Audits
-- **On-Page Diagnostics**: Evaluates title tags, meta descriptions, canonical URLs, heading hierarchy (H1-H6), content length, readability indices, and image alt attributes.
-- **Technical Infrastructure**: Analyzes `robots.txt` directives, XML sitemaps, HTTP status codes, redirect chains (301/302), and security headers.
-- **Performance**: Measures Core Web Vitals, page weight, compression efficiency, and DOM complexity.
-- **Multi-Page Crawler**: Configurable depth and page limits with Playwright rendering for JavaScript-heavy single-page applications.
-
-### AI Remediation
-- **Contextual Fixes**: Uses Google Gemini to turn audit findings into prioritized remediation plans with code snippets.
-- **LLM Readiness**: Generates standard `llms.txt` files for AI search indexation.
-
-### Standalone SEO Tools
-- **SERP Position Tracking**: Rank checks for Google, YouTube, and Bing.
-- **Authority & PageRank**: Domain metrics via OpenPageRank.
-- **Keyword Intelligence**: Search volume and CPC analytics.
-- **Schema Validation**: Extraction and validation of JSON-LD, Microdata, and OpenGraph metadata.
-- **Broken Link Discovery**: Identifies dead internal and external hyperlinks.
-- **Archive History**: Snapshot timeline from the Wayback Machine.
-- **Technology Profiler**: Detects web servers, frameworks, and CMS platforms.
-- **Security Scanner**: Inspects SSL certificates and common header vulnerabilities.
-
-### PDF Export
-- Generates downloadable, structured summary reports with score cards and prioritized action lists.
+### Subsequent Daily Use
+- **Start in background**:
+  ```bash
+  docker compose up -d
+  ```
+- **Stop**:
+  ```bash
+  docker compose down
+  ```
+- *(Windows 1-Click Docker)*: Double-click **[`docker-run.bat`](docker-run.bat)**.
 
 ---
 
-## Architecture
+## First-Time App Usage Guide
+
+Once the web application is running at `http://localhost:5173` (or `http://localhost` on Docker):
 
 ```mermaid
-graph TD
-    Client[React + Vite Frontend] -->|REST API| API[FastAPI Backend]
-    API --> DB[(Prisma ORM / SQLite)]
-    API --> Queue[Redis Task Queue]
-    Queue --> Worker[Background Worker]
-    Worker --> Crawler[Playwright + BeautifulSoup]
-    Worker --> AI[Google Gemini API]
-    Worker --> DB
+graph LR
+    A[1. Open App] --> B[2. Login / Sign Up]
+    B --> C[3. Run First Audit]
+    C --> D[4. Add BYOK Keys in Settings]
+    D --> E[5. Export PDF Reports]
 ```
 
-- **Frontend**: React 18, TypeScript, Tailwind CSS, Framer Motion, Vite
-- **Backend**: FastAPI, Pydantic, Prisma Client Python, JWT Auth
-- **Worker**: Redis with RQ (includes automatic in-memory fallback if Redis is not configured)
-- **Crawler**: Playwright Chromium, BeautifulSoup4, Lxml, Textstat, ReportLab
+### 1. Account Access & Login
+- Click **Launch Local Dashboard** or visit `http://localhost:5173/login`.
+- **Demo Account**: Click **"Fill Demo Credentials"** (`demo@seoaudit.com` / `demo123456`) to log in immediately, or create your own local account on `/signup`.
+
+### 2. Running an Audit
+1. In the Dashboard (`/app`), enter any target URL (e.g. `https://example.com`).
+2. Choose your audit type:
+   - **Single Page Audit**: Fast diagnostic of on-page metadata, headings, performance, and Core Web Vitals.
+   - **Multi-Page Crawler**: Configurable depth and page limits with headless Playwright JavaScript execution.
+3. Click **Start Audit**. View live progress and extraction feed in real time.
+
+### 3. Adding Extended API Keys (Optional)
+To enable live AI remediation, search volume, and domain authority:
+1. Navigate to **Profile / Settings** (`/app/profile`).
+2. Enter your personal API keys (Google Gemini, OpenPageRank, Keywords Everywhere, YouTube).
+3. Click **Save Config**. Keys are stored locally on your machine.
+
+### 4. Standalone Tools
+Explore 25+ specialized tools from the sidebar:
+- Robots.txt & Sitemap Testers
+- HTTP Security & SSL Certificate Checkers
+- Canonical Tag & Redirect Validators
+- Wayback Machine Historical Snapshots
+- Competitor Technology & SERP Position Trackers
+
+### 5. Exporting Reports
+Click **Download PDF** on any completed audit to generate a branded, multi-page diagnostic summary report.
 
 ---
 
-## API Credentials
+## API Credentials (BYOK)
 
-Core auditing runs locally with zero external API dependencies. To enable extended live data feeds, add your personal keys in `.env` or via the **Settings** view in the web UI:
+Core auditing runs locally with zero external API dependencies. To enable extended live data feeds, add your personal keys in `.env` or via **Settings** in the web UI:
 
-| Variable | Service | Use Case | Link |
+| Variable | Service | Use Case | Free Tier Link |
 |---|---|---|---|
-| `GEMINI_API_KEY` | Google AI Studio | AI Action Plans & Recommendations | [aistudio.google.com](https://aistudio.google.com/app/apikey) |
+| `GEMINI_API_KEY` | Google AI Studio | AI Action Plans & Code Fixes | [aistudio.google.com](https://aistudio.google.com/app/apikey) |
 | `OPEN_PAGERANK_API_KEY` | OpenPageRank | Domain Authority & PageRank | [domcop.com/openpagerank](https://www.domcop.com/openpagerank/auth/signup) |
 | `KEYWORD_EVERYWHERE_API_KEY` | Keywords Everywhere | Search Volume & CPC Metrics | [keywordseverywhere.com](https://keywordseverywhere.com/api.html) |
 | `YOUTUBE_API_KEY` | Google Cloud | YouTube Video SERP Tracking | [console.cloud.google.com](https://console.cloud.google.com/) |
@@ -234,53 +237,22 @@ Core auditing runs locally with zero external API dependencies. To enable extend
 |---|---|---|
 | `JWT_SECRET` | *(Required)* | Secret key for JWT session tokens |
 | `DATABASE_URL` | `file:data/seo_auditor.db` | SQLite database file path |
-| `REDIS_URL` | `redis://localhost:6379/0` | Redis queue connection URI |
+| `REDIS_URL` | `redis://localhost:6379/0` | Redis queue connection URI (falls back to in-memory if absent) |
 | `FRONTEND_URL` | `http://localhost:5173` | Allowed CORS origin |
 | `LOG_LEVEL` | `INFO` | Logging level (DEBUG, INFO, WARNING, ERROR) |
 
 ---
 
-## Testing
+## Testing & Verification
 
 ```bash
 # Run backend tests
 python -m unittest discover tests
 
-# Validate frontend build
+# Validate frontend production build
 cd frontend
 npm run build
 ```
-
----
-
-## Adding Custom Tools
-
-To add a new audit tool:
-
-1. Implement the logic in `tool_runners.py`:
-   ```python
-   def run_custom_check(url: str) -> dict:
-       return {"status": "ok", "url": url, "result": "passed"}
-   ```
-2. Add a route in `routers/tools.py`:
-   ```python
-   @router.post("/custom-check")
-   async def custom_check(req: ToolRequest, user = Depends(get_current_user)):
-       return tool_runners.run_custom_check(req.url)
-   ```
-3. Register the UI card in `frontend/src/pages/ToolRunner.tsx`.
-
----
-
-## Contributing
-
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines, branch strategies, and coding standards.
-
----
-
-## Security
-
-See [SECURITY.md](SECURITY.md) for vulnerability reporting and deployment security notes.
 
 ---
 
