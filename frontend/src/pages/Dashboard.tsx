@@ -352,10 +352,15 @@ export default function Dashboard() {
 
               {recentAudits.length > 0 && (
                 <div className="mt-8 text-left">
-                  <h3 className="text-sm font-mono uppercase tracking-wider text-zinc-400 mb-4 flex items-center">
-                    <Clock className="w-4 h-4 mr-2 text-zinc-400" />
-                    Recent Audits
-                  </h3>
+                  <div className="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <h3 className="text-sm font-mono uppercase tracking-wider text-zinc-400 flex items-center">
+                      <Clock className="w-4 h-4 mr-2 text-zinc-400" />
+                      Recent Audits
+                    </h3>
+                    <span className="text-[11px] font-mono text-zinc-400 bg-zinc-900/90 border border-zinc-800 px-2.5 py-1 rounded-md">
+                      📁 PDFs saved to: <code className="text-zinc-300">data/output/</code>
+                    </span>
+                  </div>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {recentAudits.map((audit) => (
                       <div 

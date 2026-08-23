@@ -110,13 +110,20 @@ export function ResultsDashboard({ data }: { data: AuditResult }) {
           </h2>
           <p className="text-xs text-zinc-400 mt-0.5">Crawled {data.crawledPages || 1} pages with 249-rule diagnostic matrix.</p>
         </div>
-        <Button
-          onClick={() => data.record_id && openAuthedPdf(data.record_id)}
-          disabled={!data.record_id}
-          className="bg-white hover:bg-zinc-100 text-black font-bold text-xs px-5 py-2.5 rounded-lg border border-white shadow-md"
-        >
-          Download PDF Report
-        </Button>
+        <div className="flex flex-col items-start md:items-end gap-1">
+          <Button
+            onClick={() => data.record_id && openAuthedPdf(data.record_id)}
+            disabled={!data.record_id}
+            className="bg-white hover:bg-zinc-100 text-black font-bold text-xs px-5 py-2.5 rounded-lg border border-white shadow-md"
+          >
+            Download PDF Report
+          </Button>
+          {data.record_id && (
+            <span className="text-[10px] font-mono text-zinc-400">
+              📁 Saved to: <code className="text-zinc-300">data/output/{data.record_id}.pdf</code>
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Tabs Navigation */}
