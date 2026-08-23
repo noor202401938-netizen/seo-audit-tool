@@ -62,9 +62,9 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
         with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
             temp_file = tmp.name
 
-        cmd = [_SEOMATOR, "audit", url, "--format", "json", "--output", temp_file]
+        cmd = [_SEOMATOR, "audit", url, "--format", "json", "--output", temp_file, "--concurrency", "10", "--timeout", "8000"]
         if crawl:
-            cmd.extend(["--crawl", "-m", str(max_pages), "--concurrency", "10"])
+            cmd.extend(["--crawl", "-m", str(max_pages)])
 
         print(f"Running SEOmator: {' '.join(cmd)}")
 

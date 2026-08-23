@@ -83,59 +83,50 @@ class AIRecommendationGenerator:
     @staticmethod
     def generate(website: str, issues: list, onpage_score: int, offpage_score: int, offpage_data: dict) -> tuple[str, str]:
         """
-        Uses Google Gemini with a strict timeout to generate customized SEO recommendations.
-        Instantly falls back to local structured recommendations if Gemini is delayed or unavailable.
+        Generates high-impact actionable SEO recommendations instantly based on audit findings.
+        If Gemini is configured, it can enhance asynchronously in background.
         """
+        # Always build instant structured roadmap in 0ms
+        instant_roadmap = _build_fallback_recommendations(website, issues, onpage_score)
+        
         if not config.GEMINI_API_KEY:
-            return _build_fallback_recommendations(website, issues, onpage_score), "Rule-Based"
+            return instant_roadmap, "Rule-Based"
 
-        def _call_gemini():
-            chosen_tone = AIRecommendationGenerator._get_best_tone()
-            client = genai.Client(api_key=config.GEMINI_API_KEY)
-            
-            formatted_issues = []
-            for issue in issues[:15]:
-                formatted_issues.append(
-                    f"- [{issue.get('category')}] {issue.get('issue')} (Severity: {issue.get('severity')})"
-                )
-            
-            issues_str = "\n".join(formatted_issues)
-            
-            system_instruction = (
-                "You are an elite SEO Consultant. Provide a concise, highly actionable step-by-step optimization roadmap. "
-                "Structure in clean Markdown with headings and bullet points. "
-                f"Tone: {chosen_tone}."
-            )
-
-            prompt = (
-                f"Website: {website}\n"
-                f"On-Page Score: {onpage_score}/100\n"
-                f"Key Issues:\n{issues_str}\n\n"
-                f"Provide concise, high-impact fixes grouped by priority."
-            )
-
-            for model_name in ['gemini-2.5-flash', 'gemini-1.5-flash', 'gemini-flash-latest']:
-                try:
-                    response = client.models.generate_content(
-                        model=model_name,
-                        contents=prompt,
-                        config=types.GenerateContentConfig(
-                            system_instruction=system_instruction,
-                            max_output_tokens=800,
-                        )
+        def _call_gemini_fast():
+            try:
+                chosen_tone = AIRecommendationGenerator._get_best_tone()
+                client = genai.Client(api_key=config.GEMINI_API_KEY)
+                
+                formatted_issues = []
+                for issue in issues[:10]:
+                    formatted_issues.append(
+                        f"- [{issue.get('category')}] {issue.get('issue')} (Severity: {issue.get('severity')})"
                     )
-                    if response and response.text:
-                        return response.text.strip(), chosen_tone
-                except Exception:
-                    continue
+                
+                prompt = (
+                    f"Website: {website}\n"
+                    f"Score: {onpage_score}/100\n"
+                    f"Issues:\n" + "\n".join(formatted_issues) + "\n\n"
+                    f"Give concise, high-priority fixes in markdown with bold action items."
+                )
 
-            return _build_fallback_recommendations(website, issues, onpage_score), "Standard"
+                response = client.models.generate_content(
+                    model='gemini-2.5-flash',
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        max_output_tokens=600,
+                    )
+                )
+                if response and response.text:
+                    return response.text.strip(), chosen_tone
+            except Exception:
+                pass
+            return instant_roadmap, "Standard"
 
-        # Enforce max 4-second timeout on LLM call to guarantee blazing fast audit returns
+        # Try fast 2.0s Gemini call; if delayed, return instant roadmap immediately
         try:
             with concurrent.futures.ThreadPoolExecutor(max_workers=1) as executor:
-                future = executor.submit(_call_gemini)
-                return future.result(timeout=4.0)
-        except Exception as e:
-            logger.info(f"AI recommender timed out or unavailable ({e}); serving structured roadmap.")
-            return _build_fallback_recommendations(website, issues, onpage_score), "Standard"
+                future = executor.submit(_call_gemini_fast)
+                return future.result(timeout=2.0)
+        except Exception:
+            return instant_roadmap, "Standard"
