@@ -230,7 +230,12 @@ def get_audit_status(job_id: str):
     try:
         # Check in-memory fallback store first
         if job_id in _inline_jobs:
-            return _inline_jobs[job_id]
+            item = _inline_jobs[job_id]
+            if item.get("status") == "processing":
+                return {"status": "processing", "job_id": job_id}
+            if item.get("status") == "failed":
+                return item
+            return {"status": "completed", "result": item}
 
         # Otherwise check Redis/RQ
         if not _redis_available:
@@ -238,7 +243,7 @@ def get_audit_status(job_id: str):
 
         job = Job.fetch(job_id, connection=redis_conn)
         if job.is_finished:
-            return job.result
+            return {"status": "completed", "result": job.result}
         elif job.is_failed:
             return {"status": "failed", "error": str(job.exc_info)}
         else:

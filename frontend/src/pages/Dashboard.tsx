@@ -168,10 +168,10 @@ export default function Dashboard() {
         try {
           const statusRes = await fetch(`${apiUrl}/api/audit/status/${job_id}`);
           const statusData = await statusRes.json();
-
-          if (statusData.status === 'completed') {
+          const isComplete = statusData.status === 'completed' || statusData.status === 'success' || statusData.overallScore !== undefined || (statusData.result && statusData.result.overallScore !== undefined);
+          if (isComplete) {
             stopPolling();
-            setResult(statusData.result);
+            setResult(statusData.result || statusData);
             setIsLoading(false);
             fetchRecentAudits();
           } else if (statusData.status === 'failed') {
