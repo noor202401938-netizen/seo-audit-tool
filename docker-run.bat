@@ -26,8 +26,8 @@ echo [INFO] Waiting for web server...
 timeout /t 4 /nobreak >nul
 
 echo [SUCCESS] App is ready!
-echo Opening http://localhost in your default browser...
-start http://localhost
+echo Opening http://localhost/app in your default browser...
+start http://localhost/app
 
 echo.
 echo =======================================================

@@ -102,11 +102,9 @@ export default function Dashboard() {
   };
 
   useEffect(() => {
-    if (token) {
-      fetchRecentAudits();
-      fetchRecentTools();
-    }
-  }, [token]);
+    fetchRecentAudits();
+    fetchRecentTools();
+  }, []);
 
   const loadRecentAudit = async (id: string) => {
     try {
@@ -160,7 +158,6 @@ export default function Dashboard() {
       });
 
       if (!response.ok) {
-        if (response.status === 401) throw new Error('Unauthorized. Please login or register an account.');
         throw new Error('Failed to start audit. Please ensure the backend is running.');
       }
 

@@ -138,13 +138,13 @@ export const SaaSLayout = () => {
         </div>
 
         <div className="p-3.5 border-t border-zinc-800">
-          <button 
-            onClick={handleLogout}
-            className="flex items-center gap-2.5 w-full px-3.5 py-2.5 text-xs text-zinc-400 hover:text-rose-400 hover:bg-rose-950/20 rounded-lg transition-all"
+          <Link 
+            to="/profile"
+            className="flex items-center gap-2.5 w-full px-3.5 py-2.5 text-xs text-zinc-400 hover:text-zinc-100 hover:bg-zinc-900 rounded-lg transition-all"
           >
-            <LogOut className="w-4 h-4" />
-            <span className="font-medium">Sign Out</span>
-          </button>
+            <UserCircle className="w-4 h-4" />
+            <span className="font-medium">Settings & API Keys</span>
+          </Link>
         </div>
       </motion.aside>
 
@@ -205,10 +205,10 @@ export const SaaSLayout = () => {
           </div>
           
           <div className="flex items-center gap-3">
-            <Link to="/app/profile" className="hidden sm:flex items-center gap-2.5 hover:bg-zinc-900 p-1.5 rounded-lg transition-colors cursor-pointer">
+            <Link to="/profile" className="flex items-center gap-2.5 hover:bg-zinc-900 p-1.5 rounded-lg transition-colors cursor-pointer">
               <div className="text-right">
-                <p className="text-xs font-medium text-zinc-200">{user?.email}</p>
-                <p className="text-[10px] font-mono text-emerald-400 font-bold">Community Edition</p>
+                <p className="text-xs font-medium text-zinc-200">Local Instance</p>
+                <p className="text-[10px] font-mono text-emerald-400 font-bold">Unlimited Audits</p>
               </div>
               <UserCircle className="w-7 h-7 text-zinc-400" />
             </Link>

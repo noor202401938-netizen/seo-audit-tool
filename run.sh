@@ -77,13 +77,13 @@ cd ..
 
 sleep 3
 echo "[SUCCESS] SEO Intelligence is running!"
-echo "Opening http://localhost:5173 ..."
+echo "Opening http://localhost:5173/app ..."
 
 # 11. Open Browser
 if command -v xdg-open &> /dev/null; then
-    xdg-open http://localhost:5173 > /dev/null 2>&1 &
+    xdg-open http://localhost:5173/app > /dev/null 2>&1 &
 elif command -v open &> /dev/null; then
-    open http://localhost:5173 > /dev/null 2>&1 &
+    open http://localhost:5173/app > /dev/null 2>&1 &
 fi
 
 echo ""

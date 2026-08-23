@@ -8,7 +8,7 @@ A self-hosted, open-source technical SEO audit platform, multi-page crawler, and
 [![React](https://img.shields.io/badge/frontend-React%2018-61DAFB.svg)](https://react.dev)
 [![Docker](https://img.shields.io/badge/deploy-Docker%20Compose-2496ED.svg)](https://www.docker.com/)
 
-[Overview](#overview) • [1-Click Launchers](#method-1-1-click-launchers-easiest) • [Local Terminal Setup](#method-2-local-terminal-setup-developers) • [Docker Setup](#method-3-docker-desktop-containers) • [First-Time App Usage](#first-time-app-usage-guide) • [API Credentials](#api-credentials-byok) • [Architecture](#architecture) • [License](#license)
+[Overview](#overview) • [1-Click Launchers](#method-1-1-click-launchers-easiest) • [Local Terminal Setup](#method-2-local-terminal-setup-developers) • [Docker Setup](#method-3-docker-desktop-containers) • [First-Time App Usage](#first-time-app-usage-guide) • [API Credentials](#api-credentials-byok) • [Troubleshooting & FAQs](#troubleshooting--faqs) • [License](#license)
 
 ---
 
@@ -47,7 +47,7 @@ Ideal for running on your personal computer without typing manual terminal comma
 
 #### On Windows:
 - **First-Time Setup**: Simply double-click **[`run-windows.bat`](run-windows.bat)**.
-  - The script automatically creates the Python virtual environment (`venv`), installs dependencies, downloads Playwright Chromium, pushes the SQLite database schema, installs frontend packages, boots both servers, and **automatically opens http://localhost:5173 in your default browser**.
+  - The script automatically creates the Python virtual environment (`venv`), installs dependencies, downloads Playwright Chromium, pushes the SQLite database schema, installs frontend packages, boots both servers, and **automatically opens the dashboard at http://localhost:5173/app in your default browser**.
 - **Subsequent Daily Use**: Just double-click **`run-windows.bat`**. Since all packages are already installed, it boots and opens in ~2 seconds.
 - **To Stop**: Press any key in the launcher window or close it.
 
@@ -57,7 +57,7 @@ Ideal for running on your personal computer without typing manual terminal comma
   chmod +x run.sh
   ./run.sh
   ```
-  - The script automatically configures the environment, starts the background services, and opens `http://localhost:5173` in your default browser.
+  - The script automatically configures the environment, starts the background services, and opens the dashboard at `http://localhost:5173/app` in your default browser.
 - **Subsequent Daily Use**: Run `./run.sh`.
 - **To Stop**: Press `Ctrl + C` in the terminal.
 
@@ -145,7 +145,7 @@ Whenever you want to use the app later:
    cd frontend
    npm run dev
    ```
-3. Open [http://localhost:5173](http://localhost:5173).
+3. Open [http://localhost:5173/app](http://localhost:5173/app).
 
 ---
 
@@ -160,7 +160,7 @@ cd seo-audit-tool
 cp .env.example .env
 docker compose up --build
 ```
-- **Web UI**: [http://localhost](http://localhost)
+- **Web UI & Dashboard**: [http://localhost/app](http://localhost/app)
 - **API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 
 ### Subsequent Daily Use
@@ -182,18 +182,17 @@ Once the web application is running at `http://localhost:5173` (or `http://local
 
 ```mermaid
 graph LR
-    A[1. Open App] --> B[2. Login / Sign Up]
-    B --> C[3. Run First Audit]
-    C --> D[4. Add BYOK Keys in Settings]
-    D --> E[5. Export PDF Reports]
+    A[1. Open App / Dashboard] --> B[2. Run Instant Audit]
+    B --> C[3. Add BYOK Keys in Settings (Optional)]
+    C --> D[4. Export PDF Reports]
 ```
 
-### 1. Account Access & Login
-- Click **Launch Local Dashboard** or visit `http://localhost:5173/login`.
-- **Demo Account**: Click **"Fill Demo Credentials"** (`demo@seoaudit.com` / `demo123456`) to log in immediately, or create your own local account on `/signup`.
+### 1. Instant Dashboard Access (Zero Login Required)
+- Opening the app takes you directly into the full **SEO Intelligence Workspace**.
+- There are no sign-up forms, login walls, or credit counters — all audits are **100% free and unlimited**.
 
 ### 2. Running an Audit
-1. In the Dashboard (`/app`), enter any target URL (e.g. `https://example.com`).
+1. In the Dashboard, enter any target URL (e.g. `https://example.com`).
 2. Choose your audit type:
    - **Single Page Audit**: Fast diagnostic of on-page metadata, headings, performance, and Core Web Vitals.
    - **Multi-Page Crawler**: Configurable depth and page limits with headless Playwright JavaScript execution.
@@ -201,7 +200,7 @@ graph LR
 
 ### 3. Adding Extended API Keys (Optional)
 To enable live AI remediation, search volume, and domain authority:
-1. Navigate to **Profile / Settings** (`/app/profile`).
+1. Navigate to **Settings & API Keys** (`/profile`).
 2. Enter your personal API keys (Google Gemini, OpenPageRank, Keywords Everywhere, YouTube).
 3. Click **Save Config**. Keys are stored locally on your machine.
 
@@ -253,6 +252,35 @@ python -m unittest discover tests
 cd frontend
 npm run build
 ```
+
+---
+
+## Troubleshooting & FAQs
+
+### 1. `WARNING: Cache entry deserialization failed, entry ignored`
+If you see yellow warnings stating `Cache entry deserialization failed, entry ignored` when running `run-windows.bat` or `pip install`:
+* **Cause**: Python's `pip` HTTP package cache (`%LocalAppData%\pip\cache`) contains stale or corrupted download metadata (usually caused by a previously interrupted installation). While non-fatal, it prints warnings for each package.
+* **Fix**: Purge the pip cache by opening a terminal and running:
+  ```powershell
+  python -m pip cache purge
+  ```
+  Then re-launch `run-windows.bat`.
+
+### 2. `[WinError 32] The process cannot access the file because it is being used by another process`
+If `pip install` fails with an `OSError / WinError 32` referencing a file in `venv\Lib\site-packages`:
+* **Cause**: A previous instance of the backend (`python.exe` / `uvicorn`) is still running in the background and holding the site-package DLLs/files open.
+* **Fix**: Terminate lingering Python background processes:
+  ```powershell
+  # Windows PowerShell
+  taskkill /f /im python.exe
+  ```
+  Then re-run `run-windows.bat`.
+
+### 3. Port 8000 or Port 5173 is already in use
+If another service is already bound to port 8000 (FastAPI backend) or port 5173 (Vite frontend):
+* Stop any running dev servers or change the port:
+  - Backend: `uvicorn api:app --port 8001` (update `FRONTEND_URL` / `.env` accordingly)
+  - Frontend: `npm run dev -- --port 3000`
 
 ---
 
