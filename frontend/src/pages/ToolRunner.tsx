@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Search, Loader2 } from 'lucide-react';
+import { Search, Loader2, KeyRound, CheckCircle2, AlertCircle, ArrowRight } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
 import { useAuth } from '../contexts/AuthContext';
@@ -54,7 +54,7 @@ export default function ToolRunner() {
             return;
         }
         
-        if (toolId && token) {
+        if (toolId) {
             const apiUrl = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
             fetch(`${apiUrl}/api/tools/track`, {
                 method: 'POST',
@@ -63,7 +63,7 @@ export default function ToolRunner() {
                   'Authorization': `Bearer ${token}` 
                 },
                 body: JSON.stringify({ tool_id: toolId })
-            }).catch(e => console.error("Failed to track tool usage:", e));
+            }).catch(() => {});
         }
     }, [toolId, navigate, token]);
     
@@ -154,17 +154,24 @@ export default function ToolRunner() {
             const response = await fetch(`${apiUrl}${endpoint}`, {
                 method: 'POST',
                 headers: { 
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}` 
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(payload),
             });
 
             if (!response.ok) {
-                throw new Error('Failed to run tool. Please try again later.');
+                let errText = 'Failed to run tool. Please ensure the backend is running.';
+                try {
+                    const errJson = await response.json();
+                    errText = errJson.detail || errJson.message || errText;
+                } catch (e) {}
+                throw new Error(errText);
             }
 
             const data = await response.json();
+            if (data && data.error && !data.results) {
+                setError(data.error + (data.message ? `: ${data.message}` : ''));
+            }
             setResult(data);
         } catch (err: any) {
             setError(err.message || 'An unknown error occurred.');
@@ -178,30 +185,62 @@ export default function ToolRunner() {
             <div className="flex flex-col items-center justify-center p-8 text-center h-[60vh] bg-[#09090b] text-white">
                 <h1 className="text-2xl font-bold text-white mb-2">Tool Not Found</h1>
                 <p className="text-xs text-zinc-400 mb-6">We couldn't find the requested tool specification.</p>
-                <Button onClick={() => navigate('/app')} className="bg-white text-black font-bold text-xs px-5 py-2 rounded-lg">Return to Dashboard</Button>
+                <Button onClick={() => navigate('/')} className="bg-white text-black font-bold text-xs px-5 py-2 rounded-lg">Return to Dashboard</Button>
             </div>
         );
     }
 
     return (
         <div className="bg-[#09090b] text-white min-h-full px-4 lg:px-8 pt-8 pb-20">
-            <div className="max-w-4xl mx-auto space-y-8">
+            <div className="max-w-4xl mx-auto space-y-6">
 
                 <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="border-b border-zinc-800 pb-6"
                 >
-                    <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400 mb-3">
-                        <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                        UTILITY &bull; {toolDetails.slug.toUpperCase()}
+                    <div className="flex flex-wrap items-center gap-2 mb-3">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-[11px] font-mono text-zinc-400">
+                            <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                            UTILITY &bull; {toolDetails.slug.toUpperCase()}
+                        </span>
+
+                        {toolDetails.apiKeyRequired ? (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-950/60 border border-amber-800 text-[11px] font-mono text-amber-300 font-semibold">
+                                <KeyRound className="w-3 h-3" />
+                                Requires API Key: {toolDetails.apiKeyName}
+                            </span>
+                        ) : toolDetails.apiKeyOptional ? (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-sky-950/60 border border-sky-800 text-[11px] font-mono text-sky-300">
+                                <KeyRound className="w-3 h-3" />
+                                Optional Key: {toolDetails.apiKeyName}
+                            </span>
+                        ) : (
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950/40 border border-emerald-800/80 text-[11px] font-mono text-emerald-300 font-medium">
+                                <CheckCircle2 className="w-3 h-3" />
+                                100% Free &bull; Zero API Keys Needed
+                            </span>
+                        )}
                     </div>
+
                     <h1 className="text-3xl font-extrabold tracking-tight text-white mb-2">
                         {toolDetails.name}
                     </h1>
                     <p className="text-sm text-zinc-300">
                         {toolDetails.desc}
                     </p>
+
+                    {toolDetails.apiKeyRequired && (
+                        <div className="mt-4 p-3.5 bg-amber-950/30 border border-amber-900/60 rounded-lg flex items-center justify-between text-xs text-amber-200">
+                            <div className="flex items-center gap-2">
+                                <AlertCircle className="w-4 h-4 text-amber-400 shrink-0" />
+                                <span>This tool requires a <strong>{toolDetails.apiKeyName}</strong> configured in your local environment.</span>
+                            </div>
+                            <Link to="/profile" className="inline-flex items-center gap-1 font-bold underline hover:text-white shrink-0 ml-4">
+                                Configure in Settings <ArrowRight className="w-3 h-3" />
+                            </Link>
+                        </div>
+                    )}
                 </motion.div>
 
                 {!isAvailableTool ? (
@@ -209,7 +248,7 @@ export default function ToolRunner() {
                         <span className="material-symbols-outlined text-4xl text-amber-400">construction</span>
                         <h2 className="text-xl font-bold text-white">Tool In Active Development</h2>
                         <p className="text-xs text-zinc-400 max-w-md mx-auto">This tool is scheduled for an upcoming release. In the meantime, run a full domain audit to check these signals.</p>
-                        <Button onClick={() => navigate('/app')} className="bg-white text-black font-bold text-xs px-6 py-2.5 rounded-lg border border-white">Run Full Audit Instead</Button>
+                        <Button onClick={() => navigate('/')} className="bg-white text-black font-bold text-xs px-6 py-2.5 rounded-lg border border-white">Run Full Audit Instead</Button>
                     </div>
                 ) : (
                     <>
@@ -219,11 +258,11 @@ export default function ToolRunner() {
                                 <Input
                                     type={isEmailTool ? "email" : "text"}
                                     placeholder={
-                                        isAiTool ? "Enter a query or target URL..." :
-                                        isSerpTool ? "Enter a keyword to search..." :
+                                        isAiTool ? "Enter a query or target URL (e.g. how to improve meta tags)..." :
+                                        isSerpTool ? "Enter keyword to track..." :
                                         isKeywordTool ? "Enter a keyword (e.g. SEO strategy)..." : 
                                         isEmailTool ? "you@example.com" : 
-                                        "https://example-domain.com"
+                                        "https://example.com"
                                     }
                                     className="pl-10 h-12 text-sm border-zinc-800 bg-zinc-950 text-white focus-visible:ring-1 focus-visible:ring-zinc-700 rounded-lg placeholder:text-zinc-500 w-full font-medium"
                                     value={url}
@@ -237,7 +276,7 @@ export default function ToolRunner() {
                                     <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-400" />
                                     <Input
                                         type="text"
-                                        placeholder="Target Domain or Channel ID..."
+                                        placeholder="Target Domain or Channel (e.g. wikipedia.org)..."
                                         className="pl-10 h-12 text-sm border-zinc-800 bg-zinc-950 text-white focus-visible:ring-1 focus-visible:ring-zinc-700 rounded-lg placeholder:text-zinc-500 w-full font-medium"
                                         value={target}
                                         onChange={(e) => setTarget(e.target.value)}
@@ -254,7 +293,7 @@ export default function ToolRunner() {
                                 {isLoading ? (
                                     <div className="flex items-center gap-2">
                                         <Loader2 className="h-4 w-4 animate-spin" />
-                                        <span>Running</span>
+                                        <span>Running...</span>
                                     </div>
                                 ) : (
                                     "Run Tool"
@@ -279,6 +318,7 @@ export default function ToolRunner() {
                         )}
                     </>
                 )}
+
             </div>
         </div>
     );

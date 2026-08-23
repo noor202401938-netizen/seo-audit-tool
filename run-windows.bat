@@ -59,17 +59,19 @@ if not exist "node_modules\" (
 )
 cd ..
 
-:: 8. Start Backend in Background
+:: 8. Clean any stale ports
+for /f "tokens=5" %%p in ('netstat -aon ^| findstr ":8000 " ^| findstr "LISTENING"') do taskkill /f /pid %%p >nul 2>&1
+for /f "tokens=5" %%p in ('netstat -aon ^| findstr ":5173 " ^| findstr "LISTENING"') do taskkill /f /pid %%p >nul 2>&1
+
+:: 9. Start Backend in Minimized Background Window
 echo [INFO] Starting API backend on http://localhost:8000 ...
-start /b "" venv\Scripts\python.exe -m uvicorn api:app --port 8000 > nul 2>&1
+start "SEO_Backend_Svc" /min cmd /c "venv\Scripts\python.exe -m uvicorn api:app --port 8000"
 
-:: 9. Start Frontend in Background
+:: 10. Start Frontend in Minimized Background Window
 echo [INFO] Starting Frontend on http://localhost:5173 ...
-cd frontend
-start /b "" cmd /c "npm run dev > nul 2>&1"
-cd ..
+start "SEO_Frontend_Svc" /min cmd /c "cd frontend && npm run dev"
 
-:: 10. Wait 3 seconds and launch browser
+:: 11. Wait 3 seconds and launch browser
 timeout /t 3 /nobreak >nul
 echo [SUCCESS] SEO Intelligence is running!
 echo Opening http://localhost:5173 in your default browser...
@@ -77,11 +79,15 @@ start http://localhost:5173
 
 echo.
 echo =======================================================
-echo   Press any key to stop all SEO Intelligence services
+echo   Press any key to STOP all SEO Intelligence services
 echo =======================================================
 pause >nul
 
-echo [INFO] Stopping services...
-taskkill /f /im python.exe /fi "WINDOWTITLE eq SEO Intelligence*" >nul 2>&1
+echo [INFO] Stopping all SEO Intelligence services...
+taskkill /f /fi "WINDOWTITLE eq SEO_Backend_Svc*" >nul 2>&1
+taskkill /f /fi "WINDOWTITLE eq SEO_Frontend_Svc*" >nul 2>&1
+for /f "tokens=5" %%p in ('netstat -aon ^| findstr ":8000 " ^| findstr "LISTENING"') do taskkill /f /pid %%p >nul 2>&1
+for /f "tokens=5" %%p in ('netstat -aon ^| findstr ":5173 " ^| findstr "LISTENING"') do taskkill /f /pid %%p >nul 2>&1
 taskkill /f /im node.exe >nul 2>&1
-echo Done.
+echo [SUCCESS] All services stopped.
+timeout /t 2 /nobreak >nul

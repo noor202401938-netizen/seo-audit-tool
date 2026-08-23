@@ -122,9 +122,17 @@ export const SaaSLayout = () => {
                               }`}
                             >
                               <span className="truncate pr-2">{tool.name}</span>
-                              {tool.upcoming && (
-                                <span className="text-[9px] font-mono uppercase bg-zinc-900 text-zinc-400 px-1.5 py-0.5 rounded border border-zinc-800">Soon</span>
-                              )}
+                              <div className="flex items-center gap-1 shrink-0">
+                                {tool.apiKeyRequired && (
+                                  <span className="text-[9px] font-mono text-amber-400 bg-amber-950/60 px-1.5 py-0.5 rounded border border-amber-800/80">API</span>
+                                )}
+                                {tool.apiKeyOptional && (
+                                  <span className="text-[9px] font-mono text-sky-400 bg-sky-950/40 px-1.5 py-0.5 rounded border border-sky-800/60">BYOK</span>
+                                )}
+                                {tool.upcoming && (
+                                  <span className="text-[9px] font-mono uppercase bg-zinc-900 text-zinc-500 px-1.5 py-0.5 rounded border border-zinc-800">Soon</span>
+                                )}
+                              </div>
                             </Link>
                           );
                         })}
