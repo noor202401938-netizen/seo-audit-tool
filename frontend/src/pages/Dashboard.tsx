@@ -185,7 +185,7 @@ export default function Dashboard() {
         } catch (e) {
           console.error('Polling error', e);
         }
-      }, 2000);
+      }, 1000);
     } catch (err: any) {
       stopPolling();
       setError(err.message || 'An unexpected error occurred');

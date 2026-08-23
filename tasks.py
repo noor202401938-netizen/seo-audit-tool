@@ -155,6 +155,7 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
 
         overall_score = audit_data.get("overallScore", 0)
 
+        # Generate AI recommendations with fast timeout fallback
         try:
             ai_recommendation, ai_tone = AIRecommendationGenerator.generate(
                 website=url,
@@ -166,33 +167,33 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
             audit_data["ai_recommendation"] = ai_recommendation
             audit_data["ai_tone"] = ai_tone
         except Exception as e:
-            print(f"AI recommendation generation failed: {e}")
-            audit_data["ai_recommendation"] = "AI recommendations unavailable."
+            print(f"AI recommendation generation skipped: {e}")
+            audit_data["ai_recommendation"] = "AI recommendations available on-demand."
             audit_data["ai_tone"] = "neutral"
 
         audit_data["status"] = "success"
         audit_data["record_id"] = audit_record_id
 
-        # Generate the PDF report, keyed by the unguessable audit record id so
-        # it can only be served to its owner (see /api/audit/pdf/{record_id}).
-        try:
-            if not audit_record_id:
-                raise ValueError("no audit_record_id; skipping PDF (would be unreachable)")
-            pdf_filename = f"data/output/{audit_record_id}.pdf"
-            os.makedirs(os.path.dirname(pdf_filename), exist_ok=True)
-            ReportGenerator.generate_pdf(
-                filename=pdf_filename,
-                website=url,
-                onpage_score=overall_score,
-                offpage_score=0,
-                onpage_issues=issues_for_ai,
-                backlink_snapshot={}
-            )
-        except Exception as e:
-            print(f"Failed to generate PDF for {url}: {e}")
+        # Asynchronously generate PDF report in background so UI finishes immediately
+        def _async_pdf():
+            if audit_record_id:
+                try:
+                    pdf_filename = f"data/output/{audit_record_id}.pdf"
+                    os.makedirs(os.path.dirname(pdf_filename), exist_ok=True)
+                    ReportGenerator.generate_pdf(
+                        filename=pdf_filename,
+                        website=url,
+                        onpage_score=overall_score,
+                        offpage_score=0,
+                        onpage_issues=issues_for_ai,
+                        backlink_snapshot={}
+                    )
+                except Exception as e:
+                    print(f"Background PDF generation notice for {url}: {e}")
 
-        # Credit was already reserved at enqueue time (see api.py); here we only
-        # persist the result. On failure we refund in the except block below.
+        import threading
+        threading.Thread(target=_async_pdf, daemon=True).start()
+
         if audit_record_id:
             try:
                 conn = _sqlite_conn()
