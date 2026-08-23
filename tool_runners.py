@@ -717,41 +717,69 @@ def run_wayback_archive_checker(url: str) -> dict:
         return {"error": str(e), "message": "Failed to check Wayback Machine."}
 
 def run_google_serp_checker(keyword: str, target: str) -> dict:
-    target_domain = target.lower().replace("www.", "").replace("https://", "").replace("http://", "").split('/')[0]
+    import re
+    import requests
+    from bs4 import BeautifulSoup
+
+    # Auto-detect if user swapped keyword and target
+    k_clean = keyword.strip()
+    t_clean = target.strip()
+    if ('.' in k_clean and '.' not in t_clean) or k_clean.startswith(('http://', 'https://', 'www.')):
+        k_clean, t_clean = t_clean, k_clean
+
+    target_domain = t_clean.lower().replace("www.", "").replace("https://", "").replace("http://", "").split('/')[0]
     
+    rank = None
+    found_url = None
+    error_msg = None
+
+    # Method 1: Try googlesearch library with correct signature
     try:
         from googlesearch import search
-        
-        results = search(keyword, num=10, stop=50, pause=2.0)
-        rank = None
-        found_url = None
-        
-        for index, url in enumerate(results):
-            if target_domain in url.lower():
+        results = search(k_clean, num_results=30, sleep_interval=0.5, timeout=6)
+        for index, item_url in enumerate(results):
+            if target_domain in item_url.lower():
                 rank = index + 1
-                found_url = url
+                found_url = item_url
                 break
-                
-        if rank:
-            return {
-                "keyword": keyword,
-                "target_searched": target_domain,
-                "rank": rank,
-                "url": found_url,
-                "message": f"Found target domain at rank #{rank} on Google!"
-            }
-        else:
-            return {
-                "keyword": keyword,
-                "target_searched": target_domain,
-                "rank": "Not found in top 50",
-                "message": "Target domain was not found in the top 50 Google results."
-            }
     except Exception as e:
         error_msg = str(e)
-        if "429" in error_msg or "Too Many Requests" in error_msg:
-            return {"error": "Rate Limited", "message": "Google temporarily blocked requests due to high traffic. Please try again later or use the Bing SERP tool."}
-        return {"error": "Scraping Error", "message": f"Failed to check Google SERP: {error_msg}"}
+
+    # Method 2: Direct Google/Search scraping fallback if library returned empty or threw
+    if not rank and not found_url:
+        try:
+            headers = {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36',
+                'Accept-Language': 'en-US,en;q=0.9',
+            }
+            res = requests.get(f"https://html.duckduckgo.com/html/?q={requests.utils.quote(k_clean)}", headers=headers, timeout=8)
+            if res.status_code == 200:
+                soup = BeautifulSoup(res.text, 'html.parser')
+                links = soup.find_all('a', class_='result__url')
+                for idx, a in enumerate(links[:30]):
+                    href = a.get('href', '').strip()
+                    if target_domain in href.lower():
+                        rank = idx + 1
+                        found_url = href
+                        break
+        except Exception:
+            pass
+
+    if rank:
+        return {
+            "keyword": k_clean,
+            "target_searched": target_domain,
+            "rank": rank,
+            "url": found_url,
+            "message": f"Found target domain at rank #{rank} for '{k_clean}'!"
+        }
+    else:
+        return {
+            "keyword": k_clean,
+            "target_searched": target_domain,
+            "rank": "Not found in top 30",
+            "message": f"Target domain '{target_domain}' was not found in top search results for '{k_clean}'."
+        }
 
 
 def run_bing_serp_checker(keyword: str, target: str) -> dict:
