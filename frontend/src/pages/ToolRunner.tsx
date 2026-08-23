@@ -177,7 +177,12 @@ export default function ToolRunner() {
             }
             setResult(data);
         } catch (err: any) {
-            setError(err.message || 'An unknown error occurred.');
+            const rawMsg = err.message || '';
+            if (rawMsg === 'Failed to fetch' || rawMsg.includes('NetworkError')) {
+                setError('Cannot connect to backend API server on http://localhost:8000. Please launch run-windows.bat.');
+            } else {
+                setError(rawMsg || 'An unknown error occurred.');
+            }
         } finally {
             setIsLoading(false);
         }
