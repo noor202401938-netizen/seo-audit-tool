@@ -74,10 +74,13 @@ export default function ToolRunner() {
     const [target, setTarget] = useState('');
 
     const toolDetails = (() => {
+        const normalizedParam = (toolId || '').toLowerCase().replace(/[^a-z0-9]/g, '');
         for (const cat of TOOL_CATEGORIES) {
             for (const t of cat.tools) {
-                const slug = t.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-                if (slug === toolId) return { ...t, slug };
+                const normalizedToolSlug = t.slug.toLowerCase().replace(/[^a-z0-9]/g, '');
+                if (t.slug === toolId || normalizedToolSlug === normalizedParam) {
+                    return t;
+                }
             }
         }
         return null;

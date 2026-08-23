@@ -106,9 +106,8 @@ export const SaaSLayout = () => {
                         className="overflow-hidden space-y-1"
                       >
                         {category.tools.map((tool, tIdx) => {
-                          const slug = generateSlug(tool.name);
-                          const path = `/app/tools/${slug}`;
-                          const isActive = location.pathname === path;
+                          const path = `/tools/${tool.slug}`;
+                          const isActive = location.pathname === path || location.pathname === `/app/tools/${tool.slug}`;
                           
                           return (
                             <Link 
@@ -194,7 +193,7 @@ export const SaaSLayout = () => {
                         {matchingTools.map((tool, idx) => (
                           <Link
                             key={idx}
-                            to={`/app/tools/${generateSlug(tool.name)}`}
+                            to={`/tools/${tool.slug}`}
                             className="block px-4 py-2.5 hover:bg-zinc-800/80 transition-colors"
                             onClick={() => setSearchQuery('')}
                           >
