@@ -65,7 +65,7 @@ for /f "tokens=5" %%p in ('netstat -aon ^| findstr ":5173 " ^| findstr "LISTENIN
 
 :: 9. Start Backend in Minimized Background Window
 echo [INFO] Starting API backend on http://localhost:8000 ...
-start "SEO_Backend_Svc" /min cmd /c "venv\Scripts\python.exe -m uvicorn api:app --port 8000"
+start "SEO_Backend_Svc" /min cmd /c "venv\Scripts\python.exe -m uvicorn api:app --reload --port 8000"
 
 :: 10. Start Frontend in Minimized Background Window
 echo [INFO] Starting Frontend on http://localhost:5173 ...

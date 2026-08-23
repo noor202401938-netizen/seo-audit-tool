@@ -65,7 +65,7 @@ trap cleanup SIGINT SIGTERM EXIT
 
 # 9. Start Backend
 echo "[INFO] Starting API backend on http://localhost:8000 ..."
-uvicorn api:app --port 8000 > /dev/null 2>&1 &
+uvicorn api:app --reload --port 8000 > /dev/null 2>&1 &
 BACKEND_PID=$!
 
 # 10. Start Frontend
