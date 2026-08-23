@@ -63,13 +63,15 @@ cd ..
 for /f "tokens=5" %%p in ('netstat -aon ^| findstr ":8000 " ^| findstr "LISTENING"') do taskkill /f /pid %%p >nul 2>&1
 for /f "tokens=5" %%p in ('netstat -aon ^| findstr ":5173 " ^| findstr "LISTENING"') do taskkill /f /pid %%p >nul 2>&1
 
-:: 9. Start Backend in Minimized Background Window
+:: 9. Start Backend Silently in Background
 echo [INFO] Starting API backend on http://localhost:8000 ...
-start "SEO_Backend_Svc" /min cmd /c "venv\Scripts\python.exe -m uvicorn api:app --reload --port 8000"
+start /b "" venv\Scripts\python.exe -m uvicorn api:app --reload --port 8000 > nul 2>&1
 
-:: 10. Start Frontend in Minimized Background Window
+:: 10. Start Frontend Silently in Background
 echo [INFO] Starting Frontend on http://localhost:5173 ...
-start "SEO_Frontend_Svc" /min cmd /c "cd frontend && npm run dev"
+cd frontend
+start /b "" cmd /c "npm run dev > nul 2>&1"
+cd ..
 
 :: 11. Wait 3 seconds and launch browser
 timeout /t 3 /nobreak >nul
@@ -84,8 +86,6 @@ echo =======================================================
 pause >nul
 
 echo [INFO] Stopping all SEO Intelligence services...
-taskkill /f /fi "WINDOWTITLE eq SEO_Backend_Svc*" >nul 2>&1
-taskkill /f /fi "WINDOWTITLE eq SEO_Frontend_Svc*" >nul 2>&1
 for /f "tokens=5" %%p in ('netstat -aon ^| findstr ":8000 " ^| findstr "LISTENING"') do taskkill /f /pid %%p >nul 2>&1
 for /f "tokens=5" %%p in ('netstat -aon ^| findstr ":5173 " ^| findstr "LISTENING"') do taskkill /f /pid %%p >nul 2>&1
 taskkill /f /im node.exe >nul 2>&1
