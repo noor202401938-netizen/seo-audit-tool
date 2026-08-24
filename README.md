@@ -81,9 +81,10 @@ cd seo-audit-tool
 python3 -m venv venv
 source venv/bin/activate
 
-# Install dependencies & Playwright Chromium
+# Install dependencies, Playwright Chromium & SEOmator CLI
 pip install -r requirements.txt
 playwright install chromium
+npm install -g @seomator/seo-audit
 
 # Copy config template
 cp .env.example .env
@@ -106,9 +107,10 @@ cd seo-audit-tool
 python -m venv venv
 .\venv\Scripts\Activate.ps1
 
-# Install dependencies & Playwright Chromium
+# Install dependencies, Playwright Chromium & SEOmator CLI
 pip install -r requirements.txt
 playwright install chromium
+npm install -g @seomator/seo-audit
 
 # Copy config template
 Copy-Item .env.example .env

@@ -8,6 +8,8 @@ import traceback
 from utils.ai_recommender import AIRecommendationGenerator
 from utils.report_generator import ReportGenerator
 
+import shutil
+
 def _resolve_seomator() -> str:
     """
     Resolve the seomator executable path robustly across platforms.
@@ -25,10 +27,15 @@ def _resolve_seomator() -> str:
             candidate = os.path.join(p, "seomator.cmd")
             if os.path.exists(candidate):
                 return candidate
-    return "seomator"  # Unix / Docker: relies on PATH
-
-
-_SEOMATOR = _resolve_seomator()
+        # Fall back to which
+        which_cmd = shutil.which("seomator.cmd") or shutil.which("seomator")
+        if which_cmd:
+            return which_cmd
+    else:
+        which_unix = shutil.which("seomator")
+        if which_unix:
+            return which_unix
+    return "seomator"
 
 
 def _sqlite_conn():
@@ -62,7 +69,8 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
         with tempfile.NamedTemporaryFile(delete=False, suffix=".json") as tmp:
             temp_file = tmp.name
 
-        cmd = [_SEOMATOR, "audit", url, "--format", "json", "--output", temp_file, "--concurrency", "10", "--timeout", "8000"]
+        seomator_bin = _resolve_seomator()
+        cmd = [seomator_bin, "audit", url, "--format", "json", "--output", temp_file, "--concurrency", "10", "--timeout", "8000"]
         if crawl:
             cmd.extend(["--crawl", "-m", str(max_pages)])
 
@@ -94,6 +102,14 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
                     os.remove(temp_file)
 
         result = _run_seomator()
+
+        # Check if binary was missing
+        if "not recognized as an internal or external command" in result.stderr or (result.returncode != 0 and not result.stdout.strip() and not os.path.exists(seomator_bin if os.path.isabs(seomator_bin) else "")):
+            if "not recognized" in result.stderr or not shutil.which(seomator_bin):
+                raise Exception(
+                    "SEOmator CLI is not installed on this machine. "
+                    "Please run: npm install -g @seomator/seo-audit"
+                )
 
         # seomator returns:
         #   0  => pass (score >= 70)
@@ -133,6 +149,11 @@ def perform_audit_task(url: str, crawl: bool = False, max_pages: int = 10, user_
             cleaned_stdout = result.stdout.replace('\x00', '')
             audit_data = json.loads(cleaned_stdout)
         except json.JSONDecodeError as e:
+            if "not recognized" in result.stderr:
+                raise Exception(
+                    "SEOmator CLI is not installed on this machine. "
+                    "Please run: npm install -g @seomator/seo-audit"
+                )
             raise Exception(
                 f"Failed to parse SEOmator JSON output: {e}\n"
                 f"stdout: {result.stdout[:500]}\n"

@@ -46,6 +46,13 @@ pip install -q -r requirements.txt
 echo [INFO] Verifying Playwright browser...
 playwright install chromium >nul 2>&1
 
+echo [INFO] Verifying SEOmator audit engine...
+call seomator --version >nul 2>&1
+if %errorlevel% neq 0 (
+    echo [INFO] Installing SEOmator CLI globally...
+    call npm install -g @seomator/seo-audit
+)
+
 :: 6. Initialize Database
 echo [INFO] Initializing database schema...
 prisma generate >nul 2>&1

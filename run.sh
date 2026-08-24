@@ -41,6 +41,11 @@ echo "[INFO] Verifying backend dependencies..."
 pip install -q -r requirements.txt
 playwright install chromium > /dev/null 2>&1 || true
 
+if ! command -v seomator &> /dev/null; then
+    echo "[INFO] Installing SEOmator CLI globally..."
+    npm install -g @seomator/seo-audit || sudo npm install -g @seomator/seo-audit || true
+fi
+
 # 6. Initialize Database
 echo "[INFO] Initializing database schema..."
 prisma generate > /dev/null 2>&1 || true
