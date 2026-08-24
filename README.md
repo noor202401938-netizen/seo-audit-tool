@@ -182,9 +182,9 @@ Once the web application is running at `http://localhost:5173` (or `http://local
 
 ```mermaid
 graph LR
-    A[1. Open App / Dashboard] --> B[2. Run Instant Audit]
-    B --> C[3. Add BYOK Keys in Settings (Optional)]
-    C --> D[4. Export PDF Reports]
+    A["1. Open App / Dashboard"] --> B["2. Run Instant Audit"]
+    B --> C["3. Add BYOK Keys in Settings (Optional)"]
+    C --> D["4. Export PDF Reports"]
 ```
 
 ### 1. Instant Dashboard Access (Zero Login Required)
